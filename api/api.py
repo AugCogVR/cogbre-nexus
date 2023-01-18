@@ -1,7 +1,7 @@
-from flask import Flask
-from flask_restful import Resource, Api, reqparse
-import pandas as pd
-import ast
+from flask import Flask, request, jsonify
+from flask_restful import Resource, Api #, reqparse
+#import pandas as pd
+#import ast
 import random
 import string
 
@@ -10,7 +10,10 @@ app = Flask(__name__)
 api = Api(app)
 
 class FileStats(Resource):
-    def get(self):
+    def post(self):
+        content = request.get_json(force = True)
+        print('POSTED: userId =', content['userId'])
+
         # data = pd.read_csv('users.csv')  # read CSV
         # data = data.to_dict()  # convert dataframe to dictionary
         data = {}
