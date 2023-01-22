@@ -36,16 +36,17 @@ class SessionController:
 class Program:
     def __init__(self, folder):
         blocks_file = open(folder + '/basic_blocks')
-        blocks = json.load(blocks_file)
+        self.blocks = json.load(blocks_file)
         blocks_file.close()
         
         # print(blocks[0])
-        for i in blocks[0]['basic_blocks']:
-            print(i)
-            # print(blocks[0]['basic_blocks'][i])
+        # for i in blocks[0]['basic_blocks']:
+        #     print(i)
+        #     print(blocks[0]['basic_blocks'][i])
 
-
-
+    def getBlocksJson(self):
+        return json.dumps(self.blocks)
+        
 
 #============================
 
@@ -57,15 +58,17 @@ class SyncPortal(Resource):
         content = request.get_json(force = True)
         print('POSTED: userId =', content['userId'], 'command =', content['command'])
 
-        if (command == 'session_init'):
-            sessionController = SessionController(userId)
+        responseString = 'command not processed: ' + content['command']
+
+        if (content['command'] == 'session_init'):
+            sessionController = SessionController(content['userId'])
             sessionControllers.addSessionController(sessionController)
+            responseString = program.getBlocksJson()
 
+        elif (content['command'] == 'get_session_update'):
+            responseString = 'session update requested for user ' + content['userId']
 
-        # return nonsense for now
-        stub = {}
-        stub['whatever'] = 'stuff ' + (''.join(random.choice(string.ascii_lowercase) for i in range(10)))
-        return stub, 200  # return data and 200 OK code
+        return responseString, 200  # return repsonse and 200 OK code
 
 
 program = ''
