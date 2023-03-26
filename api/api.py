@@ -58,8 +58,10 @@ class Program:
                 j = str(j)
                 if (j in self.asm.keys()):
                     # print(f"Block {i} Member {j}: {self.asm[j]['mnemonic']} {self.asm[j]['op_str']}")
+                    # print(f"{self.asm[j]['mnemonic']} {self.asm[j]['op_str']}")
                     instructions[j] = f"{self.asm[j]['mnemonic']} {self.asm[j]['op_str']}"
             block['insns'] = instructions
+            # print('==================')
 
         # for i in self.blocks:
         #     print(f"{i}: {self.blocks[i]}")
