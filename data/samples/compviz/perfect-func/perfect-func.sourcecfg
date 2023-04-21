@@ -1,0 +1,77 @@
+
+[+] Function:  perfect
+[B0]
+Preds (1): B1
+
+[B1]
+0: RefExpr: s
+1: Implicit Cast
+2: RefExpr: c
+3: Implicit Cast
+4:  sum == counter
+5:  ( sum == counter )
+6:  return ( sum == counter )
+Preds (1): B6
+Succs (1): B0
+
+[B2]
+Preds (1): B3
+Succs (1): B6
+
+[B3]
+0: RefExpr: c
+1:  counter ++
+Preds (2): B4
+Preds (2): B5
+Succs (1): B2
+
+[B4]
+0: RefExpr: s
+1: Implicit Cast
+2: RefExpr: c
+3: Implicit Cast
+4:  sum + counter
+5: RefExpr: s
+6:  sum = sum + counter
+Preds (1): B5
+Succs (1): B3
+
+[B5]
+0: RefExpr: t
+1: Implicit Cast
+2: RefExpr: c
+3: Implicit Cast
+4:  test % counter
+5: value: 0
+6:  test % counter == 0
+7:  if ( test % counter == 0 ) sum = sum + counter
+Preds (1): B6
+Succs (2): B4
+Succs (2): B3
+
+[B6]
+0: RefExpr: c
+1: Implicit Cast
+2: RefExpr: t
+3: Implicit Cast
+4:  counter < test
+5:  while ( counter < test )
+Preds (2): B2
+Preds (2): B7
+Succs (2): B5
+Succs (2): B1
+
+[B7]
+0: value: 1
+1: int counter;
+2: value: 0
+3: int sum;
+Preds (1): B8
+Succs (1): B6
+
+[B8]
+Succs (1): B7
+
+=>Entry: 8
+<=Exit: 0
+

@@ -1,0 +1,90 @@
+{
+	"functions" : 
+	[
+		{
+			"blocks" : 
+			{
+				"%1" : 
+				{
+					"end_line" : null,
+					"start_line" : null
+				},
+				"%14" : 
+				{
+					"end_line" : null,
+					"start_line" : null
+				},
+				"%18" : 
+				{
+					"end_line" : null,
+					"start_line" : null
+				},
+				"%21" : 
+				{
+					"end_line" : null,
+					"start_line" : null
+				},
+				"%5" : 
+				{
+					"end_line" : null,
+					"start_line" : null
+				},
+				"%9" : 
+				{
+					"end_line" : null,
+					"start_line" : null
+				}
+			},
+			"calls" : null,
+			"edges" : 
+			[
+				{
+					"dst" : "%5",
+					"src" : "%1",
+					"type" : "br"
+				},
+				{
+					"dst" : "%9",
+					"src" : "%5",
+					"type" : "br"
+				},
+				{
+					"dst" : "%21",
+					"src" : "%5",
+					"type" : "br"
+				},
+				{
+					"dst" : "%14",
+					"src" : "%9",
+					"type" : "br"
+				},
+				{
+					"dst" : "%18",
+					"src" : "%9",
+					"type" : "br"
+				},
+				{
+					"dst" : "%5",
+					"src" : "%18",
+					"type" : "br"
+				},
+				{
+					"dst" : "%18",
+					"src" : "%14",
+					"type" : "br"
+				}
+			],
+			"entry" : "%1",
+			"name" : "perfect",
+			"returns" : 
+			[
+				{
+					"block" : "%21",
+					"type" : "ret"
+				}
+			],
+			"unresolved_calls" : null
+		}
+	],
+	"module" : "perfect-func.c"
+}
