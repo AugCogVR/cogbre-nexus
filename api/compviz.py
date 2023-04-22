@@ -1,90 +1,161 @@
-
 import json
 import os
+import re
 
 
 class Stage:
     def __init__(self, folder, rootname, type):
-        self.code = {}
-        self.blocks = {}
+        self.stageDict = {}
 
         if (type == "c"):
-            self.code = self.readCodeFromFile(os.path.join(folder, rootname + ".c"))
+            self.stageDict["code"] = self.readCodeFromFile(os.path.join(folder, rootname + ".c"))
+            self.stageDict["blocks"] = self.parseBlocksFromSourceCfg(os.path.join(folder, rootname + ".sourcecfg"))
         
         elif (type == "llvm"):
-            self.code = self.readCodeFromFile(os.path.join(folder, rootname + ".ll"))
+            self.stageDict["code"] = self.readCodeFromFile(os.path.join(folder, rootname + ".ll"))
+            self.stageDict["blocks"] = self.parseBlocksFromLLVM(os.path.join(folder, rootname + ".ll"))
 
         elif (type == "asm"):
-            self.code = self.readCodeFromFile(os.path.join(folder, rootname + ".s"))
+            self.stageDict["code"] = self.readCodeFromFile(os.path.join(folder, rootname + ".s"))
+            self.stageDict["blocks"] = self.parseBlocksFromAsm(os.path.join(folder, rootname + ".s"))
 
         else:
             print(f"ERROR: Stage init: unknown type: {type}")
-
 
     def readCodeFromFile(self, filename):
         code = {}
         lineno = 0
         with open(filename) as file:
             for line in file:
-                code[str(lineno)] = line
+                line = line.replace("\t", " ")
+                code[str(lineno)] = line[:-1]
                 lineno += 1
         return code
 
+    def parseBlocksFromSourceCfg(self, filename):
+        blocks = {}
+        with open(filename) as file:
+            # Painful, fragile parsing
+            for line in file:
+                currblock = {}
+                if (line.startswith("[B")):
+                    label = re.search(r'\[(.*?)\]', line).group(1)
+                    currblock["targets"] = []
+                    while (len(line.strip()) > 0):
+                        if (line.startswith("Succs")):
+                            currblock["targets"].append(line.split()[-1])
+                        line = next(file)
+                    blocks[label] = currblock
+                # if (line.startswith("=>Entry")):
+                #     currblock["targets"]= ["B" + line.split()[-1]]
+                #     blocks["Entry"] = currblock
+                # if (line.startswith("<=Exit")):
+                #     currblock["targets"] = []
+                #     blocks["Exit"] = currblock                    
+                #     exitpred = line.split()[-1]
+                #     blocks["B"+exitpred]["targets"].append("Exit")
+        # HACK TIME -- hard-code the source code references for one file.
+        # Someday we can automatically determine these references. I hope.
+        if ("perfect-func" in filename):
+            blocks["B8"]["lines"] = ["0"]
+            blocks["B7"]["lines"] = ["3", "4"]
+            blocks["B6"]["lines"] = ["7", "8"]
+            blocks["B5"]["lines"] = ["9"]
+            blocks["B4"]["lines"] = ["10"]
+            blocks["B3"]["lines"] = ["11"]
+            blocks["B2"]["lines"] = ["12"]
+            blocks["B1"]["lines"] = ["15"]
+            blocks["B0"]["lines"] = ["16"]
+            # blocks["Entry"]["lines"] = []
+            # blocks["Exit"]["lines"] = []
+        return dict(sorted(blocks.items(), reverse = True))
+    
+    def parseBlocksFromLLVM(self, filename):
+        blocks = {}
+        with open(filename) as file:
+            # Painful, fragile parsing
+            lineno = 0
+            for line in file:
+                currblock = {}
+                if ((line.endswith("{\n")) or (line[0].isdigit())):
+                    label = ""
+                    if (line[0].isdigit()):
+                        line = line.replace(":", "")
+                        label = line.split()[0]
+                    else:
+                        label = "1"
+                    currblock["lines"] = []
+                    currblock["targets"] = []
+                    line = next(file)
+                    lineno += 1
+                    while ((len(line.strip()) > 0) and (not(line.startswith("}")))):
+                        currblock["lines"].append(str(lineno))
+                        if ("label" in line):
+                            line = line.replace(",", "")
+                            line = line.replace("%", "")
+                            tokens = iter(line.split());
+                            for token in tokens:
+                                if (token == "label"):
+                                    currblock["targets"].append(next(tokens))
+                        line = next(file)
+                        lineno += 1
+                    blocks[label] = currblock
+                lineno += 1
+        return blocks
 
+    def parseBlocksFromAsm(self, filename):
+        blocks = {}
+        with open(filename) as file:
+            # Painful, fragile parsing
+            lineno = 0
+            line = next(file, "end")
+            prevlabel = ""
+            previnstr = ""
+            while True:
+                if (line == "end"):
+                    break
+                if ((":" in line) and (("bb" in line) or ("BB" in line))):
+                    currblock = {}
+                    line = line.replace(":", "")
+                    line = line.replace("#", "")
+                    line = line.strip()
+                    label = line.split()[0]
+                    if ((not(prevlabel == "")) and (not(previnstr == "jmp"))):
+                        blocks[prevlabel]["targets"].append(label)
+                    prevlabel = label
+                    currblock["lines"] = []
+                    currblock["targets"] = []
+                    line = next(file, "end")
+                    lineno += 1
+                    while (line.startswith("\t")):
+                        currblock["lines"].append(str(lineno))
+                        tokens = line.strip().split()                        
+                        previnstr = tokens[0]
+                        if (previnstr.startswith("j")):
+                            currblock["targets"].append(tokens[1])
+                        line = next(file, "end")
+                        lineno += 1
+                    blocks[label] = currblock
+                else:
+                    line = next(file, "end")
+                    lineno += 1
+        return blocks
 
 
 class CompVizStages:
     def __init__(self, folder, rootname):
-        self.stages = []
+        self.stageDicts = []
 
         # for now, assume 3 stages: source, LLVM IR, asm
         stage = Stage(folder, rootname, "c")
-        self.stages.append(stage)
+        self.stageDicts.append(stage.stageDict)
 
         stage = Stage(folder, rootname, "llvm")
-        self.stages.append(stage)
+        self.stageDicts.append(stage.stageDict)
 
         stage = Stage(folder, rootname, "asm")
-        self.stages.append(stage)
+        self.stageDicts.append(stage.stageDict)
 
-
-
-
-# class OxideProgram:
-#     def __init__(self, folder):
-#         blocksFile = open(folder + '/basic_blocks')
-#         self.blocks = json.load(blocksFile)
-#         blocksFile.close()
-#         self.blocks = self.blocks[0]['basic_blocks']
-
-#         # for i in self.blocks:
-#         #     print(f"{i}: {self.blocks[i]['members']}")
-
-#         asmFile = open(folder + '/disassembly')                 
-#         self.asm = json.load(asmFile)
-#         asmFile.close()
-#         self.asm = self.asm[0]['instructions']
-
-#         # for i in self.asm:
-#         #     print(f"{i}: {self.asm[i]['mnemonic']} {self.asm[i]['op_str']}")
-
-#         for i in self.blocks.keys():
-#             block = self.blocks[i]
-#             instructions = {}
-#             for j in block['members']:
-#                 j = str(j)
-#                 if (j in self.asm.keys()):
-#                     # print(f"Block {i} Member {j}: {self.asm[j]['mnemonic']} {self.asm[j]['op_str']}")
-#                     # print(f"{self.asm[j]['mnemonic']} {self.asm[j]['op_str']}")
-#                     instructions[j] = f"{self.asm[j]['mnemonic']} {self.asm[j]['op_str']}"
-#             block['insns'] = instructions
-#             # print('==================')
-
-#         # for i in self.blocks:
-#         #     print(f"{i}: {self.blocks[i]}")
-
-#         # print(json.dumps(self.blocks))
-
-
-#     def getBlocksJson(self):
-#         return json.dumps(self.blocks)
+    def getStagesJson(self):
+        return json.dumps(self.stageDicts)
+    

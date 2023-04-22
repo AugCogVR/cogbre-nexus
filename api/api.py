@@ -6,7 +6,8 @@ import random
 import string
 import json
 import os
-from oxide_program import OxideProgram
+from oxide_program import *
+from compviz import *
 from session import *
 
 
@@ -32,15 +33,19 @@ class SyncPortal(Resource):
             responseString = "session update requested for user " + content["userId"]
 
         elif (commandList[0] == "get_oxide_program"):
-            oxideprogram = OxideProgram(os.path.join(oxideProgramsLocation, commandList[1]))
-            responseString = oxideprogram.getBlocksJson()
-       
+            oxideProgram = OxideProgram(os.path.join(oxideProgramsLocation, commandList[1]))
+            responseString = oxideProgram.getBlocksJson()
 
+        elif (commandList[0] == "get_compviz_stages"):
+            compVizStages = CompVizStages(os.path.join(compVizProgramsLocation, commandList[1]), commandList[1])
+            responseString = compVizStages.getStagesJson()
+       
         return responseString, 200  # return repsonse and 200 OK code
 
 
 sessionControllers = []
 oxideProgramsLocation = os.path.join("data", "samples", "bre")
+compVizProgramsLocation = os.path.join("data", "samples", "compviz")
 
 api.add_resource(SyncPortal, "/sync_portal")  # entry point
 
