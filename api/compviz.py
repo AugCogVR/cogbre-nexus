@@ -185,6 +185,11 @@ class CompVizStages:
 
         # HACK TIME -- hard-code the block relations for certain programs. 
         # Someday we can automatically determine these relations. I hope.
+        # FORMAT: 
+        # - Each innermost list identifies a block by [stage ID, block name]
+        # - The next higher list is a group of related blocks. Note there 
+        #   may be multiple blocks per stage or no blocks in a stage.
+        # - The highest level list (blockRelations) is the set of all relation groups.
         if (rootname == "perfect-func"):
             blockRelations.append([["0", "B7"], ["1", "1"], ["2", "%bb.0"]])
             blockRelations.append([["0", "B6"], ["1", "5"], ["2", ".LBB0_1"]])
