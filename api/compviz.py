@@ -27,6 +27,7 @@ class Stage:
         else:
             print(f"ERROR: Stage init: unknown type: {type}")
 
+
     def readCodeFromFile(self, filename):
         code = {}
         lineno = 0
@@ -37,6 +38,7 @@ class Stage:
                 code[str(lineno)] = line
                 lineno += 1
         return code
+
 
     def parseBlocksFromSourceCfg(self, filename):
         blocks = {}
@@ -60,7 +62,8 @@ class Stage:
                 #     blocks["Exit"] = currblock                    
                 #     exitpred = line.split()[-1]
                 #     blocks["B"+exitpred]["targets"].append("Exit")
-        # HACK TIME -- hard-code the source code references for one file.
+
+        # HACK TIME -- hard-code the source code references for certain programs.
         # Someday we can automatically determine these references. I hope.
         if ("perfect-func" in filename):
             blocks["B8"]["lines"] = ["0"]
@@ -74,6 +77,7 @@ class Stage:
             blocks["B0"]["lines"] = ["16"]
             # blocks["Entry"]["lines"] = []
             # blocks["Exit"]["lines"] = []
+
         elif ("fib-func" in filename):
             blocks["B6"]["lines"] = ["0"]
             blocks["B5"]["lines"] = ["3", "6", "9"]
@@ -82,8 +86,10 @@ class Stage:
             blocks["B2"]["lines"] = ["15"]
             blocks["B1"]["lines"] = ["17"]
             blocks["B0"]["lines"] = ["18"]
+
         return dict(sorted(blocks.items(), reverse = True))
-    
+
+
     def parseBlocksFromLLVM(self, filename):
         blocks = {}
         with open(filename) as file:
@@ -116,6 +122,7 @@ class Stage:
                     blocks[label] = currblock
                 lineno += 1
         return blocks
+
 
     def parseBlocksFromAsm(self, filename):
         blocks = {}
@@ -170,8 +177,32 @@ class CompVizStages:
         stage = Stage(folder, rootname, "asm")
         self.stageDicts.append(stage.stageDict)
 
-        self.stageRelations = []
+        self.blockRelationsLists = self.findBlockRelations(folder, rootname)
+
+
+    def findBlockRelations(self, folder, rootname):
+        blockRelations = []
+
+        # HACK TIME -- hard-code the block relations for certain programs. 
+        # Someday we can automatically determine these relations. I hope.
+        if (rootname == "perfect-func"):
+            blockRelations.append([["0", "B7"], ["1", "1"], ["2", "%bb.0"]])
+            blockRelations.append([["0", "B6"], ["1", "5"], ["2", ".LBB0_1"]])
+            blockRelations.append([["0", "B5"], ["1", "9"], ["2", "%bb.2"]])
+            blockRelations.append([["0", "B4"], ["1", "14"], ["2", "%bb.3"]])
+            blockRelations.append([["0", "B3"], ["0", "B2"], ["1", "18"], ["2", ".LBB0_4"]])
+            blockRelations.append([["0", "B1"], ["1", "21"], ["2", ".LBB0_5"]])
+
+        elif (rootname == "fib-func"):
+            blockRelations.append([["0", "B5"], ["1", "1"], ["2", "%bb.0"]])
+            blockRelations.append([["0", "B4"], ["1", "10"], ["2", ".LBB0_1"]])
+            blockRelations.append([["0", "B3"], ["1", "14"], ["2", "%bb.2"]])
+            blockRelations.append([["0", "B2"], ["1", "20"], ["2", "%bb.3"]])
+            blockRelations.append([["0", "B1"], ["1", "23"], ["2", ".LBB0_4"]])
+
+        return blockRelations
+        
 
     def getStagesJson(self):
-        return json.dumps({"stages": self.stageDicts, "relations": self.stageRelations})
+        return json.dumps({"stages": self.stageDicts, "blockRelations": self.blockRelationsLists})
     
