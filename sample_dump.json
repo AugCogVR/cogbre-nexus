@@ -1,0 +1,413 @@
+{
+    "stages": [
+        {
+            "type": "c",
+            "id": "0",
+            "code": {
+                "0": "int fib(int numTerms) ",
+                "1": "{",
+                "2": "  /* initialize first and second terms */",
+                "3": "  int t1 = 0, t2 = 1;",
+                "4": "",
+                "5": "  /* initialize the next term (3rd term) */",
+                "6": "  int nextTerm = t1 + t2;",
+                "7": "",
+                "8": "  /* Calculate the next \"numTerms\" terms */",
+                "9": "  int counter;",
+                "10": "  for (counter = 3; counter <= numTerms; ++counter) ",
+                "11": "  {",
+                "12": "    t1 = t2;",
+                "13": "    t2 = nextTerm;",
+                "14": "    nextTerm = t1 + t2;",
+                "15": "  }",
+                "16": "",
+                "17": "  return 0;",
+                "18": "}"
+            },
+            "blocks": {
+                "B6": {
+                    "targets": [
+                        "B5"
+                    ],
+                    "lines": [
+                        "0"
+                    ]
+                },
+                "B5": {
+                    "targets": [
+                        "B4"
+                    ],
+                    "lines": [
+                        "3",
+                        "6",
+                        "9"
+                    ]
+                },
+                "B4": {
+                    "targets": [
+                        "B3",
+                        "B1"
+                    ],
+                    "lines": [
+                        "10"
+                    ]
+                },
+                "B3": {
+                    "targets": [
+                        "B2"
+                    ],
+                    "lines": [
+                        "12",
+                        "13",
+                        "14"
+                    ]
+                },
+                "B2": {
+                    "targets": [
+                        "B4"
+                    ],
+                    "lines": [
+                        "15"
+                    ]
+                },
+                "B1": {
+                    "targets": [
+                        "B0"
+                    ],
+                    "lines": [
+                        "17"
+                    ]
+                },
+                "B0": {
+                    "targets": [],
+                    "lines": [
+                        "18"
+                    ]
+                }
+            }
+        },
+        {
+            "type": "llvm",
+            "id": "1",
+            "code": {
+                "0": "; ModuleID = 'fib-func.c'",
+                "1": "source_filename = \"fib-func.c\"",
+                "2": "target datalayout = \"e-m:e-p270:32:32-p271:32:32-p272:64:64-i64:64-f80:128-n8:16:32:64-S128\"",
+                "3": "target triple = \"x86_64-pc-linux-gnu\"",
+                "4": "",
+                "5": "; Function Attrs: noinline nounwind optnone uwtable",
+                "6": "define dso_local i32 @fib(i32 %0) #0 {",
+                "7": "  %2 = alloca i32, align 4",
+                "8": "  %3 = alloca i32, align 4",
+                "9": "  %4 = alloca i32, align 4",
+                "10": "  %5 = alloca i32, align 4",
+                "11": "  %6 = alloca i32, align 4",
+                "12": "  store i32 %0, i32* %2, align 4",
+                "13": "  store i32 0, i32* %3, align 4",
+                "14": "  store i32 1, i32* %4, align 4",
+                "15": "  %7 = load i32, i32* %3, align 4",
+                "16": "  %8 = load i32, i32* %4, align 4",
+                "17": "  %9 = add nsw i32 %7, %8",
+                "18": "  store i32 %9, i32* %5, align 4",
+                "19": "  store i32 3, i32* %6, align 4",
+                "20": "  br label %10",
+                "21": "",
+                "22": "10:                                               ; preds = %20, %1",
+                "23": "  %11 = load i32, i32* %6, align 4",
+                "24": "  %12 = load i32, i32* %2, align 4",
+                "25": "  %13 = icmp sle i32 %11, %12",
+                "26": "  br i1 %13, label %14, label %23",
+                "27": "",
+                "28": "14:                                               ; preds = %10",
+                "29": "  %15 = load i32, i32* %4, align 4",
+                "30": "  store i32 %15, i32* %3, align 4",
+                "31": "  %16 = load i32, i32* %5, align 4",
+                "32": "  store i32 %16, i32* %4, align 4",
+                "33": "  %17 = load i32, i32* %3, align 4",
+                "34": "  %18 = load i32, i32* %4, align 4",
+                "35": "  %19 = add nsw i32 %17, %18",
+                "36": "  store i32 %19, i32* %5, align 4",
+                "37": "  br label %20",
+                "38": "",
+                "39": "20:                                               ; preds = %14",
+                "40": "  %21 = load i32, i32* %6, align 4",
+                "41": "  %22 = add nsw i32 %21, 1",
+                "42": "  store i32 %22, i32* %6, align 4",
+                "43": "  br label %10",
+                "44": "",
+                "45": "23:                                               ; preds = %10",
+                "46": "  ret i32 0",
+                "47": "}",
+                "48": "",
+                "49": "attributes #0 = { noinline nounwind optnone uwtable \"correctly-rounded-divide-sqrt-fp-math\"=\"false\" \"disable-tail-calls\"=\"false\" \"frame-pointer\"=\"all\" \"less-precise-fpmad\"=\"false\" \"min-legal-vector-width\"=\"0\" \"no-infs-fp-math\"=\"false\" \"no-jump-tables\"=\"false\" \"no-nans-fp-math\"=\"false\" \"no-signed-zeros-fp-math\"=\"false\" \"no-trapping-math\"=\"false\" \"stack-protector-buffer-size\"=\"8\" \"target-cpu\"=\"x86-64\" \"target-features\"=\"+cx8,+fxsr,+mmx,+sse,+sse2,+x87\" \"unsafe-fp-math\"=\"false\" \"use-soft-float\"=\"false\" }",
+                "50": "",
+                "51": "!llvm.module.flags = !{!0}",
+                "52": "!llvm.ident = !{!1}",
+                "53": "",
+                "54": "!0 = !{i32 1, !\"wchar_size\", i32 4}",
+                "55": "!1 = !{!\"clang version 10.0.0-4ubuntu1 \"}"
+            },
+            "blocks": {
+                "1": {
+                    "lines": [
+                        "7",
+                        "8",
+                        "9",
+                        "10",
+                        "11",
+                        "12",
+                        "13",
+                        "14",
+                        "15",
+                        "16",
+                        "17",
+                        "18",
+                        "19",
+                        "20"
+                    ],
+                    "targets": [
+                        "10"
+                    ]
+                },
+                "10": {
+                    "lines": [
+                        "23",
+                        "24",
+                        "25",
+                        "26"
+                    ],
+                    "targets": [
+                        "14",
+                        "23"
+                    ]
+                },
+                "14": {
+                    "lines": [
+                        "29",
+                        "30",
+                        "31",
+                        "32",
+                        "33",
+                        "34",
+                        "35",
+                        "36",
+                        "37"
+                    ],
+                    "targets": [
+                        "20"
+                    ]
+                },
+                "20": {
+                    "lines": [
+                        "40",
+                        "41",
+                        "42",
+                        "43"
+                    ],
+                    "targets": [
+                        "10"
+                    ]
+                },
+                "23": {
+                    "lines": [
+                        "46"
+                    ],
+                    "targets": []
+                }
+            }
+        },
+        {
+            "type": "asm",
+            "id": "2",
+            "code": {
+                "0": " .text",
+                "1": " .file \"fib-func.c\"",
+                "2": " .globl fib                     # -- Begin function fib",
+                "3": " .p2align 4, 0x90",
+                "4": " .type fib,@function",
+                "5": "fib:                                    # @fib",
+                "6": " .cfi_startproc",
+                "7": "# %bb.0:",
+                "8": " pushq %rbp",
+                "9": " .cfi_def_cfa_offset 16",
+                "10": " .cfi_offset %rbp, -16",
+                "11": " movq %rsp, %rbp",
+                "12": " .cfi_def_cfa_register %rbp",
+                "13": " movl %edi, -4(%rbp)",
+                "14": " movl $0, -8(%rbp)",
+                "15": " movl $1, -12(%rbp)",
+                "16": " movl -8(%rbp), %eax",
+                "17": " addl -12(%rbp), %eax",
+                "18": " movl %eax, -16(%rbp)",
+                "19": " movl $3, -20(%rbp)",
+                "20": ".LBB0_1:                                # =>This Inner Loop Header: Depth=1",
+                "21": " movl -20(%rbp), %eax",
+                "22": " cmpl -4(%rbp), %eax",
+                "23": " jg .LBB0_4",
+                "24": "# %bb.2:                                #   in Loop: Header=BB0_1 Depth=1",
+                "25": " movl -12(%rbp), %eax",
+                "26": " movl %eax, -8(%rbp)",
+                "27": " movl -16(%rbp), %eax",
+                "28": " movl %eax, -12(%rbp)",
+                "29": " movl -8(%rbp), %eax",
+                "30": " addl -12(%rbp), %eax",
+                "31": " movl %eax, -16(%rbp)",
+                "32": "# %bb.3:                                #   in Loop: Header=BB0_1 Depth=1",
+                "33": " movl -20(%rbp), %eax",
+                "34": " addl $1, %eax",
+                "35": " movl %eax, -20(%rbp)",
+                "36": " jmp .LBB0_1",
+                "37": ".LBB0_4:",
+                "38": " xorl %eax, %eax",
+                "39": " popq %rbp",
+                "40": " .cfi_def_cfa %rsp, 8",
+                "41": " retq",
+                "42": ".Lfunc_end0:",
+                "43": " .size fib, .Lfunc_end0-fib",
+                "44": " .cfi_endproc",
+                "45": "                                        # -- End function",
+                "46": " .ident \"clang version 10.0.0-4ubuntu1 \"",
+                "47": " .section \".note.GNU-stack\",\"\",@progbits",
+                "48": " .addrsig"
+            },
+            "blocks": {
+                "%bb.0": {
+                    "lines": [
+                        "8",
+                        "9",
+                        "10",
+                        "11",
+                        "12",
+                        "13",
+                        "14",
+                        "15",
+                        "16",
+                        "17",
+                        "18",
+                        "19"
+                    ],
+                    "targets": [
+                        ".LBB0_1"
+                    ]
+                },
+                ".LBB0_1": {
+                    "lines": [
+                        "21",
+                        "22",
+                        "23"
+                    ],
+                    "targets": [
+                        ".LBB0_4",
+                        "%bb.2"
+                    ]
+                },
+                "%bb.2": {
+                    "lines": [
+                        "25",
+                        "26",
+                        "27",
+                        "28",
+                        "29",
+                        "30",
+                        "31"
+                    ],
+                    "targets": [
+                        "%bb.3"
+                    ]
+                },
+                "%bb.3": {
+                    "lines": [
+                        "33",
+                        "34",
+                        "35",
+                        "36"
+                    ],
+                    "targets": [
+                        ".LBB0_1"
+                    ]
+                },
+                ".LBB0_4": {
+                    "lines": [
+                        "38",
+                        "39",
+                        "40",
+                        "41"
+                    ],
+                    "targets": []
+                }
+            }
+        }
+    ],
+    "blockRelations": [
+        [
+            [
+                "0",
+                "B5"
+            ],
+            [
+                "1",
+                "1"
+            ],
+            [
+                "2",
+                "%bb.0"
+            ]
+        ],
+        [
+            [
+                "0",
+                "B4"
+            ],
+            [
+                "1",
+                "10"
+            ],
+            [
+                "2",
+                ".LBB0_1"
+            ]
+        ],
+        [
+            [
+                "0",
+                "B3"
+            ],
+            [
+                "1",
+                "14"
+            ],
+            [
+                "2",
+                "%bb.2"
+            ]
+        ],
+        [
+            [
+                "0",
+                "B2"
+            ],
+            [
+                "1",
+                "20"
+            ],
+            [
+                "2",
+                "%bb.3"
+            ]
+        ],
+        [
+            [
+                "0",
+                "B1"
+            ],
+            [
+                "1",
+                "23"
+            ],
+            [
+                "2",
+                ".LBB0_4"
+            ]
+        ]
+    ]
+}
