@@ -94,69 +94,108 @@ class Stage:
         blocks = {}
         with open(filename) as file:
             # Painful, fragile parsing
-            lineno = 0
+            lineno = -1
             for line in file:
+                lineno += 1
                 currblock = {}
-                if ((line.endswith("{\n")) or (line[0].isdigit())):
+                if ((line.endswith("{\n")) or (line[0].isdigit())): # start of function or start of block
                     label = ""
-                    if (line[0].isdigit()):
+                    if (line[0].isdigit()): # start of block
+                        currblock["lines"] = [str(lineno)]
+                        currblock["targets"] = []
                         line = line.replace(":", "")
                         label = line.split()[0]
-                    else:
+                    else: # start of function: add "startfunc" block for the function header then parse the remaining blocks normally
+                        currblock["lines"] = [str(lineno)]
+                        currblock["targets"] = ["1"]
+                        blocks["startfunc"] = currblock
+                        currblock = {}
+                        currblock["lines"] = []
+                        currblock["targets"] = []
                         label = "1"
-                    currblock["lines"] = []
-                    currblock["targets"] = []
+                    blocks[label] = currblock
                     line = next(file)
                     lineno += 1
-                    while ((len(line.strip()) > 0) and (not(line.startswith("}")))):
-                        currblock["lines"].append(str(lineno))
-                        if ("label" in line):
-                            line = line.replace(",", "")
-                            line = line.replace("%", "")
-                            tokens = iter(line.split());
-                            for token in tokens:
-                                if (token == "label"):
-                                    currblock["targets"].append(next(tokens))
-                        line = next(file)
-                        lineno += 1
-                    blocks[label] = currblock
-                lineno += 1
+                    while (len(line.strip()) > 0):
+                        if (line.startswith("}")): # found endfunc block
+                            currblock = {}
+                            currblock["lines"] = [str(lineno)]
+                            currblock["targets"] = []
+                            blocks["endfunc"] = currblock
+                            break 
+                        else:
+                            currblock["lines"].append(str(lineno))
+                            if ("label" in line):
+                                line = line.replace(",", "")
+                                line = line.replace("%", "")
+                                tokens = iter(line.split());
+                                for token in tokens:
+                                    if (token == "label"):
+                                        currblock["targets"].append(next(tokens))
+                            if ("ret" in line):
+                                currblock["targets"] = ["endfunc"]
+                            line = next(file)
+                            lineno += 1
         return blocks
 
 
     def parseBlocksFromAsm(self, filename):
         blocks = {}
+        lineno = -1
         with open(filename) as file:
             # Painful, fragile parsing
-            lineno = 0
             line = next(file, "end")
+            lineno += 1
             prevlabel = ""
             previnstr = ""
+            foundStartFunc = False
+            foundEndFunc = False
             while True:
                 if (line == "end"):
                     break
-                if ((":" in line) and (("bb" in line) or ("BB" in line))):
-                    currblock = {}
-                    line = line.replace(":", "")
-                    line = line.replace("#", "")
-                    line = line.strip()
-                    label = line.split()[0]
-                    if ((not(prevlabel == "")) and (not(previnstr == "jmp"))):
-                        blocks[prevlabel]["targets"].append(label)
-                    prevlabel = label
-                    currblock["lines"] = []
-                    currblock["targets"] = []
-                    line = next(file, "end")
-                    lineno += 1
-                    while (line.startswith("\t")):
-                        currblock["lines"].append(str(lineno))
-                        tokens = line.strip().split()                        
-                        previnstr = tokens[0]
-                        if (previnstr.startswith("j")):
-                            currblock["targets"].append(tokens[1])
+                if (":" in line): # possible start of block
+                    if (("bb" in line) or ("BB" in line)): # start of block after startfunc
+                        currblock = {}
+                        line = line.replace(":", "")
+                        line = line.replace("#", "")
+                        line = line.strip()
+                        label = line.split()[0]
+                        blocks[label] = currblock
+                        if ((not(prevlabel == "")) and (not(previnstr == "jmp"))):
+                            blocks[prevlabel]["targets"].append(label)
+                        prevlabel = label
+                        currblock["lines"] = [str(lineno)]
+                        currblock["targets"] = []
                         line = next(file, "end")
                         lineno += 1
-                    blocks[label] = currblock
+                        while (line.startswith("\t")):
+                            currblock["lines"].append(str(lineno))
+                            tokens = line.strip().split()                        
+                            previnstr = tokens[0]
+                            if (previnstr.startswith("j")):
+                                currblock["targets"].append(tokens[1])
+                            if ("ret" in line):
+                                currblock["targets"] = ["endfunc"]
+                            line = next(file, "end")
+                            lineno += 1
+                    elif (not (foundStartFunc)): # startfunc
+                        foundStartFunc = True
+                        currblock = {}
+                        blocks["startfunc"] = currblock
+                        currblock["lines"] = [str(lineno), str(lineno + 1)]
+                        currblock["targets"] = ["%bb.0"]
+                        line = next(file, "end")
+                        lineno += 1
+                    elif (not (foundEndFunc)): # endfunc
+                        foundEndFunc = True
+                        currblock = {}
+                        blocks["endfunc"] = currblock
+                        currblock["lines"] = [str(lineno), str(lineno + 1), str(lineno + 2)]
+                        currblock["targets"] = []
+                        line = next(file, "end")
+                        lineno += 1
+                        line = next(file, "end")
+                        lineno += 1
                 else:
                     line = next(file, "end")
                     lineno += 1
@@ -191,19 +230,23 @@ class CompVizStages:
         #   may be multiple blocks per stage or no blocks in a stage.
         # - The highest level list (blockRelations) is the set of all relation groups.
         if (rootname == "perfect-func"):
+            blockRelations.append([["0", "B8"], ["1", "startfunc"], ["2", "startfunc"]])
             blockRelations.append([["0", "B7"], ["1", "1"], ["2", "%bb.0"]])
             blockRelations.append([["0", "B6"], ["1", "5"], ["2", ".LBB0_1"]])
             blockRelations.append([["0", "B5"], ["1", "9"], ["2", "%bb.2"]])
             blockRelations.append([["0", "B4"], ["1", "14"], ["2", "%bb.3"]])
             blockRelations.append([["0", "B3"], ["0", "B2"], ["1", "18"], ["2", ".LBB0_4"]])
             blockRelations.append([["0", "B1"], ["1", "21"], ["2", ".LBB0_5"]])
+            blockRelations.append([["0", "B0"], ["1", "endfunc"], ["2", "endfunc"]])
 
         elif (rootname == "fib-func"):
+            blockRelations.append([["0", "B6"], ["1", "startfunc"], ["2", "startfunc"]])
             blockRelations.append([["0", "B5"], ["1", "1"], ["2", "%bb.0"]])
             blockRelations.append([["0", "B4"], ["1", "10"], ["2", ".LBB0_1"]])
             blockRelations.append([["0", "B3"], ["1", "14"], ["2", "%bb.2"]])
             blockRelations.append([["0", "B2"], ["1", "20"], ["2", "%bb.3"]])
             blockRelations.append([["0", "B1"], ["1", "23"], ["2", ".LBB0_4"]])
+            blockRelations.append([["0", "B0"], ["1", "endfunc"], ["2", "endfunc"]])
 
         return blockRelations
         
