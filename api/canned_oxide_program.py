@@ -1,7 +1,7 @@
 import os
 import json
 
-class OxideProgram:
+class CannedOxideProgram: # For loading an Oxide program's JSON dump from a local file
     def __init__(self, folder):
         blocksFile = open(os.path.join(folder, "basic_blocks"))
         self.blocks = json.load(blocksFile)

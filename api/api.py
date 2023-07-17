@@ -8,7 +8,7 @@ import json
 import os
 import sys
 import argparse
-from oxide_program import *
+from canned_oxide_program import *
 from compviz import *
 from session import *
 
@@ -46,7 +46,7 @@ class SyncPortal(Resource):
             responseString = "session update requested for user " + content["userId"]
 
         elif (commandList[0] == "get_canned_oxide_program"):
-            oxideProgram = OxideProgram(os.path.join(cannedOxideProgramsLocation, commandList[1]))
+            oxideProgram = CannedOxideProgram(os.path.join(cannedOxideProgramsLocation, commandList[1]))
             responseString = oxideProgram.getBlocksJson()
 
         elif (commandList[0] == "get_compviz_stages"):
