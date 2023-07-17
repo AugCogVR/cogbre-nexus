@@ -26,7 +26,7 @@ if (useOxide):
     sys.path.append(args.oxidepath)
     from core import oxide as local_oxide
     print(local_oxide.collection_names())
-
+# TODO: catch error and set useOxide = False
 
 class SyncPortal(Resource):
     def post(self):
@@ -53,6 +53,21 @@ class SyncPortal(Resource):
             compVizStages = CompVizStages(os.path.join(compVizProgramsLocation, commandList[1]), commandList[1])
             responseString = compVizStages.getStagesJson()
        
+        elif (commandList[0] == "oxide_collection_names"):
+            responseString = "OXIDE NOT IN USE"
+            if (useOxide):
+                responseString = str(local_oxide.collection_names())
+
+        elif (commandList[0] == "oxide_get_cid_from_name"):
+            responseString = "OXIDE NOT IN USE"
+            if (useOxide):
+                responseString = str(local_oxide.get_cid_from_name(commandList[1]))
+
+        elif (commandList[0] == "oxide_get_collection_info"):
+            responseString = "OXIDE NOT IN USE"
+            if (useOxide):
+                responseString = str(local_oxide.get_collection_info(commandList[1], commandList[2]))
+
         return responseString, 200  # return repsonse and 200 OK code
 
 
