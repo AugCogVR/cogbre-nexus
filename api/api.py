@@ -56,17 +56,17 @@ class SyncPortal(Resource):
         elif (commandList[0] == "oxide_collection_names"):
             responseString = "OXIDE NOT IN USE"
             if (useOxide):
-                responseString = str(local_oxide.collection_names())
+                responseString = str(local_oxide.collection_names()).replace("'", '"')
 
         elif (commandList[0] == "oxide_get_cid_from_name"):
             responseString = "OXIDE NOT IN USE"
             if (useOxide):
-                responseString = str(local_oxide.get_cid_from_name(commandList[1]))
+                responseString = '"' + str(local_oxide.get_cid_from_name(commandList[1])) + '"'
 
         elif (commandList[0] == "oxide_get_collection_info"):
             responseString = "OXIDE NOT IN USE"
             if (useOxide):
-                responseString = str(local_oxide.get_collection_info(commandList[1], commandList[2]))
+                responseString = str(local_oxide.get_collection_info(commandList[1], commandList[2])).replace("'", '"')
 
         return responseString, 200  # return repsonse and 200 OK code
 
