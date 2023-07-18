@@ -40,10 +40,10 @@ class SyncPortal(Resource):
         if (commandList[0] == "session_init"):
             sessionController = SessionController(content["userId"])
             sessionControllers.addSessionController(sessionController)
-            responseString = "session initialized for user " + content["userId"]
+            responseString = '"session initialized for user ' + content["userId"] + '"'
 
         elif (commandList[0] == "get_session_update"):
-            responseString = "session update requested for user " + content["userId"]
+            responseString = '"session update requested for user ' + content["userId"] + '"'
 
         elif (commandList[0] == "get_canned_oxide_program"):
             oxideProgram = CannedOxideProgram(os.path.join(cannedOxideProgramsLocation, commandList[1]))
@@ -54,17 +54,17 @@ class SyncPortal(Resource):
             responseString = compVizStages.getStagesJson()
        
         elif (commandList[0] == "oxide_collection_names"):
-            responseString = "OXIDE NOT IN USE"
+            responseString = '"OXIDE NOT IN USE"'
             if (useOxide):
                 responseString = str(local_oxide.collection_names()).replace("'", '"')
 
         elif (commandList[0] == "oxide_get_cid_from_name"):
-            responseString = "OXIDE NOT IN USE"
+            responseString = '"OXIDE NOT IN USE"'
             if (useOxide):
                 responseString = '"' + str(local_oxide.get_cid_from_name(commandList[1])) + '"'
 
         elif (commandList[0] == "oxide_get_collection_info"):
-            responseString = "OXIDE NOT IN USE"
+            responseString = '"OXIDE NOT IN USE"'
             if (useOxide):
                 responseString = str(local_oxide.get_collection_info(commandList[1], commandList[2])).replace("'", '"')
 
