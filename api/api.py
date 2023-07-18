@@ -25,8 +25,8 @@ if (useOxide):
     print(args.oxidepath)
     sys.path.append(args.oxidepath)
     from core import oxide as local_oxide
-    print(local_oxide.collection_names())
-# TODO: catch error and set useOxide = False
+#    print(local_oxide.collection_names())
+# TODO: catch errors and set useOxide = False
 
 class SyncPortal(Resource):
     def post(self):
