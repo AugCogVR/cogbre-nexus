@@ -33,7 +33,7 @@ print(json.dumps(parsed, indent = 4))
 collectionName = parsed[0]
 
 print("\n========================")
-print("TEST: get_cid_from_name " + collectionName)
+print("TEST: oxide_get_cid_from_name " + collectionName)
 print("========================")
 r = requests.post('http://127.0.0.1:5000/sync_portal', json={"userId": "123", "command":"oxide_get_cid_from_name " + collectionName})
 # print(r.status_code)
@@ -42,7 +42,7 @@ parsed = json.loads(r.json())
 print(json.dumps(parsed, indent = 4))
 
 print("\n========================")
-print("TEST: get_collection_info " + collectionName)
+print("TEST: oxide_get_collection_info " + collectionName)
 print("========================")
 r = requests.post('http://127.0.0.1:5000/sync_portal', json={"userId": "123", "command":"oxide_get_collection_info " + collectionName + " files"})
 # print(r.status_code)
