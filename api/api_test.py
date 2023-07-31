@@ -39,7 +39,7 @@ if (len(parsed) > 0):
 parsed = runTest(["oxide_get_cid_from_name", collectionName])
 
 # TEST: Get collection info for the first returned collection
-parsed = runTest(["oxide_get_collection_info", collectionName, "files"])
+parsed = runTest(["oxide_get_collection_info", collectionName, "all"])
 # Grab the first file name returned
 fileName = "<NOT FOUND>"
 if (parsed["files"] is not None):
@@ -52,11 +52,8 @@ if (parsed["files"] is not None):
 # parsed = runTest(["oxide_get_file_info", fileName])
 
 # TEST: Get oids for a filename. THIS IS SO SLOW. 
-# Cheat: 'apt-ftparchive' = "78fc002331ad21a9cec9b300f009ce9693f3eee3" on my system
 parsed = runTest(["oxide_get_oids_with_name", fileName])
-# Grab the first oid returned
 fileOid = list(parsed.keys())[0]
-# fileOid = "78fc002331ad21a9cec9b300f009ce9693f3eee3"
 
 # TEST: See available modules
 parsed = runTest(["oxide_get_available_modules", "all"])
