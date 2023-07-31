@@ -18,6 +18,11 @@ Ensure you have the packages in requirements.txt installed.
 `python api/api.py --oxidepath ../oxide` with Oxide (change path as needed)
 
 
+## To test:
+
+`python api/api_test.py`
+
+
 ## API endpoints & parameters
 
 `sync_portal` is currently the only endpoint
