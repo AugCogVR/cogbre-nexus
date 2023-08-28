@@ -84,6 +84,10 @@ opts = { "disassembler":"ghidra_disasm" }
 commandList.append(opts)
 parsed = runTest(commandList)
 
+# temp code to dump disassembled binary JSON to a text file
+# with open("head-disasm.txt", mode="wt") as f:
+#     f.write(json.dumps(parsed, indent = 4))
+
 
 
 print("\n========================")
