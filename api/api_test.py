@@ -37,6 +37,10 @@ if (len(parsed) > 0):
 
 # TEST: Get CID for the first returned collection
 parsed = runTest(["oxide_get_cid_from_name", collectionName])
+cid = parsed
+
+# TEST: Get OIDs for the above CID
+parsed = runTest(["oxide_get_oids_with_cid", cid])
 
 # TEST: Get collection info for the first returned collection
 parsed = runTest(["oxide_get_collection_info", collectionName, "all"])
@@ -51,7 +55,7 @@ if (parsed["files"] is not None):
 # TODO: Fix it
 # parsed = runTest(["oxide_get_file_info", fileName])
 
-# TEST: Get oids for a filename. THIS IS SO SLOW. 
+# TEST: Get oids for a filename. THIS CAN BE SO SLOW IF THE COLLECTION IS HUGE. 
 parsed = runTest(["oxide_get_oids_with_name", fileName])
 fileOid = list(parsed.keys())[0]
 

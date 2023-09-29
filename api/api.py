@@ -93,6 +93,16 @@ class SyncPortal(Resource):
                 responseString = local_oxide.get_oids_with_name(someName)
                 return json.dumps(responseString), 200
 
+        # NOTE: This function does not directly map to an Oxide API function.
+        # It is included for convenients. 
+        # Perhaps I should implement a wrapper for get_field instead. 
+        elif (commandList[0] == "oxide_get_oids_with_cid"):
+            responseString += " !!! OXIDE NOT IN USE"
+            if (useOxide):
+                someCid = commandList[1]
+                responseString = local_oxide.get_field("collections", someCid, "oid_list")
+                return json.dumps(responseString), 200
+
         elif (commandList[0] == "oxide_get_available_modules"):
             responseString += " !!! OXIDE NOT IN USE"
             if (useOxide):
