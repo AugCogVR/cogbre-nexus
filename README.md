@@ -4,6 +4,8 @@
 
 This is the server / "nexus" component for "cogbre." 
 
+This application supports research of the [Auburn CSSE Program Understanding Lab](https://program-understanding.github.io/).
+
 It supports the VR front end at https://github.com/AugCogVR/cogbre-vr
 
 This has been developed against Python 3.9.
