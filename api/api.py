@@ -139,6 +139,15 @@ class SyncPortal(Resource):
                 responseString = local_oxide.single_call_module(moduleType, moduleName, oidList, opts)
                 return json.dumps(responseString), 200
 
+        # Pulls the name of inputed OID
+        elif (commandList[0] == "oxide_get_names_from_oid"):
+            responseString += " !!! OXIDE NOT IN USE"
+            if (useOxide):
+                OID = commandList[1]
+                # Formats the set of names into a string before dumping to json
+                responseString = list(local_oxide.get_names_from_oid(OID))
+                return json.dumps(responseString), 200
+        
         return json.dumps(responseString), 500  # if we get here, there is an error
 
 
