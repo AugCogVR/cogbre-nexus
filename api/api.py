@@ -154,6 +154,13 @@ class SyncPortal(Resource):
                 OID = commandList[1]
                 responseString = local_oxide.get_field("file_meta", OID, "size")
                 return json.dumps(responseString), 200
+                
+        elif (commandList[0] == "oxide_get_disassembly"):
+            responseString += " !!! OXIDE NOT IN USE"
+            if (useOxide):
+                OID = commandList[1]
+                responseString = local_oxide.retrieve("ghirda_disasm", list(OID))
+                return json.dumps(responseString), 200
         
         return json.dumps(responseString), 500  # if we get here, there is an error
 
