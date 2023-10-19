@@ -147,6 +147,13 @@ class SyncPortal(Resource):
                 # Formats the set of names into a string before dumping to json
                 responseString = list(local_oxide.get_names_from_oid(OID))
                 return json.dumps(responseString), 200
+                
+        elif (commandList[0] == "oxide_get_oid_file_size"):
+            responseString += " !!! OXIDE NOT IN USE"
+            if (useOxide):
+                OID = commandList[1]
+                responseString = local_oxide.get_field("file_meta", OID, "size")
+                return json.dumps(responseString), 200
         
         return json.dumps(responseString), 500  # if we get here, there is an error
 
