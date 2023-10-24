@@ -159,7 +159,7 @@ class SyncPortal(Resource):
             responseString += " !!! OXIDE NOT IN USE"
             if (useOxide):
                 OID = commandList[1]
-                responseString = local_oxide.retrieve("ghirda_disasm", list(OID))
+                responseString = local_oxide.retrieve("ghidra_disasm", list(OID))
                 return json.dumps(responseString), 200
         
         return json.dumps(responseString), 500  # if we get here, there is an error
