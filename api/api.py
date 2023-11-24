@@ -26,8 +26,12 @@ parser.add_argument("--oxidepath", type=str, help="Path to active Oxide installa
 args = parser.parse_args()
 useOxide = not(args.oxidepath is None)
 if (useOxide):
-    print(args.oxidepath)
-    sys.path.append(args.oxidepath)
+    print(f'oxide path: {args.oxidepath}')
+    # We assume the user gave the home directory for Oxide. 
+    # After the recent changes to Oxide, we actually need to add
+    # HOME/src and HOME/src/oxide to the path.
+    sys.path.append(args.oxidepath+'/src')
+    sys.path.append(args.oxidepath+'/src/oxide')
     from core import oxide as local_oxide
 #    print(local_oxide.collection_names())
 # TODO: catch errors and set useOxide = False
