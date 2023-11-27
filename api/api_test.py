@@ -1,5 +1,6 @@
 import requests
 import json
+import uuid
 
 userId = "User123"
 
@@ -10,23 +11,37 @@ def postCommand(commandList):
     parsed = json.loads(r.json())
     return parsed
 
-def runTest(commandList):
+
+def runTest(commandList, dumpToOutput = True):
     print("\n========================")
     print(f"TEST: {commandList}")
     print("========================")
     parsed = postCommand(commandList)
-    print(json.dumps(parsed, indent = 4))
+    if (dumpToOutput):
+        print(json.dumps(parsed, indent = 4))
     return parsed
 
 
-# Grab "compviz_stages" data for a function
-runTest(["get_compviz_stages", "fib-func"])
+def dumpToFile(parsedOutput, fileName):
+    with open(fileName, mode="wt") as f:
+        f.write(json.dumps(parsedOutput, indent = 4))
+    print(f"OUTPUT dumped to {fileName}")
 
-# Grab "canned_oxide_program" data for a program
-runTest(["get_canned_oxide_program", "elf_fib_recursive"])
+
+# Next two tests grab canned or semi-canned info from the API.
+# They are likely commented out due to no longer being relevant.
+
+# # Grab "compviz_stages" data for a function
+# parsed = runTest(["get_compviz_stages", "fib-func"], False)
+# dumpToFile(parsed, f"tmp_get_compviz_stages_fib-func_{userId}_{uuid.uuid4().hex}")
+
+# # Grab "canned_oxide_program" data for a program
+# parsed = runTest(["get_canned_oxide_program", "elf_fib_recursive"], False)
+# dumpToFile(parsed, f"tmp_get_canned_oxide_program_elf_fib_recursive_{userId}_{uuid.uuid4().hex}")
 
 
-# Oxide tests below assume Oxide is enabled on the server/api side, and that it contains at least one collection
+# Oxide tests below assume Oxide is enabled on the server/api side, and that it contains 
+# at least one collection with at least one binary file
 
 # TEST: Grab list of all collection names
 parsed = runTest(["oxide_collection_names"])
@@ -86,12 +101,8 @@ fileOids = [ fileOid ]
 commandList.append(fileOids)
 opts = { "disassembler":"ghidra_disasm" }
 commandList.append(opts)
-parsed = runTest(commandList)
-
-# temp code to dump disassembled binary JSON to a text file
-# with open("head-disasm.txt", mode="wt") as f:
-#     f.write(json.dumps(parsed, indent = 4))
-
+parsed = runTest(commandList, False)
+dumpToFile(parsed, f"tmp_test_disasm_{fileName}_{userId}_{uuid.uuid4().hex}")
 
 
 print("\n========================")
