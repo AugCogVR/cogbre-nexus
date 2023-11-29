@@ -28,8 +28,6 @@ useOxide = not(args.oxidepath is None)
 if (useOxide):
     print(f'oxide path: {args.oxidepath}')
     # We assume the user gave the home directory for Oxide. 
-    # After the recent changes to Oxide, we actually need to add
-    # HOME/src and HOME/src/oxide to the path.
     sys.path.append(args.oxidepath+'/src')
     from oxide.core import oxide as local_oxide
 #    print(local_oxide.collection_names())
