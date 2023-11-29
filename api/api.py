@@ -31,8 +31,7 @@ if (useOxide):
     # After the recent changes to Oxide, we actually need to add
     # HOME/src and HOME/src/oxide to the path.
     sys.path.append(args.oxidepath+'/src')
-    sys.path.append(args.oxidepath+'/src/oxide')
-    from core import oxide as local_oxide
+    from oxide.core import oxide as local_oxide
 #    print(local_oxide.collection_names())
 # TODO: catch errors and set useOxide = False
 
