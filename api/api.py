@@ -159,9 +159,14 @@ class SyncPortal(Resource):
         elif (commandList[0] == "oxide_get_disassembly"):
             responseString += " !!! OXIDE NOT IN USE"
             if (useOxide):
-                OID = commandList[1]
-                # This does not seem to work -- just returns a list with the OID
-                responseString = local_oxide.retrieve("disassembly", [ OID ])
+                OID = commandList[1] # This OID variable is actually a list containing the OID
+                
+                # This method does not seem to work -- just returns a list with the OID
+                # responseString = local_oxide.retrieve("disassembly", OID)
+
+                # This method directly calls the disassembly analyzer-type module. 
+                responseString = local_oxide.single_call_module('analyzers', 'disassembly', OID, {'disassembler': 'ghidra_disasm', 'decoder': 'native'})
+
                 return json.dumps(list(responseString)), 200
         
         return json.dumps(responseString), 500  # if we get here, there is an error
