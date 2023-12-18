@@ -161,18 +161,23 @@ class SyncPortal(Resource):
             if (useOxide):
                 OID = commandList[1] 
                 
-                # OPTION 1: This method to get the disassembly was recommended by Oxide authors
-                # It returns a full dictionary per statement, e.g., 
+                # OPTION 1: This method to get the disassembly is recommended by Oxide authors.
+                # As configured, it returns a single string (in a dictionary) per statement, e.g., 
+                # "1944": {"str": "MOV  EAX,dword ptr [ESP + 0x4]"}
+                # Reconfigure by changing the dictionary in the third parameter. 
+                # Removing it entirely gets you the full dictionary per statement as in this example:
                 # "8196": {"id": 715, "mnemonic": "sub", "address": 8196, "op_str": "rsp, 8", "size": 4, 
                 #          "str": "sub rsp, 8", "groups": [], "regs_read": [], "regs_write": ["rflags"], 
                 #          "regs_access": [[], ["rflags"]], "prefix": [0, 0, 0, 0], "opcode": [131, 0, 0, 0], 
                 #          "rex": 72, "operand_size": 8, "modrm": 236, 
                 #          "eflags": ["MOD_AF", "MOD_CF", "MOD_SF", "MOD_ZF", "MOD_PF", "MOD_OF"], 
                 #          "operands": {"operand_0": {"type.reg": "rsp", "size": 8, "access": "read|write"}, "operand_1": {"type.imm": 8, "size": 8}}}
+                # responseString = local_oxide.retrieve("disassembly", [ OID ], {'disassembler': 'ghidra_disasm', 'decoder': 'native'})
                 responseString = local_oxide.retrieve("disassembly", [ OID ])
 
                 # OPTION 2: This method to get the disassembly directly calls the disassembly analyzer-type module. 
-                # It returns a single string (in a dictionary) per statement, e.g., 
+                # THIS IS NOT RECOMMENDED. 
+                # As configured, it returns a single string (in a dictionary) per statement, e.g., 
                 # "1944": {"str": "MOV  EAX,dword ptr [ESP + 0x4]"}
                 # responseString = local_oxide.single_call_module('analyzers', 'disassembly', [ OID ], {'disassembler': 'ghidra_disasm', 'decoder': 'native'})
 

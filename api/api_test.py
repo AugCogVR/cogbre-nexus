@@ -110,22 +110,22 @@ parsed = runTest(['oxide_get_names_from_oid', fileOid])
 # TEST: Get file size for file represented by OID
 parsed = runTest(['oxide_get_oid_file_size', fileOid])
 
-# TEST: Get disassembly for file represented by OID  ==== BROKEN -- only returns OID
-parsed = runTest(['oxide_get_disassembly', fileOid])
-# dumpToFile(parsed, f"tmp_test_disasm_{fileName}_{userId}_{uuid.uuid4().hex}")
+# TEST: Get disassembly for file represented by OID 
+parsed = runTest(['oxide_get_disassembly', fileOid], False)
+dumpToFile(parsed, f"tmp_test_disasm_{fileName}_{userId}_{uuid.uuid4().hex}")
 
 # TEST: Use another method to get disassembly for file represented by OID 
-moduleName = "disassembly"
-commandList = ["oxide_get_mod_type", moduleName]
-moduleType = postCommand(commandList)
-commandList = ["oxide_single_call_module", moduleType, moduleName]
-fileOids = [ fileOid ]
-commandList.append(fileOids)
-opts = { "disassembler":"ghidra_disasm", "decoder":"native" }
-commandList.append(opts)
-parsed = runTest(commandList, False)
-dumpToFile(parsed, f"tmp_test_disasm2_{fileName}_{userId}_{uuid.uuid4().hex}")
-
+# THIS METHOD IS NOT RECOMMENDED -- TEST COMMENTED OUT 
+# moduleName = "disassembly"
+# commandList = ["oxide_get_mod_type", moduleName]
+# moduleType = postCommand(commandList)
+# commandList = ["oxide_single_call_module", moduleType, moduleName]
+# fileOids = [ fileOid ]
+# commandList.append(fileOids)
+# opts = { "disassembler":"ghidra_disasm", "decoder":"native" }
+# commandList.append(opts)
+# parsed = runTest(commandList, False)
+# dumpToFile(parsed, f"tmp_test_disasm2_{fileName}_{userId}_{uuid.uuid4().hex}")
 
 
 print("\n========================")
