@@ -155,7 +155,8 @@ class SyncPortal(Resource):
                 OID = commandList[1]
                 responseString = local_oxide.get_field("file_meta", OID, "size")
                 return json.dumps(responseString), 200
-                
+
+        # Get disassembly with ALL fields available                
         elif (commandList[0] == "oxide_get_disassembly"):
             responseString += " !!! OXIDE NOT IN USE"
             if (useOxide):
@@ -176,13 +177,22 @@ class SyncPortal(Resource):
                 responseString = local_oxide.retrieve("disassembly", [ OID ])
 
                 # OPTION 2: This method to get the disassembly directly calls the disassembly analyzer-type module. 
-                # THIS IS NOT RECOMMENDED. 
+                # THIS IS NOT RECOMMENDED. THIS COMMENT BLOCK REMAINS HERE FOR DOCUMENTATION PURPOSES. 
                 # As configured, it returns a single string (in a dictionary) per statement, e.g., 
                 # "1944": {"str": "MOV  EAX,dword ptr [ESP + 0x4]"}
                 # responseString = local_oxide.single_call_module('analyzers', 'disassembly', [ OID ], {'disassembler': 'ghidra_disasm', 'decoder': 'native'})
 
                 return json.dumps(responseString), 200
         
+        # Get disassembly with instruction addresses and strings only
+        # See comments above for the "oxide_get_disassembly" command
+        elif (commandList[0] == "oxide_get_disassembly_strings_only"):
+            responseString += " !!! OXIDE NOT IN USE"
+            if (useOxide):
+                OID = commandList[1] 
+                responseString = local_oxide.retrieve("disassembly", [ OID ], {'disassembler': 'ghidra_disasm', 'decoder': 'native'})
+                return json.dumps(responseString), 200
+
         return json.dumps(responseString), 500  # if we get here, there is an error
 
 
