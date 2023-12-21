@@ -110,9 +110,13 @@ parsed = runTest(['oxide_get_names_from_oid', fileOid])
 # TEST: Get file size for file represented by OID
 parsed = runTest(['oxide_get_oid_file_size', fileOid])
 
-# TEST: Get disassembly for file represented by OID 
-parsed = runTest(['oxide_get_disassembly', fileOid], False)
-dumpToFile(parsed, f"tmp_test_disasm_{fileName}_{userId}_{uuid.uuid4().hex}")
+# # TEST: Get disassembly for file represented by OID 
+# parsed = runTest(['oxide_get_disassembly', fileOid], False)
+# dumpToFile(parsed, f"tmp_test_disasm_{fileName}_{userId}_{uuid.uuid4().hex}")
+
+# # TEST: Get disassembly for file represented by OID (just instruction strings)
+# parsed = runTest(['oxide_get_disassembly_strings_only', fileOid], False)
+# dumpToFile(parsed, f"tmp_test_disasmstr_{fileName}_{userId}_{uuid.uuid4().hex}")
 
 # TEST: Use another method to get disassembly for file represented by OID 
 # THIS METHOD IS NOT RECOMMENDED -- TEST COMMENTED OUT 
@@ -126,6 +130,9 @@ dumpToFile(parsed, f"tmp_test_disasm_{fileName}_{userId}_{uuid.uuid4().hex}")
 # commandList.append(opts)
 # parsed = runTest(commandList, False)
 # dumpToFile(parsed, f"tmp_test_disasm2_{fileName}_{userId}_{uuid.uuid4().hex}")
+
+# TEST: Get function info for a binary file
+parsed = runTest(['oxide_get_function_info', fileOid])
 
 
 print("\n========================")

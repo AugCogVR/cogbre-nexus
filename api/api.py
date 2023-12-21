@@ -193,6 +193,14 @@ class SyncPortal(Resource):
                 responseString = local_oxide.retrieve("disassembly", [ OID ], {'disassembler': 'ghidra_disasm', 'decoder': 'native'})
                 return json.dumps(responseString), 200
 
+        # Get function info for a binary file
+        elif (commandList[0] == "oxide_get_function_info"):
+            responseString += " !!! OXIDE NOT IN USE"
+            if (useOxide):
+                OID = commandList[1] 
+                responseString = local_oxide.retrieve("function_summary", [ OID ])
+                return json.dumps(responseString), 200
+
         return json.dumps(responseString), 500  # if we get here, there is an error
 
 
