@@ -108,8 +108,12 @@ else:
     print("ERROR: No module names returned")
 
 # TEST: Get basic blocks for file represented by OID
-parsed = runTest(["oxide_retrieve", "basic_blocks", [ fileOid ], { "disassembler":"ghidra_disasm" }], False)
+parsed = runTest(["oxide_get_basic_blocks", fileOid], False)
 dumpToTmpFile(parsed, f"basicblocks_{fileName}")
+
+# TEST: Exercise the "retrieve" command -- in this case, just get basic blocks again
+parsed = runTest(["oxide_retrieve", "basic_blocks", [ fileOid ], { "disassembler":"ghidra_disasm" }], False)
+dumpToTmpFile(parsed, f"basicblocksviaretrieve_{fileName}")
 
 # TEST: Get names for OID
 parsed = runTest(["oxide_get_names_from_oid", fileOid])

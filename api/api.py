@@ -193,6 +193,15 @@ class SyncPortal(Resource):
                 responseString = local_oxide.retrieve("disassembly", [ OID ], {'disassembler': 'ghidra_disasm', 'decoder': 'native'})
                 return json.dumps(responseString), 200
 
+        # Use basic_blocks module to grab basic blocks of a binary
+        # This is a convenience command (client can also just call "oxide_retrieve" with proper parameters)
+        elif (commandList[0] == "oxide_get_basic_blocks"):
+            responseString += " !!! OXIDE NOT IN USE"
+            if (useOxide):
+                OID = commandList[1] 
+                responseString = local_oxide.retrieve("basic_blocks", [ OID ])
+                return json.dumps(responseString), 200
+
         return json.dumps(responseString), 500  # if we get here, there is an error
 
 
