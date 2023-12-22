@@ -1,9 +1,12 @@
 import requests
 import json
 import uuid
+import glob
+import os
 
-userId = "User123"
+userId = "Test123"
 
+# Post a command to the Nexus API, get the response, parse it as JSON, and return it
 def postCommand(commandList):
     # r = requests.post('http://127.0.0.1:5000/sync_portal', json={"userId":userId, "command":json.dumps(commandList)})
     r = requests.post('http://127.0.0.1:5000/sync_portal', json={"userId":userId, "command":commandList})
@@ -11,7 +14,7 @@ def postCommand(commandList):
     parsed = json.loads(r.json())
     return parsed
 
-
+# Run a test given the provided command list. Return the result.
 def runTest(commandList, dumpToOutput = True):
     print("\n========================")
     print(f"TEST: {commandList}")
@@ -21,24 +24,36 @@ def runTest(commandList, dumpToOutput = True):
         print(json.dumps(parsed, indent = 4))
     return parsed
 
-
-def dumpToFile(parsedOutput, fileName):
+# Dump provided output to a temporary file. Filename is based on testName. 
+def dumpToTmpFile(parsedOutput, testName):
+    fileName = f"apitesttmp_{testName}_{userId}_{uuid.uuid4().hex}"
     with open(fileName, mode="wt") as f:
         f.write(json.dumps(parsedOutput, indent = 4))
     print(f"OUTPUT dumped to {fileName}")
 
 
-# Next two tests grab canned or semi-canned info from the API.
-# They are likely commented out due to no longer being relevant.
+# ============================
+# PREPARATION
+# ============================
 
+# Delete old test output files. Rename/move any prior test results you want to keep!
+for f in glob.glob("apitesttmp*"):
+    os.remove(f)
+
+
+# ============================
+# RUN THE TESTS
+# ============================
+
+# Test an API call developed for a dormant initiative -- comment it out for now. 
 # # Grab "compviz_stages" data for a function
 # parsed = runTest(["get_compviz_stages", "fib-func"], False)
 # dumpToFile(parsed, f"tmp_get_compviz_stages_fib-func_{userId}_{uuid.uuid4().hex}")
 
+# Test an API call developed for a dormant initiative -- comment it out for now. 
 # # Grab "canned_oxide_program" data for a program
 # parsed = runTest(["get_canned_oxide_program", "elf_fib_recursive"], False)
 # dumpToFile(parsed, f"tmp_get_canned_oxide_program_elf_fib_recursive_{userId}_{uuid.uuid4().hex}")
-
 
 # Oxide tests below assume Oxide is enabled on the server/api side, and that it contains 
 # at least one collection with at least one binary file
@@ -92,44 +107,23 @@ if (len(moduleNames) > 0):
 else:
     print("ERROR: No module names returned")
 
-# TEST: Call the basic_blocks module on our fileOid
-moduleName = "basic_blocks"
-commandList = ["oxide_get_mod_type", moduleName]
-moduleType = postCommand(commandList)
-commandList = ["oxide_single_call_module", moduleType, moduleName]
-fileOids = [ fileOid ]
-commandList.append(fileOids)
-opts = { "disassembler":"ghidra_disasm" }
-commandList.append(opts)
-parsed = runTest(commandList, False)
-dumpToFile(parsed, f"tmp_test_basicblocks_{fileName}_{userId}_{uuid.uuid4().hex}")
+# TEST: Get basic blocks for file represented by OID
+parsed = runTest(["oxide_retrieve", "basic_blocks", [ fileOid ], { "disassembler":"ghidra_disasm" }], False)
+dumpToTmpFile(parsed, f"basicblocks_{fileName}")
 
-# TEST: Get names from OID
-parsed = runTest(['oxide_get_names_from_oid', fileOid])
+# TEST: Get names for OID
+parsed = runTest(["oxide_get_names_from_oid", fileOid])
 
 # TEST: Get file size for file represented by OID
-parsed = runTest(['oxide_get_oid_file_size', fileOid])
+parsed = runTest(["oxide_get_oid_file_size", fileOid])
 
-# # TEST: Get disassembly for file represented by OID 
-# parsed = runTest(['oxide_get_disassembly', fileOid], False)
-# dumpToFile(parsed, f"tmp_test_disasm_{fileName}_{userId}_{uuid.uuid4().hex}")
+# TEST: Get disassembly for file represented by OID 
+parsed = runTest(["oxide_get_disassembly", fileOid], False)
+dumpToTmpFile(parsed, f"disasm_{fileName}")
 
-# # TEST: Get disassembly for file represented by OID (just instruction strings)
-# parsed = runTest(['oxide_get_disassembly_strings_only', fileOid], False)
-# dumpToFile(parsed, f"tmp_test_disasmstr_{fileName}_{userId}_{uuid.uuid4().hex}")
-
-# TEST: Use another method to get disassembly for file represented by OID 
-# THIS METHOD IS NOT RECOMMENDED -- TEST COMMENTED OUT 
-# moduleName = "disassembly"
-# commandList = ["oxide_get_mod_type", moduleName]
-# moduleType = postCommand(commandList)
-# commandList = ["oxide_single_call_module", moduleType, moduleName]
-# fileOids = [ fileOid ]
-# commandList.append(fileOids)
-# opts = { "disassembler":"ghidra_disasm", "decoder":"native" }
-# commandList.append(opts)
-# parsed = runTest(commandList, False)
-# dumpToFile(parsed, f"tmp_test_disasm2_{fileName}_{userId}_{uuid.uuid4().hex}")
+# TEST: Get disassembly for file represented by OID (just instruction strings)
+parsed = runTest(["oxide_get_disassembly_strings_only", fileOid], False)
+dumpToTmpFile(parsed, f"disasmstr_{fileName}")
 
 # TEST: Get function info for a binary file
 parsed = runTest(['oxide_get_function_info', fileOid])

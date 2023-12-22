@@ -51,13 +51,15 @@ class SyncPortal(Resource):
             responseString = "session update requested for user " + content["userId"]
             return json.dumps(responseString), 200
 
-        elif (commandList[0] == "get_canned_oxide_program"):
-            oxideProgram = CannedOxideProgram(os.path.join(cannedOxideProgramsLocation, commandList[1]))
-            return oxideProgram.getBlocksJson(), 200
+        # Supply canned or semi-canned info for initatives that is dormant -- comment it out for now. 
+        # elif (commandList[0] == "get_canned_oxide_program"):
+        #     oxideProgram = CannedOxideProgram(os.path.join(cannedOxideProgramsLocation, commandList[1]))
+        #     return oxideProgram.getBlocksJson(), 200
 
-        elif (commandList[0] == "get_compviz_stages"):
-            compVizStages = CompVizStages(os.path.join(compVizProgramsLocation, commandList[1]), commandList[1])
-            return compVizStages.getStagesJson(), 200
+        # Supply canned or semi-canned info for initatives that is dormant -- comment it out for now. 
+        # elif (commandList[0] == "get_compviz_stages"):
+        #     compVizStages = CompVizStages(os.path.join(compVizProgramsLocation, commandList[1]), commandList[1])
+        #     return compVizStages.getStagesJson(), 200
        
         elif (commandList[0] == "oxide_collection_names"):
             responseString += " !!! OXIDE NOT IN USE"
@@ -130,17 +132,7 @@ class SyncPortal(Resource):
                 responseString = local_oxide.get_mod_type(moduleName)
                 return json.dumps(responseString), 200
 
-        elif (commandList[0] == "oxide_single_call_module"):
-            responseString += " !!! OXIDE NOT IN USE"
-            if (useOxide):
-                moduleType = commandList[1]
-                moduleName = commandList[2]
-                oidList = commandList[3]
-                opts = commandList[4]
-                responseString = local_oxide.single_call_module(moduleType, moduleName, oidList, opts)
-                return json.dumps(responseString), 200
-
-        # Pulls the name of inputed OID
+        # Return names associated with provided OID
         elif (commandList[0] == "oxide_get_names_from_oid"):
             responseString += " !!! OXIDE NOT IN USE"
             if (useOxide):
@@ -156,49 +148,49 @@ class SyncPortal(Resource):
                 responseString = local_oxide.get_field("file_meta", OID, "size")
                 return json.dumps(responseString), 200
 
-        # Get disassembly with ALL fields available                
-        elif (commandList[0] == "oxide_get_disassembly"):
-            responseString += " !!! OXIDE NOT IN USE"
-            if (useOxide):
-                OID = commandList[1] 
-                
-                # OPTION 1: This method to get the disassembly is recommended by Oxide authors.
-                # As configured, it returns a single string (in a dictionary) per statement, e.g., 
-                # "1944": {"str": "MOV  EAX,dword ptr [ESP + 0x4]"}
-                # Reconfigure by changing the dictionary in the third parameter. 
-                # Removing it entirely gets you the full dictionary per statement as in this example:
-                # "8196": {"id": 715, "mnemonic": "sub", "address": 8196, "op_str": "rsp, 8", "size": 4, 
-                #          "str": "sub rsp, 8", "groups": [], "regs_read": [], "regs_write": ["rflags"], 
-                #          "regs_access": [[], ["rflags"]], "prefix": [0, 0, 0, 0], "opcode": [131, 0, 0, 0], 
-                #          "rex": 72, "operand_size": 8, "modrm": 236, 
-                #          "eflags": ["MOD_AF", "MOD_CF", "MOD_SF", "MOD_ZF", "MOD_PF", "MOD_OF"], 
-                #          "operands": {"operand_0": {"type.reg": "rsp", "size": 8, "access": "read|write"}, "operand_1": {"type.imm": 8, "size": 8}}}
-                # responseString = local_oxide.retrieve("disassembly", [ OID ], {'disassembler': 'ghidra_disasm', 'decoder': 'native'})
-                responseString = local_oxide.retrieve("disassembly", [ OID ])
-
-                # OPTION 2: This method to get the disassembly directly calls the disassembly analyzer-type module. 
-                # THIS IS NOT RECOMMENDED. THIS COMMENT BLOCK REMAINS HERE FOR DOCUMENTATION PURPOSES. 
-                # As configured, it returns a single string (in a dictionary) per statement, e.g., 
-                # "1944": {"str": "MOV  EAX,dword ptr [ESP + 0x4]"}
-                # responseString = local_oxide.single_call_module('analyzers', 'disassembly', [ OID ], {'disassembler': 'ghidra_disasm', 'decoder': 'native'})
-
-                return json.dumps(responseString), 200
-        
-        # Get disassembly with instruction addresses and strings only
-        # See comments above for the "oxide_get_disassembly" command
-        elif (commandList[0] == "oxide_get_disassembly_strings_only"):
-            responseString += " !!! OXIDE NOT IN USE"
-            if (useOxide):
-                OID = commandList[1] 
-                responseString = local_oxide.retrieve("disassembly", [ OID ], {'disassembler': 'ghidra_disasm', 'decoder': 'native'})
-                return json.dumps(responseString), 200
-
         # Get function info for a binary file
         elif (commandList[0] == "oxide_get_function_info"):
             responseString += " !!! OXIDE NOT IN USE"
             if (useOxide):
                 OID = commandList[1] 
                 responseString = local_oxide.retrieve("function_summary", [ OID ])
+                return json.dumps(responseString), 200
+
+        # Call any module with the supplied parameters and return the results
+        elif (commandList[0] == "oxide_retrieve"):
+            responseString += " !!! OXIDE NOT IN USE"
+            if (useOxide):
+                moduleName = commandList[1]
+                oidList = commandList[2]
+                opts = commandList[3]
+                responseString = local_oxide.retrieve(moduleName, oidList, opts)
+                return json.dumps(responseString), 200
+
+        # Use disassembly module to get disassembly with ALL fields available                
+        # This is a convenience command (client can also just call "oxide_retrieve" with proper parameters)
+        elif (commandList[0] == "oxide_get_disassembly"):
+            responseString += " !!! OXIDE NOT IN USE"
+            if (useOxide):
+                OID = commandList[1] 
+                # Example of what is returned for ONE instruction:
+                # "8196": {"id": 715, "mnemonic": "sub", "address": 8196, "op_str": "rsp, 8", "size": 4, 
+                #          "str": "sub rsp, 8", "groups": [], "regs_read": [], "regs_write": ["rflags"], 
+                #          "regs_access": [[], ["rflags"]], "prefix": [0, 0, 0, 0], "opcode": [131, 0, 0, 0], 
+                #          "rex": 72, "operand_size": 8, "modrm": 236, 
+                #          "eflags": ["MOD_AF", "MOD_CF", "MOD_SF", "MOD_ZF", "MOD_PF", "MOD_OF"], 
+                #          "operands": {"operand_0": {"type.reg": "rsp", "size": 8, "access": "read|write"}, "operand_1": {"type.imm": 8, "size": 8}}}
+                responseString = local_oxide.retrieve("disassembly", [ OID ])
+                return json.dumps(responseString), 200
+        
+        # Use disassembly module to get disassembly with instruction addresses and strings only
+        # This is a convenience command (client can also just call "oxide_retrieve" with proper parameters)
+        elif (commandList[0] == "oxide_get_disassembly_strings_only"):
+            responseString += " !!! OXIDE NOT IN USE"
+            if (useOxide):
+                OID = commandList[1] 
+                # Example of what is returned for ONE instruction:
+                # "1944": {"str": "MOV  EAX,dword ptr [ESP + 0x4]"}
+                responseString = local_oxide.retrieve("disassembly", [ OID ], {'disassembler': 'ghidra_disasm', 'decoder': 'native'})
                 return json.dumps(responseString), 200
 
         return json.dumps(responseString), 500  # if we get here, there is an error
