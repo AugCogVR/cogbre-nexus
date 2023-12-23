@@ -129,8 +129,15 @@ dumpToTmpFile(parsed, f"disasm_{fileName}")
 parsed = runTest(["oxide_get_disassembly_strings_only", fileOid], False)
 dumpToTmpFile(parsed, f"disasmstr_{fileName}")
 
+# ***TEMP*** TEST: Get disassembly for specific file
+parsed = runTest(["oxide_get_disassembly_strings_only", "53acc9e9b3f092d205281b0a51ba8d070e7e3128"], False)
+dumpToTmpFile(parsed, f"disasmstr_host")
+
 # TEST: Get function info for a binary file
 parsed = runTest(['oxide_get_function_info', fileOid])
+
+# ***TEMP*** TEST: Get function info for specific file
+parsed = runTest(['oxide_get_function_info', "53acc9e9b3f092d205281b0a51ba8d070e7e3128"])
 
 
 print("\n========================")
