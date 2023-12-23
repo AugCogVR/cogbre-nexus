@@ -39,7 +39,9 @@ class SyncPortal(Resource):
         content = request.get_json(force = True)
         print(f"POSTED: userId = {content['userId']} command = {content['command']}")
         commandList = content["command"]
-        responseString = f"Command not processed: {commandList} -- if an Oxide command, is oxidepath specified?"
+        responseString = f"Command not processed: {commandList}"
+        if ("oxide" in commandList[0]):
+            responseString += " ... is oxidepath specified?"
 
         if (commandList[0] == "session_init"):
             sessionController = SessionController(content["userId"])
