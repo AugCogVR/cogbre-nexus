@@ -121,23 +121,27 @@ parsed = runTest(["oxide_get_names_from_oid", fileOid])
 # TEST: Get file size for file represented by OID
 parsed = runTest(["oxide_get_oid_file_size", fileOid])
 
-# TEST: Get disassembly for file represented by OID 
+# TEST: Get disassembly for file represented by OID (default)
 parsed = runTest(["oxide_get_disassembly", fileOid], False)
 dumpToTmpFile(parsed, f"disasm_{fileName}")
 
+# TEST: Get disassembly for file represented by OID (complete)
+parsed = runTest(["oxide_get_disassembly_complete", fileOid], False)
+dumpToTmpFile(parsed, f"disasm_complete_{fileName}")
+
 # TEST: Get disassembly for file represented by OID (just instruction strings)
 parsed = runTest(["oxide_get_disassembly_strings_only", fileOid], False)
-dumpToTmpFile(parsed, f"disasmstr_{fileName}")
+dumpToTmpFile(parsed, f"disasm_strings_{fileName}")
 
-# ***TEMP*** TEST: Get disassembly for specific file
-parsed = runTest(["oxide_get_disassembly_strings_only", "53acc9e9b3f092d205281b0a51ba8d070e7e3128"], False)
-dumpToTmpFile(parsed, f"disasmstr_host")
+# # ***TEMP*** TEST: Get disassembly for specific file
+# parsed = runTest(["oxide_get_disassembly_strings_only", "53acc9e9b3f092d205281b0a51ba8d070e7e3128"], False)
+# dumpToTmpFile(parsed, f"disasmstr_host")
 
 # TEST: Get function info for a binary file
 parsed = runTest(['oxide_get_function_info', fileOid])
 
-# ***TEMP*** TEST: Get function info for specific file
-parsed = runTest(['oxide_get_function_info', "53acc9e9b3f092d205281b0a51ba8d070e7e3128"])
+# # ***TEMP*** TEST: Get function info for specific file
+# parsed = runTest(['oxide_get_function_info', "53acc9e9b3f092d205281b0a51ba8d070e7e3128"])
 
 
 print("\n========================")

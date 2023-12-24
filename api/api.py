@@ -53,12 +53,12 @@ class SyncPortal(Resource):
             responseString = "session update requested for user " + content["userId"]
             return json.dumps(responseString), 200
 
-        # Supply canned or semi-canned info for initatives that is dormant -- comment it out for now. 
+        # Supply canned or semi-canned info for initatives that are dormant -- comment it out for now. 
         # elif (commandList[0] == "get_canned_oxide_program"):
         #     oxideProgram = CannedOxideProgram(os.path.join(cannedOxideProgramsLocation, commandList[1]))
         #     return oxideProgram.getBlocksJson(), 200
 
-        # Supply canned or semi-canned info for initatives that is dormant -- comment it out for now. 
+        # Supply canned or semi-canned info for initatives that are dormant -- comment it out for now. 
         # elif (commandList[0] == "get_compviz_stages"):
         #     compVizStages = CompVizStages(os.path.join(compVizProgramsLocation, commandList[1]), commandList[1])
         #     return compVizStages.getStagesJson(), 200
@@ -144,9 +144,29 @@ class SyncPortal(Resource):
                 responseObject = local_oxide.retrieve(moduleName, oidList, opts)
                 return json.dumps(responseObject), 200
 
+            # Use disassembly module to get disassembly with default fields (see alternatives below)
+            # This command alters the output of the basic_blocks module to simplify it.
+            elif (commandList[0] == "oxide_get_disassembly"):
+                OID = commandList[1] 
+                responseObject = local_oxide.retrieve("disassembly", [ OID ])
+                # We'll create a custom response object with just the info we want
+                customResponseObject = {}
+                # Walk through each oid, gather certain data, and add it to custom repsonse object
+                for oid, oidInfo in responseObject.items():
+                    customOidInfo = {}
+                    customOidInfo["instructions"] = {}
+                    for offset, instructionDict in oidInfo["instructions"].items(): 
+                        customInstructionDict = {}
+                        customInstructionDict["mnemonic"] = instructionDict["mnemonic"]
+                        customInstructionDict["op_str"] = instructionDict["op_str"]
+                        customInstructionDict["str"] = instructionDict["str"]
+                        customOidInfo["instructions"][offset] = customInstructionDict
+                    customResponseObject[oid] = customOidInfo
+                return json.dumps(customResponseObject), 200
+
             # Use disassembly module to get disassembly with ALL fields available                
             # This is a convenience command (client can also just call "oxide_retrieve" with proper parameters)
-            elif (commandList[0] == "oxide_get_disassembly"):
+            elif (commandList[0] == "oxide_get_disassembly_complete"):
                 OID = commandList[1] 
                 # Example of what is returned for ONE instruction:
                 # "8196": {"id": 715, "mnemonic": "sub", "address": 8196, "op_str": "rsp, 8", "size": 4, 
@@ -174,10 +194,12 @@ class SyncPortal(Resource):
             elif (commandList[0] == "oxide_get_basic_blocks"):
                 OID = commandList[1] 
                 responseObject = local_oxide.retrieve("basic_blocks", [ OID ])
+                # We'll create a custom response object with just the info we want
                 customResponseObject = {}
+                # Walk through each oid, gather certain data, and add it to custom repsonse object
                 for oid, oidInfo in responseObject.items():
                     customOidInfo = {}
-                    for insn, blockInfo in list(responseObject.values())[0].items(): # only want the first OID
+                    for insn, blockInfo in oidInfo.items():
                         customBlockInfo = {}
                         memberList = []
                         for member in blockInfo["members"]:
