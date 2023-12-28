@@ -143,6 +143,12 @@ parsed = runTest(['oxide_get_function_info', fileOid])
 # # ***TEMP*** TEST: Get function info for specific file
 # parsed = runTest(['oxide_get_function_info', "53acc9e9b3f092d205281b0a51ba8d070e7e3128"])
 
+# TEST: Retrieve strings for a binary
+parsed = runTest(["oxide_retrieve", "strings", [ fileOid ], {}])
+
+# TEST: Retrieve file stats for a binary
+parsed = runTest(["oxide_retrieve", "file_stats", [ fileOid ], {}])
+
 
 print("\n========================")
 
