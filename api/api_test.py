@@ -149,6 +149,14 @@ parsed = runTest(["oxide_retrieve", "strings", [ fileOid ], {}])
 # TEST: Retrieve file stats for a binary
 parsed = runTest(["oxide_retrieve", "file_stats", [ fileOid ], {}])
 
+# TEST: Retrieve function_extract
+parsed = runTest(["oxide_retrieve", "function_extract", [ fileOid ], {}], False)
+dumpToTmpFile(parsed, f"function_extract_{fileName}")
+
+# TEST: Retrieve ghidra_decmap
+parsed = runTest(["oxide_retrieve", "ghidra_decmap", [ fileOid ], {}], False)
+dumpToTmpFile(parsed, f"ghidra_decmap_{fileName}")
+
 
 print("\n========================")
 
