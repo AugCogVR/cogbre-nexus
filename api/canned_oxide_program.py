@@ -4,6 +4,7 @@ import json
 
 # THIS IS LIKELY TO BE DEPRECATED SOON AS IT SUPPORTS A DORMANT INITIATIVE. 
 
+
 class CannedOxideProgram: # For loading an Oxide program's JSON dump from a local file
     def __init__(self, folder):
         blocksFile = open(os.path.join(folder, "basic_blocks"))

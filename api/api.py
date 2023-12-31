@@ -17,8 +17,11 @@ from session import *
 app = Flask(__name__)
 api = Api(app)
 
-cannedOxideProgramsLocation = os.path.join("data", "samples", "bre")
-compVizProgramsLocation = os.path.join("data", "samples", "compviz")
+
+# TODO: REALLY WANT TO REMOVE THIS CANNED STUFF but not until front-end pieces that use it are updated to use live data.
+# cannedOxideProgramsLocation = os.path.join("data", "samples", "bre")
+# compVizProgramsLocation = os.path.join("data", "samples", "compviz")
+
 
 # Import Oxide if Oxide path is given
 parser = argparse.ArgumentParser('cogbre nexus API server')
@@ -53,11 +56,13 @@ class SyncPortal(Resource):
             responseString = "session update requested for user " + content["userId"]
             return json.dumps(responseString), 200
 
+        # COMMENTED OUT BECAUSE I INTEND TO REMOVE THIS SOON! 
         # Supply canned or semi-canned info for initatives that are dormant -- comment it out for now. 
         # elif (commandList[0] == "get_canned_oxide_program"):
         #     oxideProgram = CannedOxideProgram(os.path.join(cannedOxideProgramsLocation, commandList[1]))
         #     return oxideProgram.getBlocksJson(), 200
 
+        # COMMENTED OUT BECAUSE I INTEND TO REMOVE THIS SOON! 
         # Supply canned or semi-canned info for initatives that are dormant -- comment it out for now. 
         # elif (commandList[0] == "get_compviz_stages"):
         #     compVizStages = CompVizStages(os.path.join(compVizProgramsLocation, commandList[1]), commandList[1])
@@ -85,11 +90,13 @@ class SyncPortal(Resource):
                 responseObject = local_oxide.get_file_info(fileName)
                 return json.dumps(responseObject), 200
 
+            # Find all OIDs with a given name. NOTE: Nothing uses this. 
             elif (commandList[0] == "oxide_get_oids_with_name"):
                 someName = commandList[1]
                 responseObject = local_oxide.get_oids_with_name(someName)
                 return json.dumps(responseObject), 200
 
+            # Get all the Object IDs associated with a Collection ID
             # NOTE: This function does not directly map to an Oxide API function.
             # It is included for convenience. 
             # Perhaps I should implement a wrapper for get_field instead. 
@@ -98,11 +105,15 @@ class SyncPortal(Resource):
                 responseObject = local_oxide.get_field("collections", someCid, "oid_list")
                 return json.dumps(responseObject), 200
 
+            # Get a list of available modules in a category. NOTE: Nothing uses this. 
             elif (commandList[0] == "oxide_get_available_modules"):
                 category = commandList[1]
                 responseObject = local_oxide.get_available_modules(category)
                 return json.dumps(responseObject), 200
 
+            # This command alters the output of the documentation function
+            # because some values are not serializable.
+            # Only return "description" and "Usage" (if available) 
             elif (commandList[0] == "oxide_documentation"):
                 moduleName = commandList[1]
                 responseObject = local_oxide.documentation(moduleName)
@@ -110,13 +121,6 @@ class SyncPortal(Resource):
                 if ("Usage" in responseObject):
                     newDict["Usage"] = responseObject["Usage"]
                 return json.dumps(newDict), 200
-                # Only return "description" and "Usage" (if available) because "opts_doc" 
-                # may contain unserializable types
-
-            elif (commandList[0] == "oxide_get_mod_type"):
-                moduleName = commandList[1]
-                responseObject = local_oxide.get_mod_type(moduleName)
-                return json.dumps(responseObject), 200
 
             # Return names associated with provided OID
             elif (commandList[0] == "oxide_get_names_from_oid"):
@@ -125,15 +129,10 @@ class SyncPortal(Resource):
                 responseObject = list(local_oxide.get_names_from_oid(OID))
                 return json.dumps(responseObject), 200
 
+            # Get file size of a binary file represented by the given OID
             elif (commandList[0] == "oxide_get_oid_file_size"):
                 OID = commandList[1]
                 responseObject = local_oxide.get_field("file_meta", OID, "size")
-                return json.dumps(responseObject), 200
-
-            # Get function info for a binary file
-            elif (commandList[0] == "oxide_get_function_info"):
-                OID = commandList[1] 
-                responseObject = local_oxide.retrieve("function_summary", [ OID ])
                 return json.dumps(responseObject), 200
 
             # Call any module with the supplied parameters and return the results
@@ -145,7 +144,9 @@ class SyncPortal(Resource):
                 return json.dumps(responseObject), 200
 
             # Use disassembly module to get disassembly with default fields (see alternatives below)
-            # This command alters the output of the basic_blocks module to simplify it.
+            # This command alters the output of the disassembly module to simplify it because 
+            # every client-side (C#) JSON parser that I tried barfs on the nested arrays
+            # (C# default, NewtonSoft, LitJson)
             elif (commandList[0] == "oxide_get_disassembly"):
                 OID = commandList[1] 
                 responseObject = local_oxide.retrieve("disassembly", [ OID ])
@@ -163,29 +164,6 @@ class SyncPortal(Resource):
                         customOidInfo["instructions"][offset] = customInstructionDict
                     customResponseObject[oid] = customOidInfo
                 return json.dumps(customResponseObject), 200
-
-            # Use disassembly module to get disassembly with ALL fields available                
-            # This is a convenience command (client can also just call "oxide_retrieve" with proper parameters)
-            elif (commandList[0] == "oxide_get_disassembly_complete"):
-                OID = commandList[1] 
-                # Example of what is returned for ONE instruction:
-                # "8196": {"id": 715, "mnemonic": "sub", "address": 8196, "op_str": "rsp, 8", "size": 4, 
-                #          "str": "sub rsp, 8", "groups": [], "regs_read": [], "regs_write": ["rflags"], 
-                #          "regs_access": [[], ["rflags"]], "prefix": [0, 0, 0, 0], "opcode": [131, 0, 0, 0], 
-                #          "rex": 72, "operand_size": 8, "modrm": 236, 
-                #          "eflags": ["MOD_AF", "MOD_CF", "MOD_SF", "MOD_ZF", "MOD_PF", "MOD_OF"], 
-                #          "operands": {"operand_0": {"type.reg": "rsp", "size": 8, "access": "read|write"}, "operand_1": {"type.imm": 8, "size": 8}}}
-                responseObject = local_oxide.retrieve("disassembly", [ OID ])
-                return json.dumps(responseObject), 200
-            
-            # Use disassembly module to get disassembly with instruction addresses and strings only
-            # This is a convenience command (client can also just call "oxide_retrieve" with proper parameters)
-            elif (commandList[0] == "oxide_get_disassembly_strings_only"):
-                OID = commandList[1] 
-                # Example of what is returned for ONE instruction:
-                # "1944": {"str": "MOV  EAX,dword ptr [ESP + 0x4]"}
-                responseObject = local_oxide.retrieve("disassembly", [ OID ], {'disassembler': 'ghidra_disasm', 'decoder': 'native'})
-                return json.dumps(responseObject), 200
 
             # Use basic_blocks module to grab basic blocks of a binary.
             # This command alters the output of the basic_blocks module to simplify it because 

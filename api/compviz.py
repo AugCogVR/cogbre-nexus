@@ -3,6 +3,9 @@ import os
 import re
 
 
+# THIS IS LIKELY TO BE DEPRECATED SOON AS IT SUPPORTS A DORMANT INITIATIVE. 
+
+
 class Stage:
     def __init__(self, folder, rootname, type):
         self.stageDict = {}

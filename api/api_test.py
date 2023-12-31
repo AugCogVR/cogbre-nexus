@@ -8,7 +8,6 @@ userId = "Test123"
 
 # Post a command to the Nexus API, get the response, parse it as JSON, and return it
 def postCommand(commandList):
-    # r = requests.post('http://127.0.0.1:5000/sync_portal', json={"userId":userId, "command":json.dumps(commandList)})
     r = requests.post('http://127.0.0.1:5000/sync_portal', json={"userId":userId, "command":commandList})
     # print(f"JSON: {r.json()}")
     parsed = json.loads(r.json())
@@ -126,22 +125,15 @@ parsed = runTest(["oxide_get_disassembly", fileOid], False)
 dumpToTmpFile(parsed, f"disasm_{fileName}")
 
 # TEST: Get disassembly for file represented by OID (complete)
-parsed = runTest(["oxide_get_disassembly_complete", fileOid], False)
+parsed = runTest(["oxide_retrieve", "disassembly", [ fileOid ], {}], False)
 dumpToTmpFile(parsed, f"disasm_complete_{fileName}")
 
 # TEST: Get disassembly for file represented by OID (just instruction strings)
-parsed = runTest(["oxide_get_disassembly_strings_only", fileOid], False)
+parsed = runTest(["oxide_retrieve", "disassembly", [ fileOid ], {'disassembler': 'ghidra_disasm', 'decoder': 'native'}], False)
 dumpToTmpFile(parsed, f"disasm_strings_{fileName}")
-
-# # ***TEMP*** TEST: Get disassembly for specific file
-# parsed = runTest(["oxide_get_disassembly_strings_only", "53acc9e9b3f092d205281b0a51ba8d070e7e3128"], False)
-# dumpToTmpFile(parsed, f"disasmstr_host")
 
 # TEST: Get function info for a binary file
 parsed = runTest(['oxide_get_function_info', fileOid])
-
-# # ***TEMP*** TEST: Get function info for specific file
-# parsed = runTest(['oxide_get_function_info', "53acc9e9b3f092d205281b0a51ba8d070e7e3128"])
 
 # TEST: Retrieve strings for a binary
 parsed = runTest(["oxide_retrieve", "strings", [ fileOid ], {}])
