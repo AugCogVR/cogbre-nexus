@@ -145,9 +145,13 @@ parsed = runTest(["oxide_retrieve", "file_stats", [ fileOid ], {}])
 parsed = runTest(["oxide_retrieve", "function_extract", [ fileOid ], {}], False)
 dumpToTmpFile(parsed, f"function_extract_{fileName}")
 
-# TEST: Retrieve ghidra_decmap
+# TEST: Retrieve ghidra_decmap (default version)
 parsed = runTest(["oxide_retrieve", "ghidra_decmap", [ fileOid ], {}], False)
-dumpToTmpFile(parsed, f"ghidra_decmap_{fileName}")
+dumpToTmpFile(parsed, f"ghidra_decmap_default_{fileName}")
+
+# TEST: Retrieve ghidra_decmap (results organized by function)
+parsed = runTest(["oxide_retrieve", "ghidra_decmap", [ fileOid ], {'org_by_func':True}], False)
+dumpToTmpFile(parsed, f"ghidra_decmap_byfunc_{fileName}")
 
 
 print("\n========================")
