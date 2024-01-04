@@ -153,6 +153,10 @@ dumpToTmpFile(parsed, f"ghidra_decmap_default_{fileName}")
 parsed = runTest(["oxide_retrieve", "ghidra_decmap", [ fileOid ], {'org_by_func':True}], False)
 dumpToTmpFile(parsed, f"ghidra_decmap_byfunc_{fileName}")
 
+# TEST: Retrieve functional calls
+parsed = runTest(["oxide_retrieve", "function_calls", [ fileOid ], {}], False)
+dumpToTmpFile(parsed, f"function_calls_{fileName}")
+
 
 print("\n========================")
 
