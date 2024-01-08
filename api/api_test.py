@@ -157,6 +157,10 @@ dumpToTmpFile(parsed, f"ghidra_decmap_byfunc_{fileName}")
 parsed = runTest(["oxide_retrieve", "function_calls", [ fileOid ], {}], False)
 dumpToTmpFile(parsed, f"function_calls_{fileName}")
 
+# TEST: Retrieve function call mapping
+parsed = runTest(["oxide_retrieve", "call_mapping", [ fileOid ], {}], False)
+dumpToTmpFile(parsed, f"call_mapping_{fileName}")
+
 # TEMP TEST: Retrieve function_extract for regedit.exe
 parsed = runTest(["oxide_retrieve", "function_extract", [ '48f4612efeb713a5860726fdb999ceceff07557d' ], {}], False)
 dumpToTmpFile(parsed, f"function_extract_regedit.exe")
@@ -164,6 +168,10 @@ dumpToTmpFile(parsed, f"function_extract_regedit.exe")
 # TEMP TEST: Retrieve function calls for regedit.exe
 parsed = runTest(["oxide_retrieve", "function_calls", [ '48f4612efeb713a5860726fdb999ceceff07557d' ], {}], False)
 dumpToTmpFile(parsed, f"function_calls_regedit.exe")
+
+# TEMP TEST: Retrieve function call mapping for regedit.exe
+parsed = runTest(["oxide_retrieve", "call_mapping", [ '48f4612efeb713a5860726fdb999ceceff07557d' ], {}], False)
+dumpToTmpFile(parsed, f"call_mapping_regedit.exe")
 
 # TEMP TEST: Retrieve basic blocks for regedit.exe via retrieve
 parsed = runTest(["oxide_retrieve", "basic_blocks", [ '48f4612efeb713a5860726fdb999ceceff07557d' ], { "disassembler":"ghidra_disasm" }], False)
