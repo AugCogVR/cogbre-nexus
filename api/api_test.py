@@ -161,6 +161,7 @@ dumpToTmpFile(parsed, f"function_calls_{fileName}")
 parsed = runTest(["oxide_retrieve", "call_mapping", [ fileOid ], {}], False)
 dumpToTmpFile(parsed, f"call_mapping_{fileName}")
 
+
 # TEMP TEST: Retrieve function_extract for regedit.exe
 parsed = runTest(["oxide_retrieve", "function_extract", [ '48f4612efeb713a5860726fdb999ceceff07557d' ], {}], False)
 dumpToTmpFile(parsed, f"function_extract_regedit.exe")
@@ -185,5 +186,12 @@ dumpToTmpFile(parsed, f"basicblocks_regedit.exe")
 parsed = runTest(["oxide_get_disassembly", '48f4612efeb713a5860726fdb999ceceff07557d'], False)
 dumpToTmpFile(parsed, f"disasm_regedit.exe")
 
+
+# TEMP TEST: Retrieve function call mapping for hexdumpe
+parsed = runTest(["oxide_retrieve", "call_mapping", [ 'eabb52edb5de50a6d9b6dc70c169de7e1f05a34b' ], {}], False)
+dumpToTmpFile(parsed, f"call_mapping_hexdump")
+
+
 print("\n========================")
+
 
