@@ -32,6 +32,7 @@ if (useOxide):
     print(f'oxide path: {args.oxidepath}')
     # We assume the user gave the home directory for Oxide. 
     sys.path.append(args.oxidepath+'/src')
+    sys.path.append(args.oxidepath+'/src/oxide')
     from oxide.core import oxide as local_oxide
 #    print(local_oxide.collection_names())
 # TODO: catch errors and set useOxide = False
