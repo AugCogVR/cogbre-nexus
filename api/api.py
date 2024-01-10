@@ -86,11 +86,6 @@ class SyncPortal(Resource):
                 responseObject = local_oxide.get_collection_info(colName, view)
                 return json.dumps(responseObject), 200
 
-            elif (commandList[0] == "oxide_get_file_info"):
-                fileName = commandList[1]
-                responseObject = local_oxide.get_file_info(fileName)
-                return json.dumps(responseObject), 200
-
             # Find all OIDs with a given name. NOTE: Nothing uses this. 
             elif (commandList[0] == "oxide_get_oids_with_name"):
                 someName = commandList[1]

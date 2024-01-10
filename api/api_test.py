@@ -79,11 +79,6 @@ if (parsed["files"] is not None):
     if (len(parsed["files"]) > 0):
         fileName = parsed["files"][0]
 
-# TEST: Get info for a filename
-# This call returns None and I'm not sure why. I'm probably not giving it a proper filename...???
-# TODO: Fix it
-# parsed = runTest(["oxide_get_file_info", fileName])
-
 # TEST: Get oids for a filename. THIS CAN BE SO SLOW IF THE COLLECTION IS HUGE. 
 parsed = runTest(["oxide_get_oids_with_name", fileName])
 fileOid = list(parsed.keys())[0]
