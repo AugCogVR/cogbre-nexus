@@ -1,0 +1,7 @@
+digraph "packages" {
+rankdir=BT
+charset="utf-8"
+"api" [color="aliceblue", label="api", shape="box", style="filled"];
+"api.__main__" [color="aliceblue", label="api.__main__", shape="box", style="filled"];
+"api.session" [color="aliceblue", label="api.session", shape="box", style="filled"];
+}

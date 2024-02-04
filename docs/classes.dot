@@ -1,0 +1,11 @@
+digraph "classes" {
+rankdir=BT
+charset="utf-8"
+"api.__main__.SyncPortal" [color="aliceblue", fontcolor="black", label="{api.__main__.SyncPortal|\l|post()\l}", shape="record", style="filled"];
+"api.session.SessionController" [color="aliceblue", fontcolor="black", label="{api.session.SessionController|userId\l|}", shape="record", style="filled"];
+"api.session.SessionControllers" [color="aliceblue", fontcolor="black", label="{api.session.SessionControllers|sessionControllers : dict\l|addSessionController(sessionController)\l}", shape="record", style="filled"];
+"flask.views.MethodView" [color="antiquewhite", fontcolor="black", label="{flask.views.MethodView|\l|dispatch_request()\l}", shape="record", style="filled"];
+"flask_restful.Resource" [color="aquamarine", fontcolor="black", label="{flask_restful.Resource|method_decorators : list\lrepresentations : NoneType\l|dispatch_request()\l}", shape="record", style="filled"];
+"api.__main__.SyncPortal" -> "flask_restful.Resource" [arrowhead="empty", arrowtail="none"];
+"flask_restful.Resource" -> "flask.views.MethodView" [arrowhead="empty", arrowtail="none"];
+}
