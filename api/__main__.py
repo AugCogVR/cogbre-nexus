@@ -9,18 +9,11 @@ import os
 import sys
 import argparse
 import shlex
-from canned_oxide_program import *
-from compviz import *
 from session import *
 
 
 app = Flask(__name__)
 api = Api(app)
-
-
-# TODO: REALLY WANT TO REMOVE THIS CANNED STUFF but not until front-end pieces that use it are updated to use live data.
-# cannedOxideProgramsLocation = os.path.join("data", "samples", "bre")
-# compVizProgramsLocation = os.path.join("data", "samples", "compviz")
 
 
 # Import Oxide if Oxide path is given
@@ -56,18 +49,6 @@ class SyncPortal(Resource):
         elif (commandList[0] == "get_session_update"):
             responseString = "session update requested for user " + content["userId"]
             return json.dumps(responseString), 200
-
-        # COMMENTED OUT BECAUSE I INTEND TO REMOVE THIS SOON! 
-        # Supply canned or semi-canned info for initatives that are dormant -- comment it out for now. 
-        # elif (commandList[0] == "get_canned_oxide_program"):
-        #     oxideProgram = CannedOxideProgram(os.path.join(cannedOxideProgramsLocation, commandList[1]))
-        #     return oxideProgram.getBlocksJson(), 200
-
-        # COMMENTED OUT BECAUSE I INTEND TO REMOVE THIS SOON! 
-        # Supply canned or semi-canned info for initatives that are dormant -- comment it out for now. 
-        # elif (commandList[0] == "get_compviz_stages"):
-        #     compVizStages = CompVizStages(os.path.join(compVizProgramsLocation, commandList[1]), commandList[1])
-        #     return compVizStages.getStagesJson(), 200
 
         elif (useOxide):
 

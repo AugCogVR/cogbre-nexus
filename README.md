@@ -38,10 +38,6 @@ Start the api, then:
 
 "['get_session_update']"
 
-"['get_compviz_stages', 'fib-func']"
-
-"['get_canned_oxide_program', 'elf_fib_recursive']"
-
 "['oxide_collection_names']"
 
 "['oxide_get_cid_from_name', 'usrbinh']"
@@ -65,12 +61,5 @@ Start the api, then:
 
 Whatever is returned from the Oxide function call is dumped into a JSON string and returned to the client. There are minor exceptions for when the Oxide return value includes unserializable fields; see the code for those.
 
-### Compiler Stage Visualization:
-- Dict of "stages" list and "blockRelations" list
-- Each stage in the `stages` list consists of a type (C, llvm, asm), an identifier, the original code listing (dict of line number:code line), and the CFG blocks (dict of block name:block info, where block info includes the targeted blocks and the associated lines of code). 
-- `blockRelations` is a triple-nested list (forgive me) and works as follows: 
-  - Each innermost list identifies a block by [stage ID, block name]. 
-  - The next higher list is a group of related blocks; in this list, note there may be multiple blocks per stage or no blocks in a stage. 
-  - The highest level list (blockRelations) is just the set of all relation groups.
 
 

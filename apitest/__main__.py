@@ -25,7 +25,7 @@ def runTest(commandList, dumpToOutput = True):
 
 # Dump provided output to a temporary file. Filename is based on testName. 
 def dumpToTmpFile(parsedOutput, testName):
-    fileName = f"apitesttmp_{testName}_{userId}_{uuid.uuid4().hex}"
+    fileName = f"data/apitesttmp_{testName}_{userId}_{uuid.uuid4().hex}"
     with open(fileName, mode="wt") as f:
         f.write(json.dumps(parsedOutput, indent = 4))
     print(f"OUTPUT dumped to {fileName}")
