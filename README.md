@@ -15,14 +15,14 @@ This has been developed against Python 3.9.
 
 Ensure you have the packages in requirements.txt installed.
 
-`python api/api.py` without Oxide
-
-`python api/api.py --oxidepath ../oxide` with Oxide (change path as needed)
+`python api --oxidepath ../oxide` with Oxide (change path as needed)
 
 
 ## To test:
 
-`python api/api_test.py`
+Start the api, then:
+
+`python apitest`
 
 
 ## API endpoints & parameters
@@ -56,7 +56,7 @@ Ensure you have the packages in requirements.txt installed.
 
 "['oxide_get_mod_type', 'collections']"
 
-"['oxide_single_call_module', 'analyzers', 'basic_blocks', ['bafd0386f3cf5b88cae09428538109de22866132'], {'disassembler': 'ghidra_disasm'}]"
+"['oxide_retrieve', 'basic_blocks', ['bafd0386f3cf5b88cae09428538109de22866132'], {'disassembler': 'ghidra_disasm'}]"
 ```
 
 ## Data formats
