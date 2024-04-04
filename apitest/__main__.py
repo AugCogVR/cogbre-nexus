@@ -156,7 +156,10 @@ dumpToTmpFile(parsed, f"function_calls_{fileName}")
 parsed = runTest(["oxide_retrieve", "call_mapping", [ fileOid ], {}], False)
 dumpToTmpFile(parsed, f"call_mapping_{fileName}")
 
-# TEST: Retrieve capa results for hexdump
+# TEST: Retrieve capa results 
+parsed = runTest(["oxide_retrieve", "capa_results", [ fileOid ], {'rules_path':'../oxide/datasets/capa-rules/'}])
+
+# TEST: Retrieve capa results for hexdump in particular
 parsed = runTest(["oxide_retrieve", "capa_results", [ "eabb52edb5de50a6d9b6dc70c169de7e1f05a34b" ], {'rules_path':'../oxide/datasets/capa-rules/'}])
 
 
