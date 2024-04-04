@@ -156,35 +156,37 @@ dumpToTmpFile(parsed, f"function_calls_{fileName}")
 parsed = runTest(["oxide_retrieve", "call_mapping", [ fileOid ], {}], False)
 dumpToTmpFile(parsed, f"call_mapping_{fileName}")
 
-
-# TEMP TEST: Retrieve function_extract for regedit.exe
-parsed = runTest(["oxide_retrieve", "function_extract", [ '48f4612efeb713a5860726fdb999ceceff07557d' ], {}], False)
-dumpToTmpFile(parsed, f"function_extract_regedit.exe")
-
-# TEMP TEST: Retrieve function calls for regedit.exe
-parsed = runTest(["oxide_retrieve", "function_calls", [ '48f4612efeb713a5860726fdb999ceceff07557d' ], {}], False)
-dumpToTmpFile(parsed, f"function_calls_regedit.exe")
-
-# TEMP TEST: Retrieve function call mapping for regedit.exe
-parsed = runTest(["oxide_retrieve", "call_mapping", [ '48f4612efeb713a5860726fdb999ceceff07557d' ], {}], False)
-dumpToTmpFile(parsed, f"call_mapping_regedit.exe")
-
-# TEMP TEST: Retrieve basic blocks for regedit.exe via retrieve
-parsed = runTest(["oxide_retrieve", "basic_blocks", [ '48f4612efeb713a5860726fdb999ceceff07557d' ], { "disassembler":"ghidra_disasm" }], False)
-dumpToTmpFile(parsed, f"basicblocksviaretrieve_regedit.exe")
-
-# TEMP TEST: Retrieve basic blocks for regedit.exe
-parsed = runTest(["oxide_get_basic_blocks", '48f4612efeb713a5860726fdb999ceceff07557d'], False)
-dumpToTmpFile(parsed, f"basicblocks_regedit.exe")
-
-# TEMP TEST: Retrieve disassembly for regedit.exe
-parsed = runTest(["oxide_get_disassembly", '48f4612efeb713a5860726fdb999ceceff07557d'], False)
-dumpToTmpFile(parsed, f"disasm_regedit.exe")
+# TEST: Retrieve capa results for hexdump
+parsed = runTest(["oxide_retrieve", "capa_results", [ "eabb52edb5de50a6d9b6dc70c169de7e1f05a34b" ], {'rules_path':'../oxide/datasets/capa-rules/'}])
 
 
-# TEMP TEST: Retrieve function call mapping for hexdumpe
-parsed = runTest(["oxide_retrieve", "call_mapping", [ 'eabb52edb5de50a6d9b6dc70c169de7e1f05a34b' ], {}], False)
-dumpToTmpFile(parsed, f"call_mapping_hexdump")
+# # TEMP TEST: Retrieve function_extract for regedit.exe
+# parsed = runTest(["oxide_retrieve", "function_extract", [ '48f4612efeb713a5860726fdb999ceceff07557d' ], {}], False)
+# dumpToTmpFile(parsed, f"function_extract_regedit.exe")
+
+# # TEMP TEST: Retrieve function calls for regedit.exe
+# parsed = runTest(["oxide_retrieve", "function_calls", [ '48f4612efeb713a5860726fdb999ceceff07557d' ], {}], False)
+# dumpToTmpFile(parsed, f"function_calls_regedit.exe")
+
+# # TEMP TEST: Retrieve function call mapping for regedit.exe
+# parsed = runTest(["oxide_retrieve", "call_mapping", [ '48f4612efeb713a5860726fdb999ceceff07557d' ], {}], False)
+# dumpToTmpFile(parsed, f"call_mapping_regedit.exe")
+
+# # TEMP TEST: Retrieve basic blocks for regedit.exe via retrieve
+# parsed = runTest(["oxide_retrieve", "basic_blocks", [ '48f4612efeb713a5860726fdb999ceceff07557d' ], { "disassembler":"ghidra_disasm" }], False)
+# dumpToTmpFile(parsed, f"basicblocksviaretrieve_regedit.exe")
+
+# # TEMP TEST: Retrieve basic blocks for regedit.exe
+# parsed = runTest(["oxide_get_basic_blocks", '48f4612efeb713a5860726fdb999ceceff07557d'], False)
+# dumpToTmpFile(parsed, f"basicblocks_regedit.exe")
+
+# # TEMP TEST: Retrieve disassembly for regedit.exe
+# parsed = runTest(["oxide_get_disassembly", '48f4612efeb713a5860726fdb999ceceff07557d'], False)
+# dumpToTmpFile(parsed, f"disasm_regedit.exe")
+
+# # TEMP TEST: Retrieve function call mapping for hexdump
+# parsed = runTest(["oxide_retrieve", "call_mapping", [ 'eabb52edb5de50a6d9b6dc70c169de7e1f05a34b' ], {}], False)
+# dumpToTmpFile(parsed, f"call_mapping_hexdump")
 
 
 print("\n========================")
