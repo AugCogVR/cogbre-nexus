@@ -36,9 +36,11 @@ def dumpToTmpFile(parsedOutput, testName):
 # ============================
 
 # Delete old test output files. Rename/move any prior test results you want to keep!
-for f in glob.glob("apitesttmp*"):
-    os.remove(f)
-
+for f in glob.glob("data/apitesttmp*"):
+    try:
+        os.remove(f)
+    except OSError as e:
+        print("Failed to remove %s\nError is: %s" % (f,e))
 
 # ============================
 # RUN THE TESTS
@@ -157,10 +159,7 @@ parsed = runTest(["oxide_retrieve", "call_mapping", [ fileOid ], {}], False)
 dumpToTmpFile(parsed, f"call_mapping_{fileName}")
 
 # TEST: Retrieve capa results 
-parsed = runTest(["oxide_retrieve", "capa_results", [ fileOid ], {'rules_path':'../oxide/datasets/capa-rules/'}])
-
-# TEST: Retrieve capa results for hexdump in particular
-parsed = runTest(["oxide_retrieve", "capa_results", [ "eabb52edb5de50a6d9b6dc70c169de7e1f05a34b" ], {'rules_path':'../oxide/datasets/capa-rules/'}])
+parsed = runTest(["oxide_retrieve", "capa_results", [ fileOid ], {}])
 
 
 # # TEMP TEST: Retrieve function_extract for regedit.exe
@@ -187,9 +186,18 @@ parsed = runTest(["oxide_retrieve", "capa_results", [ "eabb52edb5de50a6d9b6dc70c
 # parsed = runTest(["oxide_get_disassembly", '48f4612efeb713a5860726fdb999ceceff07557d'], False)
 # dumpToTmpFile(parsed, f"disasm_regedit.exe")
 
-# # TEMP TEST: Retrieve function call mapping for hexdump
-# parsed = runTest(["oxide_retrieve", "call_mapping", [ 'eabb52edb5de50a6d9b6dc70c169de7e1f05a34b' ], {}], False)
-# dumpToTmpFile(parsed, f"call_mapping_hexdump")
+
+# TEMP TEST: Retrieve capa results for hexdump in particular
+parsed = runTest(["oxide_retrieve", "capa_results", [ "eabb52edb5de50a6d9b6dc70c169de7e1f05a34b" ], {}])
+dumpToTmpFile(parsed, f"capa_results_hexdump")
+
+# TEMP TEST: Retrieve function calls for hexdump
+parsed = runTest(["oxide_retrieve", "function_calls", [ "eabb52edb5de50a6d9b6dc70c169de7e1f05a34b" ], {}], False)
+dumpToTmpFile(parsed, f"function_calls_hexdump")
+
+# TEMP TEST: Retrieve function_extract for hexdump
+parsed = runTest(["oxide_retrieve", "function_extract", [ "eabb52edb5de50a6d9b6dc70c169de7e1f05a34b" ], {}], False)
+dumpToTmpFile(parsed, f"function_extract_hexdump")
 
 
 print("\n========================")

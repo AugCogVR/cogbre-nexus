@@ -11,16 +11,21 @@ It supports the VR front end at https://github.com/AugCogVR/cogbre-vr
 This has been developed against Python 3.9.
 
 
-## To run:
+## To run the API server:
 
 Ensure you have the packages in requirements.txt installed.
 
-`python api --oxidepath ../oxide` with Oxide (change path as needed)
+Relative to the top-level Nexus path, Oxide is usually installed at `../oxide/` and Capa rules are usually installed at `../oxide/datasets/capa-rules/`
+
+When those defaults are true, `> python api` will start the API server.
+
+Otherwise, you can set `oxidepath` and/or `caparulespath` on the command line, e.g., 
+`> python api --oxidepath ../somewhere/oxide`
 
 
 ## To test:
 
-Start the api, then:
+Start the API, then:
 
 `python apitest`
 
