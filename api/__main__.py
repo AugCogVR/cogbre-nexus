@@ -11,6 +11,7 @@ import argparse
 import shlex
 import time
 import threading
+import logging
 from session import *
 
 # Parse command line args
@@ -26,37 +27,30 @@ sys.path.append(args.oxidepath+'/src')
 sys.path.append(args.oxidepath+'/src/oxide')
 from oxide.core import oxide as local_oxide
 
+# Set Flask/werkzeug log level
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.ERROR)
 
-# Collect the data for a user session
-class UserActivityInfo():
-    def __init__(self, userId):
-        self.userId = userId
-        self.lastUpdateTime = 0
-        self.isActive = False 
-
-# Store user activity info objects in a dict
-userActivityInfos = {}
+# Create set of session contollers
+userSessions = UserSessions()
 
 # Set up thread to check for lack of user activity 
-def backgroundActivityCheck():
-    inactivityThreshold = 5
-    while True:
-        for userId, activity in userActivityInfos.items():
-            if (activity.isActive and ((time.time() - activity.lastUpdateTime) > inactivityThreshold)):
-                print(f"USER: {userId} TIMEOUT")
-                activity.isActive = False
-        time.sleep(1)
-backgroundThread = threading.Thread(target=backgroundActivityCheck)
+backgroundThread = threading.Thread(target=userSessions.backgroundActivityCheck)
 backgroundThread.start()
 
 
-# Define the SyncPortal API endpoint
+# Class defining the SyncPortal API endpoint
 class SyncPortal(Resource):
     def post(self):
         content = request.get_json(force = True)
-        print(f"POSTED: userId = {content['userId']} command = {content['command']}")
         userId = content["userId"]
         commandList = content["command"]
+
+        # Report the command received, unless it's a very frequent activity update
+        if (commandList[0] == "session_update"):
+            print(".", end="")
+        else:
+            print(f"POSTED: userId = {content['userId']} command = {content['command']}")
 
         # Set default response string for failure. Successful command execution will
         # overwrite it. 
@@ -65,17 +59,13 @@ class SyncPortal(Resource):
             responseString += " ... is oxidepath correct?"
 
         if (commandList[0] == "session_init"):
-            sessionController = SessionController(userId)
-            sessionControllers.addSessionController(sessionController)
-            userActivityInfos[userId] = UserActivityInfo(userId)
-            userActivityInfos[userId].lastUpdateTime = time.time()
-            userActivityInfos[userId].isActive = True
+            userSessions.addUserSession(userId)
             responseString = "session initialized for user " + userId
             return json.dumps(responseString), 200
 
-        elif (commandList[0] == "get_session_update"):
-            responseString = "session update requested for user " + userId
-            userActivityInfos[userId].lastUpdateTime = time.time()
+        elif (commandList[0] == "session_update"):
+            responseString = f"session update {userId}"
+            userSessions.updateUserSession(userId, commandList)
             return json.dumps(responseString), 200
 
         elif (commandList[0] == "oxide_collection_names"):
@@ -209,9 +199,7 @@ api = Api(app)
 api.add_resource(SyncPortal, "/sync_portal")  
 
 # Run the Flask app
-sessionControllers = []
 if __name__ == "__main__":
-    sessionControllers = SessionControllers()
     app.run() 
 
 
