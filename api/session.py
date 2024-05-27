@@ -1,4 +1,5 @@
 import time
+import csv
 
 # Class for managing all user sessions
 class UserSessions:
@@ -8,14 +9,12 @@ class UserSessions:
     def addUserSession(self, userId):
         self.userSessions[userId] = UserSession(userId)
 
-    def closeUserSession(self, userId):
-        self.userSessions[userId].isActive = False
-        self.userSessions[userId].saveActivity()
-        # del self.userSessions[userId]
+    def getUserSession(self, userId):
+        return self.userSessions[userId]
 
-    def updateUserSession(self, userId, commandList):
-        # print(f"updateUserSession: {userId} {commandList}")
-        self.userSessions[userId].lastUpdateTime = time.time()
+    def closeUserSession(self, userId):
+        self.userSessions[userId].closeUserSession()
+        # del self.userSessions[userId]
 
     def backgroundActivityCheck(self):
         inactivityThreshold = 5 # TO DO: fix arbitrary hard-coded value
@@ -32,7 +31,24 @@ class UserSession:
         self.userId = userId
         self.lastUpdateTime = time.time()
         self.isActive = True
-    
+        self.headpos = []
+
+    def updateUserSession(self, commandList):
+        # print(f"updateUserSession: {self.userId} {commandList}")
+        self.lastUpdateTime = time.time()
+        if (commandList[1] == "headpos"):            
+            self.headpos.append([self.lastUpdateTime, commandList[2], commandList[3], commandList[4]])
+
+    def closeUserSession(self):
+        self.isActive = False
+        self.saveActivity()
+
     def saveActivity(self):
         print(f"Saving activity for user {self.userId}")    
+        filename = f"sessions/{self.userId}_{time.strftime('%Y%m%d-%H%M%S')}_head.csv"
+        with open(filename, 'w') as csvfile:
+            csvwriter = csv.writer(csvfile)
+            csvwriter.writerow(["time", "x", "y", "z"])
+            csvwriter.writerows(self.headpos)
+
 

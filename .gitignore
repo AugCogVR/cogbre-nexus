@@ -131,5 +131,9 @@ dmypy.json
 # Mac noise
 .DS_Store
 
-# PUL: apitest outputs
+# COGBRE: apitest outputs
 apitesttmp*
+
+# COGBRE: session data
+sessions/
+

@@ -65,7 +65,7 @@ class SyncPortal(Resource):
 
         elif (commandList[0] == "session_update"):
             responseString = f"session update {userId}"
-            userSessions.updateUserSession(userId, commandList)
+            userSessions.getUserSession(userId).updateUserSession(commandList)
             return json.dumps(responseString), 200
 
         elif (commandList[0] == "oxide_collection_names"):
