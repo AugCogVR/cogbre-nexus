@@ -9,12 +9,9 @@ import os
 import sys
 import argparse
 import shlex
+import time
+import threading
 from session import *
-
-
-app = Flask(__name__)
-api = Api(app)
-
 
 # Parse command line args
 parser = argparse.ArgumentParser('cogbre nexus API server')
@@ -30,10 +27,35 @@ sys.path.append(args.oxidepath+'/src/oxide')
 from oxide.core import oxide as local_oxide
 
 
+# Collect the data for a user session
+class UserActivityInfo():
+    def __init__(self, userId):
+        self.userId = userId
+        self.lastUpdateTime = 0
+        self.isActive = False 
+
+# Store user activity info objects in a dict
+userActivityInfos = {}
+
+# Set up thread to check for lack of user activity 
+def backgroundActivityCheck():
+    inactivityThreshold = 5
+    while True:
+        for userId, activity in userActivityInfos.items():
+            if (activity.isActive and ((time.time() - activity.lastUpdateTime) > inactivityThreshold)):
+                print(f"USER: {userId} TIMEOUT")
+                activity.isActive = False
+        time.sleep(1)
+backgroundThread = threading.Thread(target=backgroundActivityCheck)
+backgroundThread.start()
+
+
+# Define the SyncPortal API endpoint
 class SyncPortal(Resource):
     def post(self):
         content = request.get_json(force = True)
         print(f"POSTED: userId = {content['userId']} command = {content['command']}")
+        userId = content["userId"]
         commandList = content["command"]
 
         # Set default response string for failure. Successful command execution will
@@ -43,13 +65,17 @@ class SyncPortal(Resource):
             responseString += " ... is oxidepath correct?"
 
         if (commandList[0] == "session_init"):
-            sessionController = SessionController(content["userId"])
+            sessionController = SessionController(userId)
             sessionControllers.addSessionController(sessionController)
-            responseString = "session initialized for user " + content["userId"]
+            userActivityInfos[userId] = UserActivityInfo(userId)
+            userActivityInfos[userId].lastUpdateTime = time.time()
+            userActivityInfos[userId].isActive = True
+            responseString = "session initialized for user " + userId
             return json.dumps(responseString), 200
 
         elif (commandList[0] == "get_session_update"):
-            responseString = "session update requested for user " + content["userId"]
+            responseString = "session update requested for user " + userId
+            userActivityInfos[userId].lastUpdateTime = time.time()
             return json.dumps(responseString), 200
 
         elif (commandList[0] == "oxide_collection_names"):
@@ -175,10 +201,17 @@ class SyncPortal(Resource):
         # If we get here, there is an error.
         return json.dumps(responseString), 500  
 
+# Set up web app
+app = Flask(__name__)
+api = Api(app)
 
+# Set up the primary/only entry point -- not following API best practices of one resource/entry point per function
+api.add_resource(SyncPortal, "/sync_portal")  
+
+# Run the Flask app
 sessionControllers = []
-api.add_resource(SyncPortal, "/sync_portal")  # the primary/only entry point -- not following API best practices of one resource/entry point per function
 if __name__ == "__main__":
     sessionControllers = SessionControllers()
-    app.run()  # run our Flask app
+    app.run() 
+
 
