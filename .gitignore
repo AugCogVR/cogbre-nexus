@@ -135,5 +135,5 @@ dmypy.json
 apitesttmp*
 
 # COGBRE: session data
-sessions/
-
+sessions/*.csv
+sessions/.ipynb_checkpoints/*

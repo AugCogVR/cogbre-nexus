@@ -4,7 +4,7 @@ import uuid
 import glob
 import os
 
-userId = "Test123"
+userId = "TestUser"
 
 # Post a command to the Nexus API, get the response, parse it as JSON, and return it
 def postCommand(commandList):
@@ -25,7 +25,7 @@ def runTest(commandList, dumpToOutput = True):
 
 # Dump provided output to a temporary file. Filename is based on testName. 
 def dumpToTmpFile(parsedOutput, testName):
-    fileName = f"data/apitesttmp_{testName}_{userId}_{uuid.uuid4().hex}"
+    fileName = f"test_outputs/apitesttmp_{testName}_{userId}_{uuid.uuid4().hex}"
     with open(fileName, mode="wt") as f:
         f.write(json.dumps(parsedOutput, indent = 4))
     print(f"OUTPUT dumped to {fileName}")
@@ -36,7 +36,7 @@ def dumpToTmpFile(parsedOutput, testName):
 # ============================
 
 # Delete old test output files. Rename/move any prior test results you want to keep!
-for f in glob.glob("data/apitesttmp*"):
+for f in glob.glob("test_outputs/apitesttmp*"):
     try:
         os.remove(f)
     except OSError as e:
