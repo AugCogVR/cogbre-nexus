@@ -59,7 +59,7 @@ class SyncPortal(Resource):
             responseString += " ... is oxidepath correct?"
 
         if (commandList[0] == "session_init"):
-            userSessions.addUserSession(userId)
+            userSessions.openUserSession(userId)
             responseString = "session initialized for user " + userId
             return json.dumps(responseString), 200
 
