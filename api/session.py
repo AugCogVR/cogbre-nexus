@@ -19,7 +19,6 @@ class UserSessions:
     def closeUserSession(self, userId):
         print(f"CLOSE SESSION for user {userId}")
         self.userSessions[userId].closeUserSession()
-        self.userSessions[userId].isActive = False
 
     def backgroundActivityCheck(self):
         inactivityThreshold = 10 # TO DO: fix arbitrary hard-coded value
