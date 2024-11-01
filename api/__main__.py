@@ -1,4 +1,4 @@
-from flask import Flask, request #, jsonify
+from flask import Flask, request, render_template #, jsonify
 from flask_restful import Resource, Api #, reqparse
 #import pandas as pd
 #import ast
@@ -193,6 +193,15 @@ class SyncPortal(Resource):
 
 # Set up web app
 app = Flask(__name__)
+@app.route('/')
+def index():
+    return render_template('index.html')
+@app.route('/submit', methods=['POST'])
+def submit():
+    print("HELLO")
+    return render_template('index.html')
+
+# Set up API
 api = Api(app)
 
 # Set up the primary/only entry point -- not following API best practices of one resource/entry point per function
