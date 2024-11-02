@@ -1,5 +1,6 @@
-from flask import Flask, request, render_template #, jsonify
+from flask import Flask, jsonify, request, render_template 
 from flask_restful import Resource, Api #, reqparse
+from markupsafe import Markup
 #import pandas as pd
 #import ast
 import random
@@ -196,10 +197,19 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     return render_template('index.html')
+
 @app.route('/submit', methods=['POST'])
 def submit():
     print("HELLO")
     return render_template('index.html')
+
+@app.route('/userinfo')
+def userinfo():
+    htmlString = "User Info<p>"
+    for user in list(userSessions.userSessions.values()):
+        htmlString += user.latestTelemetryString + "<p>"
+    print(htmlString)
+    return Markup(htmlString)
 
 # Set up API
 api = Api(app)

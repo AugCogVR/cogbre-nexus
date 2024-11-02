@@ -37,6 +37,7 @@ class UserSession:
         self.isActive = True
         self.telemetryCsvFile = None
         self.telemetryCsvWriter = None
+        self.latestTelemetryString = ""
 
     def updateUserSession(self, commandList):
         # print(f"updateUserSession: {self.userId} {commandList}")
@@ -46,8 +47,9 @@ class UserSession:
             self.telemetryCsvWriter = csv.writer(self.telemetryCsvFile)
             self.telemetryCsvWriter.writerow(["object", "time", "x", "y", "z"])
         self.lastUpdateTime = time.time()
+        self.latestTelemetryString = f"{commandList[1]} {self.lastUpdateTime} {commandList[2]} {commandList[3]} {commandList[4]}"
         if (commandList[1] == "headpos"):
-            self.telemetryCsvWriter.writerow(["head", self.lastUpdateTime, commandList[2], commandList[3], commandList[4]])
+            self.telemetryCsvWriter.writerow(["headpos", self.lastUpdateTime, commandList[2], commandList[3], commandList[4]])
 
     def closeUserSession(self):
         self.isActive = False
