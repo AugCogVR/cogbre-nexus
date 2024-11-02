@@ -205,9 +205,11 @@ def submit():
 
 @app.route('/userinfo')
 def userinfo():
-    htmlString = "User Info<p>"
+    htmlString = ""
     for user in list(userSessions.userSessions.values()):
-        htmlString += user.latestTelemetryString + "<p>"
+        if (user.isActive):
+            htmlString += f"User: {user.userId}<p>"
+            htmlString += user.latestTelemetryString + "<p>"
     print(htmlString)
     return Markup(htmlString)
 
