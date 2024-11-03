@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request, render_template 
 from flask_restful import Resource, Api #, reqparse
-from markupsafe import Markup
+# from markupsafe import Markup
 #import pandas as pd
 #import ast
 import random
@@ -210,8 +210,10 @@ def userinfo():
         if (user.isActive):
             htmlString += f"User: {user.userId}<p>"
             htmlString += user.latestTelemetryString + "<p>"
-    print(htmlString)
-    return Markup(htmlString)
+    if (htmlString == ""):
+        htmlString += "No active user sessions"
+    # print(htmlString)
+    return htmlString
 
 # Set up API
 api = Api(app)

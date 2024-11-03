@@ -34,6 +34,7 @@ class UserSessions:
 class UserSession:
     def __init__(self, userId):
         self.userId = userId
+        self.startTime = time.time()
         self.lastUpdateTime = time.time()
         self.isActive = True
         self.telemetryCsvFile = None
@@ -48,7 +49,7 @@ class UserSession:
             self.telemetryCsvWriter = csv.writer(self.telemetryCsvFile)
             self.telemetryCsvWriter.writerow(["object", "time", "x", "y", "z"])
         self.lastUpdateTime = time.time()
-        self.latestTelemetryString = f"{commandList[1]} {self.lastUpdateTime} {commandList[2]} {commandList[3]} {commandList[4]}"
+        self.latestTelemetryString = f"{commandList[1]} {(self.lastUpdateTime - self.startTime):0.2f} {float(commandList[2]):0.2f} {float(commandList[3]):0.2f} {float(commandList[4]):0.2f}"
         if (commandList[1] == "headpos"):
             self.telemetryCsvWriter.writerow(["headpos", self.lastUpdateTime, commandList[2], commandList[3], commandList[4]])
 

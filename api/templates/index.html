@@ -31,6 +31,10 @@
         </form>
     </div>
 
+    <button type="button" class="btn btn-success">START</button>
+    <button type="button" class="btn btn-danger">STOP</button>
+
+
     <div class="container mt-5">
         <h2>User Info</h2>
         <div id="userinfo">Loading...</div>
@@ -52,7 +56,7 @@
                         console.log(`Error #${refreshFailCounter} fetching data`);
                         if (refreshFailCounter > 10) 
                         {
-                            $('#userinfo').text('Too many errors -- ending attempts to fetch data');
+                            $('#userinfo').text('Too many errors -- ending attempts to fetch data. Reload page to retry.');
                             clearInterval(refreshIntervalId);
                         }
                     }
