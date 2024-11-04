@@ -32,16 +32,16 @@ from oxide.core import oxide as local_oxide
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
 
-# Create set of session contollers
+# Create set of client session contollers
 userSessions = UserSessions()
 
-# Set up thread to check for lack of user activity 
+# Set up thread to check for lack of client user activity 
 backgroundThread = threading.Thread(target=userSessions.backgroundActivityCheck)
 backgroundThread.start()
 
 
-# Class defining the SyncPortal API endpoint
-class SyncPortal(Resource):
+# Class defining the API endpoint for syncing with clients (e.g., VR clients)
+class ClientSyncEndpoint(Resource):
     def post(self):
         content = request.get_json(force = True)
         userId = content["userId"]
@@ -51,7 +51,7 @@ class SyncPortal(Resource):
         if (commandList[0] == "session_update"):
             print(".", end="")
         else:
-            print(f"POSTED: userId = {content['userId']} command = {content['command']}")
+            print(f"CLIENT POSTED: userId = {content['userId']} command = {content['command']}")
 
         # Set default response string for failure. Successful command execution will
         # overwrite it. 
@@ -192,17 +192,40 @@ class SyncPortal(Resource):
         # If we get here, there is an error.
         return json.dumps(responseString), 500  
 
+
+# Class defining the API endpoint for syncing with the Nexus GUI
+class GUISyncEndpoint(Resource):
+    def post(self):
+        content = request.get_json(force = True)
+        commandList = content["command"]
+        print(f"GUI POSTED: command = {commandList}")
+        # print(f"GUI POSTED")
+        response = [{"a":"WHAT"}]
+        return json.dumps(response), 200
+
+
 # Set up web app
 app = Flask(__name__)
+
+# Set up API
+api = Api(app)
+
+# Set up the primary endpoint for the VR clients
+# (not following API best practices of one resource/entry point per function)
+api.add_resource(ClientSyncEndpoint, "/sync_portal")  
+
+# Set up the primary endpoint for the Nexus GUI
+api.add_resource(GUISyncEndpoint, "/gui_sync")  
+
+
+# TEMP JUNK FOR FLASK-HOSTED FRONTEND
 @app.route('/')
 def index():
     return render_template('index.html')
-
 @app.route('/submit', methods=['POST'])
 def submit():
     print("HELLO")
     return render_template('index.html')
-
 @app.route('/userinfo')
 def userinfo():
     htmlString = ""
@@ -215,11 +238,6 @@ def userinfo():
     # print(htmlString)
     return htmlString
 
-# Set up API
-api = Api(app)
-
-# Set up the primary/only entry point -- not following API best practices of one resource/entry point per function
-api.add_resource(SyncPortal, "/sync_portal")  
 
 # Run the Flask app
 if __name__ == "__main__":
