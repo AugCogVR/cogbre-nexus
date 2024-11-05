@@ -235,28 +235,6 @@ api.add_resource(ClientSyncEndpoint, "/sync_portal")
 # Set up the primary endpoint for the Nexus GUI
 api.add_resource(GUISyncEndpoint, "/gui_sync")  
 
-
-# TEMP JUNK FOR FLASK-HOSTED FRONTEND
-@app.route('/')
-def index():
-    return render_template('index.html')
-@app.route('/submit', methods=['POST'])
-def submit():
-    print("HELLO")
-    return render_template('index.html')
-@app.route('/userinfo')
-def userinfo():
-    htmlString = ""
-    for user in list(userSessions.userSessions.values()):
-        if (user.isActive):
-            htmlString += f"User: {user.userId}<p>"
-            htmlString += user.latestTelemetryString + "<p>"
-    if (htmlString == ""):
-        htmlString += "No active user sessions"
-    # print(htmlString)
-    return htmlString
-
-
 # Run the Flask app
 if __name__ == "__main__":
     app.run() 
