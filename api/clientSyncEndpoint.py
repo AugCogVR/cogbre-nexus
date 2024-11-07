@@ -1,18 +1,13 @@
-from flask import Flask, request #, jsonify, render_template 
-from flask_restful import Resource, Api #, reqparse
-import random
-import string
+from flask import request 
+from flask_restful import Resource
 import json
-import os
-import sys
-import argparse
-import shlex
-import time
-import threading
-import logging
 
 # Class defining the API endpoint for syncing with clients (e.g., VR clients)
 class ClientSyncEndpoint(Resource):
+    def __init__(self, **kwargs):
+        self.userSessions = kwargs["userSessions"]
+        self.local_oxide = kwargs["local_oxide"]
+
     def post(self):
         content = request.get_json(force = True)
         userId = content["userId"]
@@ -31,34 +26,34 @@ class ClientSyncEndpoint(Resource):
             responseString += " ... is oxidepath correct?"
 
         if (commandList[0] == "session_init"):
-            userSessions.openUserSession(userId)
+            self.userSessions.openUserSession(userId)
             responseString = "session initialized for user " + userId
             return json.dumps(responseString), 200
 
         elif (commandList[0] == "session_update"):
             responseString = f"session update {userId}"
-            userSessions.getUserSession(userId).updateUserSession(commandList)
+            self.userSessions.getUserSession(userId).updateUserSession(commandList)
             return json.dumps(responseString), 200
 
         elif (commandList[0] == "oxide_collection_names"):
-            responseObject = local_oxide.collection_names()
+            responseObject = self.local_oxide.collection_names()
             return json.dumps(responseObject), 200
 
         elif (commandList[0] == "oxide_get_cid_from_name"):
             colName = commandList[1]
-            responseObject = local_oxide.get_cid_from_name(colName)
+            responseObject = self.local_oxide.get_cid_from_name(colName)
             return json.dumps(responseObject), 200
 
         elif (commandList[0] == "oxide_get_collection_info"):
             colName = commandList[1]
             view = commandList[2]
-            responseObject = local_oxide.get_collection_info(colName, view)
+            responseObject = self.local_oxide.get_collection_info(colName, view)
             return json.dumps(responseObject), 200
 
         # Find all OIDs with a given name. NOTE: Nothing uses this. 
         elif (commandList[0] == "oxide_get_oids_with_name"):
             someName = commandList[1]
-            responseObject = local_oxide.get_oids_with_name(someName)
+            responseObject = self.local_oxide.get_oids_with_name(someName)
             return json.dumps(responseObject), 200
 
         # Get all the Object IDs associated with a Collection ID
@@ -67,13 +62,13 @@ class ClientSyncEndpoint(Resource):
         # Perhaps I should implement a wrapper for get_field instead. 
         elif (commandList[0] == "oxide_get_oids_with_cid"):
             someCid = commandList[1]
-            responseObject = local_oxide.get_field("collections", someCid, "oid_list")
+            responseObject = self.local_oxide.get_field("collections", someCid, "oid_list")
             return json.dumps(responseObject), 200
 
         # Get a list of available modules in a category. NOTE: Nothing uses this. 
         elif (commandList[0] == "oxide_get_available_modules"):
             category = commandList[1]
-            responseObject = local_oxide.get_available_modules(category)
+            responseObject = self.local_oxide.get_available_modules(category)
             return json.dumps(responseObject), 200
 
         # This command alters the output of the documentation function
@@ -81,7 +76,7 @@ class ClientSyncEndpoint(Resource):
         # Only return "description" and "Usage" (if available) 
         elif (commandList[0] == "oxide_documentation"):
             moduleName = commandList[1]
-            responseObject = local_oxide.documentation(moduleName)
+            responseObject = self.local_oxide.documentation(moduleName)
             newDict = { "description" : responseObject["description"] }
             if ("Usage" in responseObject):
                 newDict["Usage"] = responseObject["Usage"]
@@ -91,13 +86,13 @@ class ClientSyncEndpoint(Resource):
         elif (commandList[0] == "oxide_get_names_from_oid"):
             OID = commandList[1]
             # Formats the set of names into a string before dumping to json
-            responseObject = list(local_oxide.get_names_from_oid(OID))
+            responseObject = list(self.local_oxide.get_names_from_oid(OID))
             return json.dumps(responseObject), 200
 
         # Get file size of a binary file represented by the given OID
         elif (commandList[0] == "oxide_get_oid_file_size"):
             OID = commandList[1]
-            responseObject = local_oxide.get_field("file_meta", OID, "size")
+            responseObject = self.local_oxide.get_field("file_meta", OID, "size")
             return json.dumps(responseObject), 200
 
         # Call any module with the supplied parameters and return the results
@@ -109,7 +104,7 @@ class ClientSyncEndpoint(Resource):
             if (moduleName == "capa_results"):
                 if (not ("rules_path" in opts)):
                     opts["rules_path"] = args.caparulespath
-            responseObject = local_oxide.retrieve(moduleName, oidList, opts)
+            responseObject = self.local_oxide.retrieve(moduleName, oidList, opts)
             return json.dumps(responseObject), 200
 
         # Use disassembly module to get disassembly with default fields (see alternatives below)
@@ -118,7 +113,7 @@ class ClientSyncEndpoint(Resource):
         # (C# default, NewtonSoft, LitJson)
         elif (commandList[0] == "oxide_get_disassembly"):
             OID = commandList[1] 
-            responseObject = local_oxide.retrieve("disassembly", [ OID ])
+            responseObject = self.local_oxide.retrieve("disassembly", [ OID ])
             # We'll create a custom response object with just the info we want
             customResponseObject = {}
             # Walk through each oid, gather certain data, and add it to custom repsonse object
@@ -140,7 +135,7 @@ class ClientSyncEndpoint(Resource):
         # (C# default, NewtonSoft, LitJson)
         elif (commandList[0] == "oxide_get_basic_blocks"):
             OID = commandList[1] 
-            responseObject = local_oxide.retrieve("basic_blocks", [ OID ])
+            responseObject = self.local_oxide.retrieve("basic_blocks", [ OID ])
             # We'll create a custom response object with just the info we want
             customResponseObject = {}
             # Walk through each oid, gather certain data, and add it to custom repsonse object

@@ -46,10 +46,13 @@ api = Api(app)
 
 # Set up the primary endpoint for the VR clients
 # (not following API best practices of one resource/entry point per function)
-api.add_resource(ClientSyncEndpoint, "/sync_portal")  
+api.add_resource(ClientSyncEndpoint, "/sync_portal",
+                 resource_class_kwargs={"userSessions":userSessions, 
+                                        "local_oxide":local_oxide})  
 
 # Set up the primary endpoint for the Nexus GUI
-api.add_resource(GUISyncEndpoint, "/gui_sync")  
+api.add_resource(GUISyncEndpoint, "/gui_sync",
+                 resource_class_kwargs={"userSessions":userSessions})
 
 # Run the Flask app
 if __name__ == "__main__":

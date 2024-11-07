@@ -54,7 +54,7 @@ function App() {
         }
         refreshFailCounter = 0;
         const result = JSON.parse(await response.json());
-        setUserInfo(result[0].a);
+        setUserInfo(result);
         // console.log('Got more junk: ', result);
       } catch (err) {
         setError(err.message);

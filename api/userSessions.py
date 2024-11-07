@@ -39,7 +39,7 @@ class UserSession:
         self.isActive = True
         self.telemetryCsvFile = None
         self.telemetryCsvWriter = None
-        self.latestTelemetryString = ""
+        self.sessionObjects = {}
 
     def updateUserSession(self, commandList):
         # print(f"updateUserSession: {self.userId} {commandList}")
@@ -47,11 +47,17 @@ class UserSession:
             filename = f"sessions/{self.userId}_{time.strftime('%Y%m%d-%H%M%S')}.csv"
             self.telemetryCsvFile = open(filename, 'w')
             self.telemetryCsvWriter = csv.writer(self.telemetryCsvFile)
-            self.telemetryCsvWriter.writerow(["object", "time", "x", "y", "z"])
+            self.telemetryCsvWriter.writerow(["user", "object", "time", "x", "y", "z", "rotx", "roty", "rotz"])
         self.lastUpdateTime = time.time()
-        self.latestTelemetryString = f"{commandList[1]} {(self.lastUpdateTime - self.startTime):0.2f} {float(commandList[2]):0.2f} {float(commandList[3]):0.2f} {float(commandList[4]):0.2f}"
-        if (commandList[1] == "headpos"):
-            self.telemetryCsvWriter.writerow(["headpos", self.lastUpdateTime, commandList[2], commandList[3], commandList[4]])
+        if (commandList[1] == "headpos"):  # badly need to abstract this later
+            objectId = commandList[1]
+            self.telemetryCsvWriter.writerow([self.userId, objectId, self.lastUpdateTime, commandList[2], commandList[3], commandList[4], 0, 0, 0])
+            if (objectId not in self.sessionObjects):
+                self.sessionObjects[objectId] = SessionObject(objectId)
+            self.sessionObjects[objectId].lastUpdateTime = time.time()
+            self.sessionObjects[objectId].x = commandList[2]
+            self.sessionObjects[objectId].y = commandList[3]
+            self.sessionObjects[objectId].z = commandList[4]
 
     def closeUserSession(self):
         self.isActive = False
@@ -60,3 +66,18 @@ class UserSession:
             self.telemetryCsvFile = None
             self.telemetryCsvWriter = None
 
+class SessionObject:
+    def __init__(self, objectId):
+        self.objectId = objectId
+        self.x = 0
+        self.y = 0
+        self.z = 0
+        self.rotx = 0
+        self.roty = 0
+        self.rotz = 0
+        self.startTime = time.time()
+        self.lastUpdateTime = time.time()
+        self.isActive = True
+        self.telemetryCsvFile = None
+        self.telemetryCsvWriter = None
+        self.latestTelemetryString = ""
