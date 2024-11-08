@@ -34,30 +34,32 @@ class UserSessions:
 class UserSession:
     def __init__(self, userId):
         self.userId = userId
+        self.userName = "default"
         self.startTime = time.time()
         self.lastUpdateTime = time.time()
         self.isActive = True
         self.telemetryCsvFile = None
         self.telemetryCsvWriter = None
         self.sessionObjects = {}
+        self.sessionConfig = {}
 
     def updateUserSession(self, commandList):
-        # print(f"updateUserSession: {self.userId} {commandList}")
+        print(f"updateUserSession: {self.userId} {commandList}")
         if (self.telemetryCsvFile is None):
             filename = f"sessions/{self.userId}_{time.strftime('%Y%m%d-%H%M%S')}.csv"
             self.telemetryCsvFile = open(filename, 'w')
             self.telemetryCsvWriter = csv.writer(self.telemetryCsvFile)
-            self.telemetryCsvWriter.writerow(["user", "object", "time", "x", "y", "z", "rotx", "roty", "rotz"])
+            self.telemetryCsvWriter.writerow(["userId", "userName", "object", "time", "x", "y", "z", "rotx", "roty", "rotz"])
         self.lastUpdateTime = time.time()
-        if (commandList[1] == "headpos"):  # badly need to abstract this later
-            objectId = commandList[1]
-            self.telemetryCsvWriter.writerow([self.userId, objectId, self.lastUpdateTime, commandList[2], commandList[3], commandList[4], 0, 0, 0])
+        if (commandList[1] == "object"): 
+            objectId = commandList[2]
+            self.telemetryCsvWriter.writerow([self.userId, self.userName, objectId, self.lastUpdateTime, commandList[3], commandList[4], commandList[5], 0, 0, 0])
             if (objectId not in self.sessionObjects):
                 self.sessionObjects[objectId] = SessionObject(objectId)
             self.sessionObjects[objectId].lastUpdateTime = time.time()
-            self.sessionObjects[objectId].x = commandList[2]
-            self.sessionObjects[objectId].y = commandList[3]
-            self.sessionObjects[objectId].z = commandList[4]
+            self.sessionObjects[objectId].x = commandList[3]
+            self.sessionObjects[objectId].y = commandList[4]
+            self.sessionObjects[objectId].z = commandList[5]
 
     def closeUserSession(self):
         self.isActive = False

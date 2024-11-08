@@ -7,6 +7,7 @@ class ClientSyncEndpoint(Resource):
     def __init__(self, **kwargs):
         self.userSessions = kwargs["userSessions"]
         self.local_oxide = kwargs["local_oxide"]
+        self.capaRulesPath = kwargs["capaRulesPath"]
 
     def post(self):
         content = request.get_json(force = True)
@@ -31,7 +32,7 @@ class ClientSyncEndpoint(Resource):
             return json.dumps(responseString), 200
 
         elif (commandList[0] == "session_update"):
-            responseString = f"session update {userId}"
+            responseString = f"session updated {userId}"
             self.userSessions.getUserSession(userId).updateUserSession(commandList)
             return json.dumps(responseString), 200
 
@@ -103,7 +104,7 @@ class ClientSyncEndpoint(Resource):
             # SLIGHTLY HACKY: Intercept Capa call and add Capa rules path to opts if not specified by caller
             if (moduleName == "capa_results"):
                 if (not ("rules_path" in opts)):
-                    opts["rules_path"] = args.caparulespath
+                    opts["rules_path"] = self.capaRulesPath
             responseObject = self.local_oxide.retrieve(moduleName, oidList, opts)
             return json.dumps(responseObject), 200
 
