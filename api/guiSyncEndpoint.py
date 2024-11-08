@@ -14,7 +14,7 @@ class GUISyncEndpoint(Resource):
         print(f"GUI POSTED: command = {commandList}")
 
         if (commandList[0] == "hello"):
-            response = [{"a":"WHAT"}]
+            response = [{"msg":"Hello from the server"}]
             return json.dumps(response), 200
         
         elif (commandList[0] == "userInfo"):
