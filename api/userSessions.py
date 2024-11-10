@@ -44,7 +44,7 @@ class UserSession:
         self.sessionConfig = {}
 
     def updateUserSession(self, commandList):
-        print(f"updateUserSession: {self.userId} {commandList}")
+        # print(f"updateUserSession: {self.userId} {commandList}")
         if (self.telemetryCsvFile is None):
             filename = f"sessions/{self.userId}_{time.strftime('%Y%m%d-%H%M%S')}.csv"
             self.telemetryCsvFile = open(filename, 'w')
@@ -60,6 +60,9 @@ class UserSession:
             self.sessionObjects[objectId].x = commandList[3]
             self.sessionObjects[objectId].y = commandList[4]
             self.sessionObjects[objectId].z = commandList[5]
+        elif (commandList[1] == "config"): 
+            pass
+
 
     def closeUserSession(self):
         self.isActive = False
