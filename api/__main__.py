@@ -12,7 +12,7 @@ import threading
 import logging
 from userSessions import *
 from clientSyncEndpoint import *
-from guiSyncEndpoint import *
+from adminSyncEndpoint import *
 
 # Parse command line args
 parser = argparse.ArgumentParser('cogbre nexus API server')
@@ -46,13 +46,13 @@ api = Api(app)
 
 # Set up the primary endpoint for the VR clients
 # (not following API best practices of one resource/entry point per function)
-api.add_resource(ClientSyncEndpoint, "/sync_portal",
+api.add_resource(ClientSyncEndpoint, "/client_sync",
                  resource_class_kwargs={"userSessions":userSessions, 
                                         "local_oxide":local_oxide,
                                         "capaRulesPath":args.caparulespath})  
 
-# Set up the primary endpoint for the Nexus GUI
-api.add_resource(GUISyncEndpoint, "/gui_sync",
+# Set up the primary endpoint for the Nexus Admin GUI
+api.add_resource(AdminSyncEndpoint, "/admin_sync",
                  resource_class_kwargs={"userSessions":userSessions})
 
 # Run the Flask app

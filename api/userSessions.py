@@ -42,6 +42,7 @@ class UserSession:
         self.telemetryCsvWriter = None
         self.sessionObjects = {}
         self.sessionConfig = {}
+        self.sessionConfigDirty = False
 
     def updateUserSession(self, commandList):
         # print(f"updateUserSession: {self.userId} {commandList}")
@@ -61,7 +62,8 @@ class UserSession:
             self.sessionObjects[objectId].y = commandList[4]
             self.sessionObjects[objectId].z = commandList[5]
         elif (commandList[1] == "config"): 
-            pass
+            self.sessionConfigDirty = True
+            
 
 
     def closeUserSession(self):

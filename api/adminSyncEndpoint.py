@@ -3,7 +3,7 @@ from flask_restful import Resource
 import json
 
 # Class defining the API endpoint for syncing with the Nexus GUI
-class GUISyncEndpoint(Resource):
+class AdminSyncEndpoint(Resource):
     def __init__(self, **kwargs):
         self.userSessions = kwargs["userSessions"]
 
@@ -11,7 +11,12 @@ class GUISyncEndpoint(Resource):
         content = request.get_json(force = True)
         commandList = content["command"]
         responseString = f"Command not processed: {commandList}"
-        print(f"GUI POSTED: command = {commandList}")
+
+        # Report the command received, unless it's a very frequent activity update
+        if (commandList[0] == "userInfo"):
+            print("!", end="")
+        else:
+            print(f"ADMIN POSTED: command = {content['command']}")
 
         if (commandList[0] == "hello"):
             response = [{"msg":"Hello from the server"}]

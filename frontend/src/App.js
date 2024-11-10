@@ -17,7 +17,7 @@ function App() {
     // Test fetch; will be removed later
     const testFetch = async () => {
       try {
-        const response = await fetch('/gui_sync', {
+        const response = await fetch('/admin_sync', {
           method: 'POST', 
           headers: {
             'Content-Type': 'application/json', 
@@ -38,7 +38,7 @@ function App() {
     
     const fetchUserInfo = async () => {
       try {
-        const response = await fetch('/gui_sync', {
+        const response = await fetch('/admin_sync', {
           method: 'POST', 
           headers: {
             'Content-Type': 'application/json', 
