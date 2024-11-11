@@ -27,18 +27,22 @@ class ClientSyncEndpoint(Resource):
             responseString += " ... is oxidepath correct?"
 
         if (commandList[0] == "session_init"):
+            responseObject = {}
             self.userSessions.openUserSession(userId)
-            responseString = "session initialized for user " + userId
-            return json.dumps(responseString), 200
+            userSession = self.userSessions.getUserSession(userId)
+            userSession.sessionConfig = commandList[1]
+            print("CONFIG DATA: ", commandList[1])
+            return json.dumps(responseObject), 200
 
         elif (commandList[0] == "session_update"):
-            responseString = f"session updated {userId}"
+            responseObject = {}
             userSession = self.userSessions.getUserSession(userId)
             userSession.updateUserSession(commandList)
             if (userSession.sessionConfigDirty):
                 userSession.sessionConfigDirty = False
                 print(" !!!!! NEED TO SEND NEW CONFIG TO CLIENT !!!! ")
-            return json.dumps(responseString), 200
+                responseObject["config_update"] = userSession.sessionConfig
+            return json.dumps(responseObject), 200
 
         elif (commandList[0] == "oxide_collection_names"):
             responseObject = self.local_oxide.collection_names()
