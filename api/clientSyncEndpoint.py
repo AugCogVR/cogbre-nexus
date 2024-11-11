@@ -33,7 +33,11 @@ class ClientSyncEndpoint(Resource):
 
         elif (commandList[0] == "session_update"):
             responseString = f"session updated {userId}"
-            self.userSessions.getUserSession(userId).updateUserSession(commandList)
+            userSession = self.userSessions.getUserSession(userId)
+            userSession.updateUserSession(commandList)
+            if (userSession.sessionConfigDirty):
+                userSession.sessionConfigDirty = False
+                print(" !!!!! NEED TO SEND NEW CONFIG TO CLIENT !!!! ")
             return json.dumps(responseString), 200
 
         elif (commandList[0] == "oxide_collection_names"):

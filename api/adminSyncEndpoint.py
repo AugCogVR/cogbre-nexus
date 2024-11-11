@@ -13,26 +13,48 @@ class AdminSyncEndpoint(Resource):
         responseString = f"Command not processed: {commandList}"
 
         # Report the command received, unless it's a very frequent activity update
-        if (commandList[0] == "userInfo"):
+        if (commandList[0] == "get_telemetry"):
             print("!", end="")
         else:
             print(f"ADMIN POSTED: command = {content['command']}")
 
-        if (commandList[0] == "hello"):
-            response = [{"msg":"Hello from the server"}]
-            return json.dumps(response), 200
-        
-        elif (commandList[0] == "userInfo"):
-            responseString = ""
+        if (commandList[0] == "get_active_user_list"):
+            responseObject = []
             for userSession in list(self.userSessions.userSessions.values()):
                 if (userSession.isActive):
-                    responseString += f"User: {userSession.userId} | "
+                    responseObject.append({"id" : userSession.userId, "name" : userSession.userName})
+            return json.dumps(responseObject), 200
+
+        elif (commandList[0] == "get_config"):
+            userId = commandList[1]
+            responseObject = {}
+            if (userId in self.userSessions.userSessions):
+                userSession = self.userSessions.getUserSession(userId)
+                if (userSession.isActive):
+                    responseObject["stuff"] = "stuff2"
+            return json.dumps(responseObject), 200
+
+        elif (commandList[0] == "set_config"):
+            userId = commandList[1]
+            newConfig = commandList[2]
+            print("GOT NEW CONFIG: ", newConfig)
+            if (userId in self.userSessions.userSessions):
+                userSession = self.userSessions.getUserSession(userId)
+                if (userSession.isActive):
+                    userSession.sessionConfigDirty = True
+            responseObject = {}
+            return json.dumps(responseObject), 200
+
+        elif (commandList[0] == "get_telemetry"):
+            userId = commandList[1]
+            responseObject = []
+            if (userId in self.userSessions.userSessions):
+                userSession = self.userSessions.getUserSession(userId)
+                if (userSession.isActive):
                     for sessionObject in list(userSession.sessionObjects.values()):
-                        responseString += f"{sessionObject.objectId} {(sessionObject.lastUpdateTime - sessionObject.startTime):0.2f}s {float(sessionObject.x):0.2f} {float(sessionObject.y):0.2f} {float(sessionObject.z):0.2f} | "
-            if (responseString == ""):
-                responseString += "No active user sessions"
-            # print(responseString)
-            return json.dumps(responseString), 200
+                        responseObject.append({"id":sessionObject.objectId, "time":f"{(sessionObject.lastUpdateTime - sessionObject.startTime):0.2f}s"})
+                        # responseString += f"{sessionObject.objectId} {(sessionObject.lastUpdateTime - sessionObject.startTime):0.2f}s {float(sessionObject.x):0.2f} {float(sessionObject.y):0.2f} {float(sessionObject.z):0.2f} | "
+            return json.dumps(responseObject), 200
 
         # If we get here, there is an error.
         return json.dumps(responseString), 500  
