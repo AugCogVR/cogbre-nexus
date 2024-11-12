@@ -31,7 +31,7 @@ class ClientSyncEndpoint(Resource):
             self.userSessions.openUserSession(userId)
             userSession = self.userSessions.getUserSession(userId)
             userSession.sessionConfig = commandList[1]
-            print("CONFIG DATA: ", commandList[1])
+            # print("CONFIG DATA: ", commandList[1])
             return json.dumps(responseObject), 200
 
         elif (commandList[0] == "session_update"):
@@ -40,7 +40,6 @@ class ClientSyncEndpoint(Resource):
             userSession.updateUserSession(commandList)
             if (userSession.sessionConfigDirty):
                 userSession.sessionConfigDirty = False
-                print(" !!!!! NEED TO SEND NEW CONFIG TO CLIENT !!!! ")
                 responseObject["config_update"] = userSession.sessionConfig
             return json.dumps(responseObject), 200
 

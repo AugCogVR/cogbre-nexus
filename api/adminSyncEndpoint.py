@@ -18,33 +18,38 @@ class AdminSyncEndpoint(Resource):
         else:
             print(f"ADMIN POSTED: command = {content['command']}")
 
+        # Return the active users 
         if (commandList[0] == "get_active_user_list"):
             responseObject = []
             for userSession in list(self.userSessions.userSessions.values()):
                 if (userSession.isActive):
-                    responseObject.append({"id" : userSession.userId, "name" : userSession.userName})
+                    responseObject.append({"id" : userSession.userId, "name" : userSession.sessionConfig["sessionName"]})
             return json.dumps(responseObject), 200
 
+        # Return current version of the config
         elif (commandList[0] == "get_config"):
             userId = commandList[1]
             responseObject = {}
             if (userId in self.userSessions.userSessions):
                 userSession = self.userSessions.getUserSession(userId)
                 if (userSession.isActive):
-                    responseObject["stuff"] = "stuff2"
+                    responseObject = userSession.sessionConfig
             return json.dumps(responseObject), 200
 
+        # Set a new config 
         elif (commandList[0] == "set_config"):
             userId = commandList[1]
-            newConfig = commandList[2]
-            print("GOT NEW CONFIG: ", newConfig)
+            newConfigJson = commandList[2]
+            # print("GOT NEW CONFIG: ", newConfigJson)
             if (userId in self.userSessions.userSessions):
                 userSession = self.userSessions.getUserSession(userId)
                 if (userSession.isActive):
+                    userSession.sessionConfig = json.loads(newConfigJson)
                     userSession.sessionConfigDirty = True
             responseObject = {}
             return json.dumps(responseObject), 200
 
+        # Return user and object telemetry
         elif (commandList[0] == "get_telemetry"):
             userId = commandList[1]
             responseObject = []

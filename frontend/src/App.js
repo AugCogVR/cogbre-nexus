@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 // import logo from './logo.svg';
 import './App.css';
+import DictionaryTable from './DictionaryTable';
+
 
 function App() {
 
@@ -108,6 +110,13 @@ function App() {
       setAppStatusMessage(err.message);
     }};
 
+  const handleConfigUpdate = (key, newValue) => {
+    setConfig(prevConfig => ({
+      ...prevConfig,
+      [key]: newValue,
+    }));
+  };
+  
   // Get telemetry for the active user 
   const fetchTelemetry = () => {
     fetch('/admin_sync', {
@@ -187,8 +196,10 @@ function App() {
       <p>NOTE: Current version of app only controls first active user returned by Nexus.</p>
 
       <h2>User Session Config</h2>
-      <h3>{JSON.stringify(config)}</h3>
-      <button onClick={handlePushConfigClick}>Push Config</button> 
+      {/* <h3>{JSON.stringify(config)}</h3> */}
+      <DictionaryTable dictionary={config} onUpdate={handleConfigUpdate} />
+      <button onClick={handlePushConfigClick}>Push Updated Config</button> 
+
 
       <h2>User Session Telemetry</h2>
       <p>{telemetry}</p>
