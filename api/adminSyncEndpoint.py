@@ -57,7 +57,11 @@ class AdminSyncEndpoint(Resource):
                 userSession = self.userSessions.getUserSession(sessionId)
                 if (userSession.isActive):
                     for sessionObject in list(userSession.sessionObjects.values()):
-                        responseObject.append({"id":sessionObject.objectId, "time":f"{(sessionObject.lastUpdateTime - sessionObject.startTime):0.2f}s"})
+                        responseObject.append({"id":sessionObject.objectId, 
+                                               "time":f"{(sessionObject.lastUpdateTime - sessionObject.startTime):0.2f}s", 
+                                               "x":f"{float(sessionObject.x):0.2f}",
+                                               "y":f"{float(sessionObject.y):0.2f}",
+                                               "z":f"{float(sessionObject.z):0.2f}"})
                         # responseString += f"{sessionObject.objectId} {(sessionObject.lastUpdateTime - sessionObject.startTime):0.2f}s {float(sessionObject.x):0.2f} {float(sessionObject.y):0.2f} {float(sessionObject.z):0.2f} | "
             return json.dumps(responseObject), 200
 
