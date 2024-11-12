@@ -23,26 +23,26 @@ class AdminSyncEndpoint(Resource):
             responseObject = []
             for userSession in list(self.userSessions.userSessions.values()):
                 if (userSession.isActive):
-                    responseObject.append({"id" : userSession.userId, "name" : userSession.sessionConfig["sessionName"]})
+                    responseObject.append({"id" : userSession.sessionId, "name" : userSession.sessionConfig["sessionName"]})
             return json.dumps(responseObject), 200
 
         # Return current version of the config
         elif (commandList[0] == "get_config"):
-            userId = commandList[1]
+            sessionId = commandList[1]
             responseObject = {}
-            if (userId in self.userSessions.userSessions):
-                userSession = self.userSessions.getUserSession(userId)
+            if (sessionId in self.userSessions.userSessions):
+                userSession = self.userSessions.getUserSession(sessionId)
                 if (userSession.isActive):
                     responseObject = userSession.sessionConfig
             return json.dumps(responseObject), 200
 
         # Set a new config 
         elif (commandList[0] == "set_config"):
-            userId = commandList[1]
+            sessionId = commandList[1]
             newConfigJson = commandList[2]
             # print("GOT NEW CONFIG: ", newConfigJson)
-            if (userId in self.userSessions.userSessions):
-                userSession = self.userSessions.getUserSession(userId)
+            if (sessionId in self.userSessions.userSessions):
+                userSession = self.userSessions.getUserSession(sessionId)
                 if (userSession.isActive):
                     userSession.sessionConfig = json.loads(newConfigJson)
                     userSession.sessionConfigDirty = True
@@ -51,10 +51,10 @@ class AdminSyncEndpoint(Resource):
 
         # Return user and object telemetry
         elif (commandList[0] == "get_telemetry"):
-            userId = commandList[1]
+            sessionId = commandList[1]
             responseObject = []
-            if (userId in self.userSessions.userSessions):
-                userSession = self.userSessions.getUserSession(userId)
+            if (sessionId in self.userSessions.userSessions):
+                userSession = self.userSessions.getUserSession(sessionId)
                 if (userSession.isActive):
                     for sessionObject in list(userSession.sessionObjects.values()):
                         responseObject.append({"id":sessionObject.objectId, "time":f"{(sessionObject.lastUpdateTime - sessionObject.startTime):0.2f}s"})

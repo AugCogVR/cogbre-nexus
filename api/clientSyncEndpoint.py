@@ -11,14 +11,14 @@ class ClientSyncEndpoint(Resource):
 
     def post(self):
         content = request.get_json(force = True)
-        userId = content["userId"]
+        sessionId = content["sessionId"]
         commandList = content["command"]
 
         # Report the command received, unless it's a very frequent activity update
         if (commandList[0] == "session_update"):
             print(".", end="")
         else:
-            print(f"CLIENT POSTED: userId = {content['userId']} command = {content['command']}")
+            print(f"CLIENT POSTED: sessionId = {content['sessionId']} command = {content['command']}")
 
         # Set default response string for failure. Successful command execution will
         # overwrite it. 
@@ -28,15 +28,15 @@ class ClientSyncEndpoint(Resource):
 
         if (commandList[0] == "session_init"):
             responseObject = {}
-            self.userSessions.openUserSession(userId)
-            userSession = self.userSessions.getUserSession(userId)
+            self.userSessions.openUserSession(sessionId)
+            userSession = self.userSessions.getUserSession(sessionId)
             userSession.sessionConfig = commandList[1]
             # print("CONFIG DATA: ", commandList[1])
             return json.dumps(responseObject), 200
 
         elif (commandList[0] == "session_update"):
             responseObject = {}
-            userSession = self.userSessions.getUserSession(userId)
+            userSession = self.userSessions.getUserSession(sessionId)
             userSession.updateUserSession(commandList)
             if (userSession.sessionConfigDirty):
                 userSession.sessionConfigDirty = False
