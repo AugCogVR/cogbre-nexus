@@ -10,7 +10,6 @@ function App() {
   const [appStatusMessage, setAppStatusMessage] = useState('');
   const [config, setConfig] = useState('Waiting...');
   const [telemetry, setTelemetry] = useState('Waiting...');
-  const [testButtonMessage, setTestButtonMessage] = useState(null);
 
   // Refs: variables whose state is preserved across re-renders
   const activeUser = useRef({ 'id' : 'none', 'name' : 'none'});
@@ -191,12 +190,6 @@ function App() {
     });
   };
 
-  // Test button click handler
-  const handleTestClick = () => {
-    testButtonCounter.current = testButtonCounter.current + 1;
-    setTestButtonMessage(`CLICKED ${testButtonCounter.current}X`);
-  };
-
   // Executes upon every render. Sometimes twice (in dev mode). 
   useEffect(() => {    
     // Once fetchUserList completes, fetchConfigInfo is called, then 
@@ -248,12 +241,6 @@ function App() {
       <h3>--------------------------------------------</h3>
       <h3>app status message</h3>
       <p>{appStatusMessage}</p>
-      <h3>--------------------------------------------</h3>
-      <p> old junk below</p>
-
-      <h1>Some controls maybe</h1>
-      <button onClick={handleTestClick}>Click me</button> 
-      <p>Button clicked: {testButtonMessage}</p>
     </div>
   );
 }
