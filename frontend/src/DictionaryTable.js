@@ -20,33 +20,31 @@ const DictionaryTable = ({ dictionary, onUpdate }) => {
   };
 
   return (
-    <div>
-      <table border="1">
-        <thead>
-          <tr>
-            <th>Key</th>
-            <th>Current Value</th>
-            <th>New Value</th>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Key</th>
+          <th>Current Value</th>
+          <th>New Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        {Object.keys(dictionary).map(key => (
+          <tr key={key}>
+            <td>{key}</td>
+            <td>{dictionary[key]}</td>
+            <td>
+              <input
+                type="text"
+                value={updatedValues[key] || ''}
+                onChange={(e) => handleInputChange(key, e.target.value)}
+                onBlur={(e) => handleBlur(key, e.target.value)}
+                placeholder="Enter new value"                />
+            </td>
           </tr>
-        </thead>
-        <tbody>
-          {Object.keys(dictionary).map(key => (
-            <tr key={key}>
-              <td>{key}</td>
-              <td>{dictionary[key]}</td>
-              <td>
-                <input
-                  type="text"
-                  value={updatedValues[key] || ''}
-                  onChange={(e) => handleInputChange(key, e.target.value)}
-                  onBlur={(e) => handleBlur(key, e.target.value)}
-                  placeholder="Enter new value"                />
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+        ))}
+      </tbody>
+    </table>
   );
 };
 

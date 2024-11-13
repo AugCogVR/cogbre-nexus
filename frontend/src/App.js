@@ -92,7 +92,14 @@ function App() {
     });
   };
 
-  // Test button click handler
+  const handleConfigUpdate = (key, newValue) => {
+    setConfig(prevConfig => ({
+      ...prevConfig,
+      [key]: newValue,
+    }));
+  };
+  
+  // Push config button click handler
   const handlePushConfigClick = async () => {
     try {
       const response = await fetch('/admin_sync', {
@@ -110,12 +117,41 @@ function App() {
       setAppStatusMessage(err.message);
     }};
 
-  const handleConfigUpdate = (key, newValue) => {
-    setConfig(prevConfig => ({
-      ...prevConfig,
-      [key]: newValue,
-    }));
-  };
+  // Start logging button click handler
+  const handleStartLoggingClick = async () => {
+    try {
+      const response = await fetch('/admin_sync', {
+        method: 'POST', 
+        headers: {
+          'Content-Type': 'application/json', 
+        },
+        body: JSON.stringify({ command: ['start_logging', activeUser.current.id]}), 
+      });
+      if (!response.ok) {
+        throw new Error('start_logging: Network response was not ok');
+      }
+      const result = JSON.parse(await response.json());
+    } catch (err) {
+      setAppStatusMessage(err.message);
+    }};
+
+  // Stop logging button click handler
+  const handleStopLoggingClick = async () => {
+    try {
+      const response = await fetch('/admin_sync', {
+        method: 'POST', 
+        headers: {
+          'Content-Type': 'application/json', 
+        },
+        body: JSON.stringify({ command: ['stop_logging', activeUser.current.id]}), 
+      });
+      if (!response.ok) {
+        throw new Error('stop_logging: Network response was not ok');
+      }
+      const result = JSON.parse(await response.json());
+    } catch (err) {
+      setAppStatusMessage(err.message);
+    }};
   
   // Get telemetry for the active user 
   const fetchTelemetry = () => {
@@ -196,10 +232,14 @@ function App() {
       <p>NOTE: Current version of app only controls first active user returned by Nexus.</p>
 
       <h2>User Session Config</h2>
-      {/* <h3>{JSON.stringify(config)}</h3> */}
+      <center>
       <DictionaryTable dictionary={config} onUpdate={handleConfigUpdate} />
+      </center>
       <button onClick={handlePushConfigClick}>Push Updated Config</button> 
 
+      <h2>User Session Logging</h2>
+      <button onClick={handleStartLoggingClick}>Start Logging</button> 
+      <button onClick={handleStopLoggingClick}>Stop Logging</button> 
 
       <h2>User Session Telemetry</h2>
       <p>{telemetry}</p>

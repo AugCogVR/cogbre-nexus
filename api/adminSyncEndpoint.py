@@ -49,6 +49,26 @@ class AdminSyncEndpoint(Resource):
             responseObject = {}
             return json.dumps(responseObject), 200
 
+       # Start logging
+        elif (commandList[0] == "start_logging"):
+            # print("START LOGGING " + commandList[1])
+            sessionId = commandList[1]
+            userSession = self.userSessions.getUserSession(sessionId)
+            if ((userSession is not None) and (userSession.isActive)):
+                userSession.startLogging()
+            responseObject = {}
+            return json.dumps(responseObject), 200
+ 
+       # Stop logging
+        elif (commandList[0] == "stop_logging"):
+            # print("STOP LOGGING " + commandList[1])
+            sessionId = commandList[1]
+            userSession = self.userSessions.getUserSession(sessionId)
+            if ((userSession is not None) and (userSession.isActive)):
+                userSession.stopLogging()
+            responseObject = {}
+            return json.dumps(responseObject), 200
+        
         # Return user and object telemetry
         elif (commandList[0] == "get_telemetry"):
             sessionId = commandList[1]
