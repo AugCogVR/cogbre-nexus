@@ -30,6 +30,12 @@ class ClientSyncEndpoint(Resource):
             responseObject = {}
             self.userSessions.openUserSession(sessionId)
             userSession = self.userSessions.getUserSession(sessionId)
+
+            # TEMPORARILY turn on logging by default for debugging purposes
+            if ((userSession is not None) and (userSession.isActive)):
+                userSession.startLogging()
+                print("LOGGING STARTED")
+
             userSession.sessionConfig = commandList[1]
             # print("CONFIG DATA: ", commandList[1])
             return json.dumps(responseObject), 200

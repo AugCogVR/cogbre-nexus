@@ -49,16 +49,23 @@ class UserSession:
     def updateUserSession(self, commandList):
         # print(f"updateUserSession: {self.sessionId} {commandList}")
         self.lastUpdateTime = time.time()
-        if (commandList[1] == "object"): 
+
+        # TO DO: Handle multiple objects in telemmetry update
+        if (commandList[1] == "objectTelemmetry"): 
+            # print(f'TELEMMETRY: {commandList}')
             objectId = commandList[2]
             if (self.isLogging):
-                self.telemetryCsvWriter.writerow([self.sessionId, self.sessionConfig["sessionName"], objectId, self.lastUpdateTime, commandList[3], commandList[4], commandList[5], 0, 0, 0])
+                self.telemetryCsvWriter.writerow([self.sessionId, self.sessionConfig["sessionName"], 
+                                                  objectId, self.lastUpdateTime, 
+                                                  commandList[3], commandList[4], commandList[5],
+                                                  commandList[6], commandList[7], commandList[8]])
             if (objectId not in self.sessionObjects):
                 self.sessionObjects[objectId] = SessionObject(objectId)
             self.sessionObjects[objectId].lastUpdateTime = time.time()
             self.sessionObjects[objectId].x = commandList[3]
             self.sessionObjects[objectId].y = commandList[4]
             self.sessionObjects[objectId].z = commandList[5]
+
         # elif (commandList[1] == "config"): 
         #     self.sessionConfigDirty = True
 
