@@ -26,6 +26,7 @@ print(f'capa rules path: {args.caparulespath}')
 sys.path.append(args.oxidepath+'/src')
 sys.path.append(args.oxidepath+'/src/oxide')
 from oxide.core import oxide as local_oxide
+# local_oxide.logger.setLevel(logging.DEBUG)
 
 # Set Flask/werkzeug log level
 log = logging.getLogger('werkzeug')
