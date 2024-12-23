@@ -15,6 +15,14 @@ This has been developed against Python 3.9.
 
 Ensure you have the packages in requirements.txt installed.
 
+Install Oxide -- see https://github.com/Program-Understanding/oxide 
+- During installation of Oxide, there are many additional packages that 
+should be installed to enable all of Oxide's features. 
+- For cogbre, at the minimum, you need:
+  - Ghidra (download it from web, install, edit Oxide's .config.txt)
+  - Capstone: pip install capstone
+  - Capa: pip install flare-capa
+
 Relative to the top-level Nexus path, Oxide is usually installed at `../oxide/` and Capa rules are usually installed at `../oxide/datasets/capa-rules/`
 
 When those defaults are true, `> python api` will start the API server.

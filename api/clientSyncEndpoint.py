@@ -34,7 +34,7 @@ class ClientSyncEndpoint(Resource):
             # TEMPORARILY turn on logging by default for debugging purposes
             if ((userSession is not None) and (userSession.isActive)):
                 userSession.startLogging()
-                print("LOGGING STARTED")
+                print("TELEMMETRY LOGGING STARTED")
 
             userSession.sessionConfig = commandList[1]
             # print("CONFIG DATA: ", commandList[1])
