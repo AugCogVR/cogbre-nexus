@@ -53,18 +53,20 @@ class UserSession:
         # TO DO: Handle multiple objects in telemmetry update
         if (commandList[1] == "objectTelemmetry"): 
             # print(f'TELEMMETRY: {commandList}')
-            objectId = commandList[2]
-            if (self.isLogging):
-                self.telemetryCsvWriter.writerow([self.sessionId, self.sessionConfig["sessionName"], 
-                                                  objectId, self.lastUpdateTime, 
-                                                  commandList[3], commandList[4], commandList[5],
-                                                  commandList[6], commandList[7], commandList[8]])
-            if (objectId not in self.sessionObjects):
-                self.sessionObjects[objectId] = SessionObject(objectId)
-            self.sessionObjects[objectId].lastUpdateTime = time.time()
-            self.sessionObjects[objectId].x = commandList[3]
-            self.sessionObjects[objectId].y = commandList[4]
-            self.sessionObjects[objectId].z = commandList[5]
+            counter = 2
+            while (counter < len(commandList)):
+                objectId = commandList[counter]
+                if (self.isLogging):
+                    row = [self.sessionId, self.sessionConfig["sessionName"],
+                        objectId, self.lastUpdateTime]
+                    row.extend(commandList[counter + 1 : counter + 7])
+                    self.telemetryCsvWriter.writerow(row)
+                if (objectId not in self.sessionObjects):
+                    self.sessionObjects[objectId] = SessionObject(objectId)
+                self.sessionObjects[objectId].lastUpdateTime = time.time()
+                self.sessionObjects[objectId].pos = commandList[counter + 1 : counter + 4]
+                self.sessionObjects[objectId].dir = commandList[counter + 4 : counter + 7]
+                counter += 7
 
         # elif (commandList[1] == "config"): 
         #     self.sessionConfigDirty = True
@@ -94,12 +96,8 @@ class UserSession:
 class SessionObject:
     def __init__(self, objectId):
         self.objectId = objectId
-        self.x = 0
-        self.y = 0
-        self.z = 0
-        self.rotx = 0
-        self.roty = 0
-        self.rotz = 0
+        self.pos = [0, 0, 0]
+        self.dir = [0, 0, 0]
         self.startTime = time.time()
         self.lastUpdateTime = time.time()
         self.isActive = True
