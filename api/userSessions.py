@@ -50,9 +50,9 @@ class UserSession:
         # print(f"updateUserSession: {self.sessionId} {commandList}")
         self.lastUpdateTime = time.time()
 
-        # TO DO: Handle multiple objects in telemmetry update
-        if (commandList[1] == "objectTelemmetry"): 
-            # print(f'TELEMMETRY: {commandList}')
+        # TO DO: Handle multiple objects in telemetry update
+        if (commandList[1] == "objectTelemetry"): 
+            # print(f'TELEMETRY: {commandList}')
             counter = 2
             while (counter < len(commandList)):
                 objectId = commandList[counter]
@@ -78,7 +78,7 @@ class UserSession:
     def startLogging(self):
         if (not self.isLogging):
             if (self.telemetryCsvFile is None):
-                filename = f"sessions/{self.sessionId}_{time.strftime('%Y%m%d-%H%M%S')}.csv"
+                filename = f"sessions/{time.strftime('%Y%m%d-%H%M%S')}_{self.sessionId}.csv"
                 self.telemetryCsvFile = open(filename, 'w')
                 self.telemetryCsvWriter = csv.writer(self.telemetryCsvFile)
                 self.telemetryCsvWriter.writerow(["sessionId", "sessionName", "object", "time", "x", "y", "z", "rotx", "roty", "rotz"])
