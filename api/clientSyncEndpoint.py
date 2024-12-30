@@ -11,6 +11,7 @@ class ClientSyncEndpoint(Resource):
 
     def post(self):
         content = request.get_json(force = True)
+        # print("RAW REQUEST CONTENT:", content)
         sessionId = content["sessionId"]
         commandList = content["command"]
 
@@ -31,10 +32,10 @@ class ClientSyncEndpoint(Resource):
             self.userSessions.openUserSession(sessionId)
             userSession = self.userSessions.getUserSession(sessionId)
 
-            # TEMPORARILY turn on logging by default for debugging purposes
+            # FOR DEBUGGING PURPOSES: turn on logging by default
             if ((userSession is not None) and (userSession.isActive)):
                 userSession.startLogging()
-                print("TELEMMETRY LOGGING STARTED")
+                print("TELEMETRY LOGGING STARTED")
 
             userSession.sessionConfig = commandList[1]
             # print("CONFIG DATA: ", commandList[1])
@@ -43,10 +44,13 @@ class ClientSyncEndpoint(Resource):
         elif (commandList[0] == "session_update"):
             responseObject = {}
             userSession = self.userSessions.getUserSession(sessionId)
-            userSession.updateUserSession(commandList)
-            if (userSession.sessionConfigDirty):
-                userSession.sessionConfigDirty = False
-                responseObject["config_update"] = userSession.sessionConfig
+            if (userSession is not None):
+                userSession.updateUserSession(commandList)
+                if (userSession.sessionConfigDirty):
+                    userSession.sessionConfigDirty = False
+                    responseObject["config_update"] = userSession.sessionConfig
+            else:
+                print("Received and ignored session_update for unknown session", sessionId)
             return json.dumps(responseObject), 200
 
         elif (commandList[0] == "oxide_collection_names"):
