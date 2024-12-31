@@ -45,7 +45,11 @@ class ClientSyncEndpoint(Resource):
             responseObject = {}
             userSession = self.userSessions.getUserSession(sessionId)
             if (userSession is not None):
+                # Step 1: Update the user session with the JSON provided by VR client.
                 userSession.updateUserSession(commandList)
+                # Step 2: Prepare response to the VR client.
+                # If the session config needs to be sent back
+                # to the VR client, add it to the response.  
                 if (userSession.sessionConfigDirty):
                     userSession.sessionConfigDirty = False
                     responseObject["config_update"] = userSession.sessionConfig

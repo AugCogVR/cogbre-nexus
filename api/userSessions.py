@@ -50,7 +50,7 @@ class UserSession:
         # print(f"updateUserSession: {self.sessionId} {commandList}")
         self.lastUpdateTime = time.time()
 
-        # TO DO: Handle multiple objects in telemetry update
+        # Handle multiple objects in telemetry update
         if (commandList[1] == "objectTelemetry"): 
             # print(f'TELEMETRY: {commandList}')
             counter = 2
@@ -68,6 +68,7 @@ class UserSession:
                 self.sessionObjects[objectId].dir = commandList[counter + 4 : counter + 7]
                 counter += 7
 
+        # Not sure where I was going with this...
         # elif (commandList[1] == "config"): 
         #     self.sessionConfigDirty = True
 
