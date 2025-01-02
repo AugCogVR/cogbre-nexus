@@ -23,7 +23,7 @@ class AdminSyncEndpoint(Resource):
             responseObject = []
             for userSession in list(self.userSessions.userSessions.values()):
                 if (userSession.isActive):
-                    responseObject.append({"id" : userSession.sessionId, "name" : userSession.sessionConfig["sessionName"]})
+                    responseObject.append({"id" : userSession.sessionId, "name" : userSession.sessionConfig["general|session_name"]})
             return json.dumps(responseObject), 200
 
         # Return current version of the config
@@ -79,10 +79,9 @@ class AdminSyncEndpoint(Resource):
                     for sessionObject in list(userSession.sessionObjects.values()):
                         responseObject.append({"id":sessionObject.objectId, 
                                                "time":f"{(sessionObject.lastUpdateTime - sessionObject.startTime):0.2f}s", 
-                                               "x":f"{float(sessionObject.x):0.2f}",
-                                               "y":f"{float(sessionObject.y):0.2f}",
-                                               "z":f"{float(sessionObject.z):0.2f}"})
-                        # responseString += f"{sessionObject.objectId} {(sessionObject.lastUpdateTime - sessionObject.startTime):0.2f}s {float(sessionObject.x):0.2f} {float(sessionObject.y):0.2f} {float(sessionObject.z):0.2f} | "
+                                               "x":f"{float(sessionObject.pos[0]):0.2f}",
+                                               "y":f"{float(sessionObject.pos[1]):0.2f}",
+                                               "z":f"{float(sessionObject.pos[2]):0.2f}"})
             return json.dumps(responseObject), 200
 
         # If we get here, there is an error.

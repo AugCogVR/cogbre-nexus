@@ -57,7 +57,7 @@ class UserSession:
             while (counter < len(commandList)):
                 objectId = commandList[counter]
                 if (self.isLogging):
-                    row = [self.sessionId, self.sessionConfig["sessionName"],
+                    row = [self.sessionId, self.sessionConfig["general|session_name"],
                         objectId, self.lastUpdateTime]
                     row.extend(commandList[counter + 1 : counter + 7])
                     self.telemetryCsvWriter.writerow(row)
