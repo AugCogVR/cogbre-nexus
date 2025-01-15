@@ -135,6 +135,8 @@ class ClientSyncEndpoint(Resource):
         # (C# default, NewtonSoft, LitJson)
         elif (commandList[0] == "oxide_get_disassembly"):
             OID = commandList[1] 
+            # Call disassembly without any config options, so it uses the default
+            # of ghidra_disasm for disassembler and capstone for decoder.
             responseObject = self.local_oxide.retrieve("disassembly", [ OID ])
             # We'll create a custom response object with just the info we want
             customResponseObject = {}
