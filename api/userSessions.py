@@ -19,15 +19,18 @@ class UserSessions:
         return None
 
     def closeUserSession(self, sessionId):
-        print(f"CLOSE SESSION {sessionId}")
-        self.userSessions[sessionId].closeUserSession()
-        # del self.userSessions[sessionId]  # deleting causes concurrency problemns
+        if (sessionId in self.userSessions):
+            print(f"CLOSE SESSION {sessionId}")
+            self.userSessions[sessionId].closeUserSession()
+            # del self.userSessions[sessionId]  # deleting causes concurrency problemns
 
+    # Check for inactive users and close their sessions if inactivity 
+    # exceeds the threshold established for this user.
+    # This method is called by the backgroundThread established in __main.py__.
     def backgroundActivityCheck(self):
-        inactivityThreshold = 10 # TO DO: fix arbitrary hard-coded value
         while True:
             for sessionId, userSession in self.userSessions.items():
-                if (userSession.isActive and ((time.time() - userSession.lastUpdateTime) > inactivityThreshold)):
+                if (userSession.isActive and ((time.time() - userSession.lastUpdateTime) > userSession.inactivityThreshold)):
                     print(f"SESSION TIMEOUT for {sessionId}")
                     self.closeUserSession(sessionId)
             time.sleep(1)
@@ -45,6 +48,7 @@ class UserSession:
         self.sessionObjects = {}
         self.sessionConfig = {}
         self.sessionConfigDirty = False
+        self.inactivityThreshold = 10
 
     def updateUserSession(self, commandList):
         # print(f"updateUserSession: {self.sessionId} {commandList}")
@@ -67,10 +71,6 @@ class UserSession:
                 self.sessionObjects[objectId].pos = commandList[counter + 1 : counter + 4]
                 self.sessionObjects[objectId].dir = commandList[counter + 4 : counter + 7]
                 counter += 7
-
-        # Not sure where I was going with this...
-        # elif (commandList[1] == "config"): 
-        #     self.sessionConfigDirty = True
 
     def closeUserSession(self):
         self.isActive = False

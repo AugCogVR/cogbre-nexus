@@ -27,18 +27,36 @@ class ClientSyncEndpoint(Resource):
         if ("oxide" in commandList[0]):
             responseString += " ... is oxidepath correct?"
 
+        # Create user session for VR user
         if (commandList[0] == "session_init"):
             responseObject = {}
             self.userSessions.openUserSession(sessionId)
             userSession = self.userSessions.getUserSession(sessionId)
-
-            # FOR DEBUGGING PURPOSES: turn on logging by default
+            # Start logging 
             if ((userSession is not None) and (userSession.isActive)):
                 userSession.startLogging()
-                print("TELEMETRY LOGGING STARTED")
-
             userSession.sessionConfig = commandList[1]
-            # print("CONFIG DATA: ", commandList[1])
+            return json.dumps(responseObject), 200
+
+        # Create user session for web user
+        elif (commandList[0] == "session_init_web"):
+            responseObject = {}
+            self.userSessions.openUserSession(sessionId)
+            userSession = self.userSessions.getUserSession(sessionId)
+            # For now, the only difference between a web user and VR user
+            # is that we don't check for inactivity. Sessions need to be
+            # closed explicitly. 
+            userSession.inactivityThreshold = float('inf')
+            # Start logging 
+            if ((userSession is not None) and (userSession.isActive)):
+                userSession.startLogging()
+            userSession.sessionConfig = commandList[1]
+            return json.dumps(responseObject), 200
+
+        # Create user session for web user
+        elif (commandList[0] == "session_close"):
+            responseObject = {}
+            self.userSessions.closeUserSession(sessionId)
             return json.dumps(responseObject), 200
 
         elif (commandList[0] == "session_update"):
