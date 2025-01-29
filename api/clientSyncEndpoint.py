@@ -34,7 +34,8 @@ class ClientSyncEndpoint(Resource):
             userSession = self.userSessions.getUserSession(sessionId)
             # Start logging 
             if ((userSession is not None) and (userSession.isActive)):
-                userSession.startLogging()
+                userSession.startTelemetryLogging()
+                userSession.startEventLogging()
             userSession.sessionConfig = commandList[1]
             return json.dumps(responseObject), 200
 
@@ -49,7 +50,7 @@ class ClientSyncEndpoint(Resource):
             userSession.inactivityThreshold = float('inf')
             # Start logging 
             if ((userSession is not None) and (userSession.isActive)):
-                userSession.startLogging()
+                userSession.startEventLogging()
             userSession.sessionConfig = commandList[1]
             return json.dumps(responseObject), 200
 

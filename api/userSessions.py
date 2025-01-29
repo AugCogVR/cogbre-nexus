@@ -42,7 +42,10 @@ class UserSession:
         self.loggingStartTime = time.time()
         self.lastUpdateTime = time.time()
         self.isActive = True
-        self.isLogging = False
+        self.isEventLogging = False
+        self.eventCsvFile = None
+        self.eventCsvWriter = None
+        self.isTelemetryLogging = False
         self.telemetryCsvFile = None
         self.telemetryCsvWriter = None
         self.sessionObjects = {}
@@ -54,15 +57,47 @@ class UserSession:
         # print(f"updateUserSession: {self.sessionId} {commandList}")
         self.lastUpdateTime = time.time()
 
-        # Handle multiple objects in telemetry update
+        # Process an event (create / update / destroy object, etc.)
+        # except for telemetry (position/orientation) -- see below.
+        if (commandList[1] == "event"): 
+            # print(f'EVENT: {commandList}')
+            counter = 2
+            action = commandList[counter]
+            # print(f"ACTION: {action}")
+            counter += 1
+            objectId = commandList[counter]
+            # print(f"OBJECTID: {objectId}")
+            counter += 1
+            objectName = commandList[counter]
+            # print(f"OBJECTNAME: {objectName}")
+            counter += 1
+            details = commandList[counter]
+            # print(f"DETAILS: {details}")
+            counter += 1
+            if (self.isEventLogging):
+                row = [self.sessionId, self.sessionConfig["general|session_name"],
+                    action, objectId, objectName, self.lastUpdateTime, details]
+                self.eventCsvWriter.writerow(row)
+            if (action == "create"):
+                if (objectId not in self.sessionObjects):
+                    self.sessionObjects[objectId] = SessionObject(objectId)
+                    self.sessionObjects[objectId].startTime = time.time()
+            if (action == "destroy"):
+                if (objectId in self.sessionObjects):
+                    del self.sessionObjects[objectId] 
+
+        # Process telemetry (object position and orientation). 
+        # Handle multiple objects in single telemetry update.
         if (commandList[1] == "objectTelemetry"): 
             # print(f'TELEMETRY: {commandList}')
             counter = 2
             while (counter < len(commandList)):
-                objectId = commandList[counter]
-                if (self.isLogging):
+                # TODO: Read object ID (after client is updated to send it!)
+                objectId = "TBD"
+                objectName = commandList[counter]
+                if (self.isTelemetryLogging):
                     row = [self.sessionId, self.sessionConfig["general|session_name"],
-                        objectId, self.lastUpdateTime]
+                        objectId, objectName, self.lastUpdateTime]
                     row.extend(commandList[counter + 1 : counter + 7])
                     self.telemetryCsvWriter.writerow(row)
                 if (objectId not in self.sessionObjects):
@@ -74,21 +109,40 @@ class UserSession:
 
     def closeUserSession(self):
         self.isActive = False
-        self.stopLogging()
+        self.stopEventLogging()
+        self.stopTelemetryLogging()
 
-    def startLogging(self):
-        if (not self.isLogging):
+    def startEventLogging(self):
+        if (not self.isEventLogging):
+            if (self.eventCsvFile is None):
+                filename = f"sessions/{time.strftime('%Y%m%d-%H%M%S')}_{self.sessionId}_events.csv"
+                self.eventCsvFile = open(filename, 'w')
+                self.eventCsvWriter = csv.writer(self.eventCsvFile)
+                self.eventCsvWriter.writerow(["sessionId", "sessionName", "action", "objectId", "objectName", "time", "details"])
+            self.loggingStartTime = time.time()
+            self.isEventLogging = True
+
+    def stopEventLogging(self):
+        if (self.isEventLogging):
+            self.isEventLogging = False
+            if (self.eventCsvFile is not None):
+                self.eventCsvFile.close()
+                self.eventCsvFile = None
+                self.eventCsvWriter = None
+                
+    def startTelemetryLogging(self):
+        if (not self.isTelemetryLogging):
             if (self.telemetryCsvFile is None):
-                filename = f"sessions/{time.strftime('%Y%m%d-%H%M%S')}_{self.sessionId}.csv"
+                filename = f"sessions/{time.strftime('%Y%m%d-%H%M%S')}_{self.sessionId}_telemetry.csv"
                 self.telemetryCsvFile = open(filename, 'w')
                 self.telemetryCsvWriter = csv.writer(self.telemetryCsvFile)
-                self.telemetryCsvWriter.writerow(["sessionId", "sessionName", "object", "time", "x", "y", "z", "rotx", "roty", "rotz"])
+                self.telemetryCsvWriter.writerow(["sessionId", "sessionName", "objectId", "objectName", "time", "x", "y", "z", "rotx", "roty", "rotz"])
             self.loggingStartTime = time.time()
-            self.isLogging = True
+            self.isTelemetryLogging = True
 
-    def stopLogging(self):
-        if (self.isLogging):
-            self.isLogging = False
+    def stopTelemetryLogging(self):
+        if (self.isTelemetryLogging):
+            self.isTelemetryLogging = False
             if (self.telemetryCsvFile is not None):
                 self.telemetryCsvFile.close()
                 self.telemetryCsvFile = None
@@ -101,7 +155,9 @@ class SessionObject:
         self.dir = [0, 0, 0]
         self.startTime = time.time()
         self.lastUpdateTime = time.time()
-        self.isActive = True
-        self.telemetryCsvFile = None
-        self.telemetryCsvWriter = None
-        self.latestTelemetryString = ""
+        # self.isActive = True
+        # self.eventCsvFile = None
+        # self.eventCsvWriter = None
+        # self.telemetryCsvFile = None
+        # self.telemetryCsvWriter = None
+        # self.latestTelemetryString = ""

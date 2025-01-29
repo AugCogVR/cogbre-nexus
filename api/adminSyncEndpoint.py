@@ -2,7 +2,8 @@ from flask import request
 from flask_restful import Resource
 import json
 
-# Class defining the API endpoint for syncing with the Nexus GUI
+# Class defining the API endpoint for the Nexus GUI frontend, which
+# can be used to monitor and configure a Nexus user session.
 class AdminSyncEndpoint(Resource):
     def __init__(self, **kwargs):
         self.userSessions = kwargs["userSessions"]
@@ -65,7 +66,8 @@ class AdminSyncEndpoint(Resource):
             sessionId = commandList[1]
             userSession = self.userSessions.getUserSession(sessionId)
             if ((userSession is not None) and (userSession.isActive)):
-                userSession.stopLogging()
+                userSession.stopTelemetryLogging()
+                userSession.stopEventLogging()
             responseObject = {}
             return json.dumps(responseObject), 200
         
