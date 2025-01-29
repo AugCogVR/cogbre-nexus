@@ -22,6 +22,7 @@ should be installed to enable all of Oxide's features.
   - Ghidra (download it from web, install, edit Oxide's .config.txt)
   - Capstone: pip install capstone
   - Capa: pip install flare-capa
+  - Capa rules: obtain from https://github.com/mandiant/capa-rules and put in oxide/datasets/capa-rules
 
 Relative to the top-level Nexus path, Oxide is usually installed at `../oxide/` and Capa rules are usually installed at `../oxide/datasets/capa-rules/`
 
