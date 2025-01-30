@@ -92,8 +92,8 @@ class UserSession:
             # print(f'TELEMETRY: {commandList}')
             counter = 2
             while (counter < len(commandList)):
-                # TODO: Read object ID (after client is updated to send it!)
-                objectId = "TBD"
+                objectId = commandList[counter]
+                counter += 1
                 objectName = commandList[counter]
                 if (self.isTelemetryLogging):
                     row = [self.sessionId, self.sessionConfig["general|session_name"],
