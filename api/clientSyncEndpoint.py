@@ -16,13 +16,13 @@ class ClientSyncEndpoint(Resource):
         commandList = content["command"]
 
         # Report the command received, unless it's a very frequent activity update
-        # if (commandList[0] == "session_update"):
-        #     print(".", end="", flush=True)
-        # else:
-        #     print(f"CLIENT POSTED: sessionId = {content['sessionId']} command = {content['command']}")
+        if (commandList[0] == "session_update"):
+            print(".", end="", flush=True)
+        else:
+            print(f"CLIENT POSTED: sessionId = {content['sessionId']} command = {content['command']}")
 
-        # Eh, just report everything
-        print(f"CLIENT POSTED: sessionId = {content['sessionId']} command = {content['command']}")
+        # Or just report everything
+        # print(f"CLIENT POSTED: sessionId = {content['sessionId']} command = {content['command']}")
 
         # Set default response string for failure. Successful command execution will
         # overwrite it. 

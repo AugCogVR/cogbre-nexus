@@ -1,5 +1,6 @@
 import time
 import csv
+import base64
 
 # Class for managing all user sessions
 class UserSessions:
@@ -74,6 +75,9 @@ class UserSession:
                 counter += 1
                 details = commandList[counter]
                 # print(f"DETAILS: {details}")
+                # # https://www.geeksforgeeks.org/encoding-and-decoding-base64-strings-in-python/
+                # detailsB64 = base64.b64decode(details.encode("ascii")).decode("ascii")
+                # print(f"B64 decoded details: {detailsB64}")
                 counter += 1
                 if (self.isEventLogging):
                     row = [self.sessionId, # self.sessionConfig["general|session_name"],
