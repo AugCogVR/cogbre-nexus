@@ -67,22 +67,26 @@ class UserSession:
             counter += 1
             objectId = commandList[counter]
             # print(f"OBJECTID: {objectId}")
-            counter += 1
-            objectName = commandList[counter]
-            # print(f"OBJECTNAME: {objectName}")
-            counter += 1
-            details = commandList[counter]
-            # print(f"DETAILS: {details}")
-            counter += 1
-            if (self.isEventLogging):
-                row = [self.sessionId, # self.sessionConfig["general|session_name"],
-                    action, objectId, objectName, self.lastUpdateTime, details]
-                self.eventCsvWriter.writerow(row)
             if (action == "create"):
+                counter += 1
+                objectName = commandList[counter]
+                # print(f"OBJECTNAME: {objectName}")
+                counter += 1
+                details = commandList[counter]
+                # print(f"DETAILS: {details}")
+                counter += 1
+                if (self.isEventLogging):
+                    row = [self.sessionId, # self.sessionConfig["general|session_name"],
+                        action, objectId, objectName, self.lastUpdateTime, details]
+                    self.eventCsvWriter.writerow(row)
                 if (objectId not in self.sessionObjects):
                     self.sessionObjects[objectId] = SessionObject(objectId)
                     self.sessionObjects[objectId].startTime = time.time()
             if (action == "destroy"):
+                if (self.isEventLogging):
+                    row = [self.sessionId, # self.sessionConfig["general|session_name"],
+                        action, objectId, '', self.lastUpdateTime, '']
+                    self.eventCsvWriter.writerow(row)
                 if (objectId in self.sessionObjects):
                     del self.sessionObjects[objectId] 
 
