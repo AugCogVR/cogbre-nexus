@@ -75,7 +75,7 @@ class UserSession:
             # print(f"DETAILS: {details}")
             counter += 1
             if (self.isEventLogging):
-                row = [self.sessionId, self.sessionConfig["general|session_name"],
+                row = [self.sessionId, # self.sessionConfig["general|session_name"],
                     action, objectId, objectName, self.lastUpdateTime, details]
                 self.eventCsvWriter.writerow(row)
             if (action == "create"):
@@ -96,7 +96,7 @@ class UserSession:
                 counter += 1
                 objectName = commandList[counter]
                 if (self.isTelemetryLogging):
-                    row = [self.sessionId, self.sessionConfig["general|session_name"],
+                    row = [self.sessionId, # self.sessionConfig["general|session_name"],
                         objectId, objectName, self.lastUpdateTime]
                     row.extend(commandList[counter + 1 : counter + 7])
                     self.telemetryCsvWriter.writerow(row)
@@ -118,7 +118,7 @@ class UserSession:
                 filename = f"sessions/{time.strftime('%Y%m%d-%H%M%S')}_{self.sessionId}_events.csv"
                 self.eventCsvFile = open(filename, 'w')
                 self.eventCsvWriter = csv.writer(self.eventCsvFile)
-                self.eventCsvWriter.writerow(["sessionId", "sessionName", "action", "objectId", "objectName", "time", "details"])
+                self.eventCsvWriter.writerow(["sessionId", "action", "objectId", "objectName", "time", "details"])
             self.loggingStartTime = time.time()
             self.isEventLogging = True
 
@@ -136,7 +136,7 @@ class UserSession:
                 filename = f"sessions/{time.strftime('%Y%m%d-%H%M%S')}_{self.sessionId}_telemetry.csv"
                 self.telemetryCsvFile = open(filename, 'w')
                 self.telemetryCsvWriter = csv.writer(self.telemetryCsvFile)
-                self.telemetryCsvWriter.writerow(["sessionId", "sessionName", "objectId", "objectName", "time", "x", "y", "z", "rotx", "roty", "rotz"])
+                self.telemetryCsvWriter.writerow(["sessionId", "objectId", "objectName", "time", "x", "y", "z", "rotx", "roty", "rotz"])
             self.loggingStartTime = time.time()
             self.isTelemetryLogging = True
 
