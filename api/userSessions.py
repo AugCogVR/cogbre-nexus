@@ -85,6 +85,15 @@ class UserSession:
                     self.eventCsvWriter.writerow(row)
                 if (objectId not in self.sessionObjects):
                     self.sessionObjects[objectId] = SessionObject(objectId)
+            if (action == "update"):
+                counter += 1
+                details = commandList[counter]
+                if (self.isEventLogging):
+                    row = [self.sessionId, # self.sessionConfig["general|session_name"],
+                        action, objectId, '', self.lastUpdateTime, details]
+                    self.eventCsvWriter.writerow(row)
+                if (objectId in self.sessionObjects):
+                    del self.sessionObjects[objectId] 
                     self.sessionObjects[objectId].startTime = time.time()
             if (action == "destroy"):
                 if (self.isEventLogging):
