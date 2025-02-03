@@ -16,7 +16,8 @@ class ClientSyncEndpoint(Resource):
         commandList = content["command"]
 
         # Report the command received, unless it's a very frequent activity update
-        if (commandList[0] == "session_update"):
+        if ((commandList[0] == "session_update") and 
+            (commandList[1] == "objectTelemetry")):
             print(".", end="", flush=True)
         else:
             print(f"CLIENT POSTED: sessionId = {content['sessionId']} command = {content['command']}")
