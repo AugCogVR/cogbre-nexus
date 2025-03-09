@@ -13,7 +13,7 @@ This has been developed against Python 3.9.
 
 ## To run the API server:
 
-Ensure you have the packages in requirements.txt installed.
+Ensure you have the packages in requirements.txt installed (currently just Flask, Flask_RESTful).
 
 Install Oxide -- see https://github.com/Program-Understanding/oxide 
 - During installation of Oxide, there are many additional packages that 
