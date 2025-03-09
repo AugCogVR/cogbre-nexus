@@ -1,3 +1,19 @@
+
+# cogbre-nexus frontend
+
+WARNING: UNMAINTAINED
+
+This is a simple React-based web app to control aspects of cogbre-nexus. 
+
+It can be used to monitor the session of someone running cogbre-vr (connected to this instance of nexus), start/stop logging of their session, and change configuration variables in their session.
+
+This app ultimately was not necessary for its intended purpose, as the default values and actions work well enough that having people start up this separate control app was not required. 
+
+It is unlikely to be maintained going forward and may lose compatiblity with cogbre-nexus. It is only kept around "just in case."
+
+
+--------------------------------------------------------
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
