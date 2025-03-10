@@ -100,6 +100,12 @@ class UserSession:
                     self.eventCsvWriter.writerow(row)
                 if (objectId in self.sessionObjects):
                     del self.sessionObjects[objectId] 
+            if (action == "question_select"):
+                if (self.isEventLogging):
+                    # abuse "objectId" as the question ID
+                    row = [self.sessionId, # self.sessionConfig["general|session_name"],
+                        action, objectId, '', self.lastUpdateTime, '']
+                    self.eventCsvWriter.writerow(row)
 
         # Process telemetry (object position and orientation). 
         # Handle multiple objects in single telemetry update.
