@@ -1,6 +1,11 @@
 import time
 import csv
 import base64
+import threading
+
+# Create locks to synchronize log writing
+eventLogLock = threading.Lock()
+telemetryLogLock = threading.Lock()
 
 # Class for managing all user sessions
 class UserSessions:
@@ -92,12 +97,14 @@ class UserSession:
                 if (self.isEventLogging):
                     row = [self.sessionId, # self.sessionConfig["general|session_name"],
                         action, objectId, '', self.lastUpdateTime, details]
-                    self.eventCsvWriter.writerow(row)
+                    with eventLogLock:
+                        self.eventCsvWriter.writerow(row)
             if (action == "destroy"):
                 if (self.isEventLogging):
                     row = [self.sessionId, # self.sessionConfig["general|session_name"],
                         action, objectId, '', self.lastUpdateTime, '']
-                    self.eventCsvWriter.writerow(row)
+                    with eventLogLock:
+                        self.eventCsvWriter.writerow(row)
                 if (objectId in self.sessionObjects):
                     del self.sessionObjects[objectId] 
             if (action == "question_select"):
@@ -105,7 +112,8 @@ class UserSession:
                     # abuse "objectId" as the question ID
                     row = [self.sessionId, # self.sessionConfig["general|session_name"],
                         action, objectId, '', self.lastUpdateTime, '']
-                    self.eventCsvWriter.writerow(row)
+                    with eventLogLock:
+                        self.eventCsvWriter.writerow(row)
 
         # Process telemetry (object position and orientation). 
         # Handle multiple objects in single telemetry update.
@@ -120,7 +128,8 @@ class UserSession:
                     row = [self.sessionId, # self.sessionConfig["general|session_name"],
                         objectId, objectName, self.lastUpdateTime]
                     row.extend(commandList[counter + 1 : counter + 7])
-                    self.telemetryCsvWriter.writerow(row)
+                    with telemetryLogLock:
+                        self.telemetryCsvWriter.writerow(row)
                 if (objectId not in self.sessionObjects):
                     self.sessionObjects[objectId] = SessionObject(objectId)
                 self.sessionObjects[objectId].lastUpdateTime = time.time()
