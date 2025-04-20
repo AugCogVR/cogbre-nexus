@@ -68,9 +68,16 @@ class ClientSyncEndpoint(Resource):
             responseObject = {}
             userSession = self.userSessions.getUserSession(sessionId)
             if (userSession is not None):
-                # Step 1: Update the user session with the JSON provided by VR client.
+                # First, update the user session with the JSON provided by VR client.
                 userSession.updateUserSession(commandList)
-                # Step 2: Prepare response to the VR client.
+
+                # Then, prepare response to the VR client.
+                # If there is an AI update in the queue, add it to the response.
+                # TODO: Add all updates in queue
+                aiPayload = userSession.popAIPayload()
+                if (aiPayload is not None):
+                    print("Nexus Session Update sending AI payload: ", aiPayload)
+                    responseObject["ai_payload"] = aiPayload
                 # If the session config needs to be sent back
                 # to the VR client, add it to the response.  
                 if (userSession.sessionConfigDirty):

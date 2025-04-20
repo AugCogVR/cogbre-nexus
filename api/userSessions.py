@@ -58,6 +58,8 @@ class UserSession:
         self.sessionConfig = {}
         self.sessionConfigDirty = False
         self.inactivityThreshold = 10
+        self.aiPayloadQueue = []
+        self.aiPayloadQueueLock = threading.Lock()
 
     def updateUserSession(self, commandList):
         # print(f"updateUserSession: {self.sessionId} {commandList}")
@@ -178,6 +180,18 @@ class UserSession:
                 self.telemetryCsvFile = None
                 self.telemetryCsvWriter = None
 
+    def pushAIPayload(self, payload):
+        with self.aiPayloadQueueLock:
+            print(f"For sessionId {self.sessionId} push AI payload: {payload}")
+            self.aiPayloadQueue.append(payload)
+
+    def popAIPayload(self):
+        with self.aiPayloadQueueLock:
+            if (self.aiPayloadQueue):
+                return(self.aiPayloadQueue.pop(0))
+            else:
+                return None
+        
 class SessionObject:
     def __init__(self, objectId):
         self.objectId = objectId

@@ -12,6 +12,7 @@ import threading
 import logging
 from userSessions import *
 from clientSyncEndpoint import *
+from aiSyncEndpoint import *
 from adminSyncEndpoint import *
 
 # Parse command line args
@@ -51,6 +52,10 @@ api.add_resource(ClientSyncEndpoint, "/client_sync",
                  resource_class_kwargs={"userSessions":userSessions, 
                                         "local_oxide":local_oxide,
                                         "capaRulesPath":args.caparulespath})  
+
+# Set up the primary endpoint for the Nexus Admin GUI
+api.add_resource(AISyncEndpoint, "/ai_sync",
+                 resource_class_kwargs={"userSessions":userSessions})
 
 # Set up the primary endpoint for the Nexus Admin GUI
 api.add_resource(AdminSyncEndpoint, "/admin_sync",
