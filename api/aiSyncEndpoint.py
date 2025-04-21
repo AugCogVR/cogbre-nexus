@@ -22,10 +22,14 @@ class AISyncEndpoint(Resource):
             payload = commandList[1]
             # TODO: Actually use the given session ID once we know it's being set properly
             # userSession = self.userSessions.getUserSession(sessionId)
-            # Until then, just grab the first user session
-            userSession = list(self.userSessions.userSessions.values())[0]
-            # print(f"userSession {userSession.sessionId} push AI payload {payload}")
-            userSession.pushAIPayload(payload)
+            # Until then, just grab the first ACTIVE user session
+            allUserSessions = list(self.userSessions.userSessions.values())
+            for userSession in allUserSessions:
+                if userSession.isActive:
+                    userSession.pushAIPayload(payload)
+                    print(f"userSession {userSession.sessionId} push AI payload {payload}")
+                    break
+            # TODO: more informative response
             return json.dumps("ok"), 200
 
         # If we get here, there is an error.
