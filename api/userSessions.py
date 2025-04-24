@@ -89,7 +89,9 @@ class UserSession:
                 if (self.isEventLogging):
                     row = [self.sessionId, # self.sessionConfig["general|session_name"],
                         action, objectId, objectName, self.lastUpdateTime, details]
-                    self.eventCsvWriter.writerow(row)
+                    with eventLogLock:
+                        self.eventCsvWriter.writerow(row)
+                        self.eventCsvFile.flush()
                 if (objectId not in self.sessionObjects):
                     self.sessionObjects[objectId] = SessionObject(objectId)
                     self.sessionObjects[objectId].startTime = time.time()
@@ -101,12 +103,14 @@ class UserSession:
                         action, objectId, '', self.lastUpdateTime, details]
                     with eventLogLock:
                         self.eventCsvWriter.writerow(row)
+                        self.eventCsvFile.flush()
             if (action == "destroy"):
                 if (self.isEventLogging):
                     row = [self.sessionId, # self.sessionConfig["general|session_name"],
                         action, objectId, '', self.lastUpdateTime, '']
                     with eventLogLock:
                         self.eventCsvWriter.writerow(row)
+                        self.eventCsvFile.flush()
                 if (objectId in self.sessionObjects):
                     del self.sessionObjects[objectId] 
             if (action == "question_select"):
@@ -116,6 +120,7 @@ class UserSession:
                         action, objectId, '', self.lastUpdateTime, '']
                     with eventLogLock:
                         self.eventCsvWriter.writerow(row)
+                        self.eventCsvFile.flush()
 
         # Process telemetry (object position and orientation). 
         # Handle multiple objects in single telemetry update.
@@ -151,6 +156,7 @@ class UserSession:
                 self.eventCsvFile = open(filename, 'w')
                 self.eventCsvWriter = csv.writer(self.eventCsvFile)
                 self.eventCsvWriter.writerow(["sessionId", "action", "objectId", "objectName", "time", "details"])
+                self.eventCsvFile.flush()
             self.loggingStartTime = time.time()
             self.isEventLogging = True
 
