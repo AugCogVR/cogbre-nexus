@@ -19,15 +19,22 @@ from adminSyncEndpoint import *
 parser = argparse.ArgumentParser('cogbre nexus API server')
 parser.add_argument("--oxidepath", type=str, help="Path to active Oxide installation.", required=False, default="../oxide/")
 parser.add_argument("--caparulespath", type=str, help="Path to Capa rules files.", required=False, default="../oxide/datasets/capa-rules/")
+parser.add_argument("--mcpclipath", type=str, help="Path to mcp-cli installation.", required=False, default="")
 args = parser.parse_args()
 print(f'oxide path: {args.oxidepath}')
 print(f'capa rules path: {args.caparulespath}')
+print(f'mcp-cli rules path: {args.mcpclipath}')
 
 # Import Oxide 
 sys.path.append(args.oxidepath+'/src')
 sys.path.append(args.oxidepath+'/src/oxide')
 from oxide.core import oxide as local_oxide
 # local_oxide.logger.setLevel(logging.DEBUG)
+
+# Import mcp-cli    FUTURE, MAYBE
+if args.mcpclipath != "":
+    sys.path.append(args.mcpclipath)
+    from mcp import mcp_client as mcp_client
 
 # Set Flask/werkzeug log level
 log = logging.getLogger('werkzeug')
