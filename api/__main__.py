@@ -31,7 +31,8 @@ sys.path.append(args.oxidepath+'/src/oxide')
 from oxide.core import oxide as local_oxide
 # local_oxide.logger.setLevel(logging.DEBUG)
 
-# Import mcp-cli    FUTURE, MAYBE
+# Import mcp-cli -- NOT IN USE YET
+# Refers to mcp-cli as found at https://github.com/chrishayuk/mcp-cli
 if args.mcpclipath != "":
     sys.path.append(args.mcpclipath)
     from mcp import mcp_client as mcp_client

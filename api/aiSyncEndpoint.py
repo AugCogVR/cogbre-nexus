@@ -29,7 +29,7 @@ class AISyncEndpoint(Resource):
                     print(f"\n\n\n*** TRY TO CONVERT {payloadObject["id"]} TO X3D!")
                     x3dString = x3dConverter.json_to_x3d(payloadObject)
                     print(f"\n\n\n*** RESULT: {x3dString}")
-                    with open("graph_output.x3d", "w") as out:
+                    with open("x3d/graph_output.x3d", "w") as out:
                         out.write(x3dString)
 
             # TODO: Actually use the given session ID once we know it's being set properly

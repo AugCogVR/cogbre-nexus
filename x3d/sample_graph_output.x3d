@@ -1,0 +1,2499 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<X3D profile="Immersive" version="3.3" xmlns:xsd="http://www.w3.org/2001/XMLSchema-instance">
+  <Scene>
+    
+<Transform translation='0 2 0'
+          rotation='0 1 0 0.0'
+          scale='0.5 0.5 0.5'>
+  <Shape>
+    <Appearance>
+      <Material diffuseColor='0.5 0.5 0.5' transparency='0'/>
+    </Appearance>
+    <Sphere/>
+  </Shape>
+</Transform>
+
+<Transform translation='0 3.7 0'>
+  <Billboard>
+
+    <!-- Background Box -->
+    <Transform translation='0 0 -0.01'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='0 0 0' transparency='0.5'/>
+        </Appearance>
+        <Box size='0.8 0.4 0.01'/>
+      </Shape>
+    </Transform>
+
+    <!-- Text Label Centered -->
+    <Transform translation='-0.3 -0.1 0'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='1 1 1'/>
+        </Appearance>
+        <Text string='"_init"'>
+          <FontStyle size='0.2'/>
+        </Text>
+      </Shape>
+    </Transform>
+
+  </Billboard>
+</Transform>
+
+<Transform translation='2 2 0'
+          rotation='0 1 0 0.0'
+          scale='0.5 0.5 0.5'>
+  <Shape>
+    <Appearance>
+      <Material diffuseColor='0.5 0.5 0.5' transparency='0'/>
+    </Appearance>
+    <Sphere/>
+  </Shape>
+</Transform>
+
+<Transform translation='2 3.7 0'>
+  <Billboard>
+
+    <!-- Background Box -->
+    <Transform translation='0 0 -0.01'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='0 0 0' transparency='0.5'/>
+        </Appearance>
+        <Box size='0.8 0.4 0.01'/>
+      </Shape>
+    </Transform>
+
+    <!-- Text Label Centered -->
+    <Transform translation='-0.3 -0.1 0'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='1 1 1'/>
+        </Appearance>
+        <Text string='"20520"'>
+          <FontStyle size='0.2'/>
+        </Text>
+      </Shape>
+    </Transform>
+
+  </Billboard>
+</Transform>
+
+<Transform translation='4 2 0'
+          rotation='0 1 0 0.0'
+          scale='0.5 0.5 0.5'>
+  <Shape>
+    <Appearance>
+      <Material diffuseColor='0.5 0.5 0.5' transparency='0'/>
+    </Appearance>
+    <Sphere/>
+  </Shape>
+</Transform>
+
+<Transform translation='4 3.7 0'>
+  <Billboard>
+
+    <!-- Background Box -->
+    <Transform translation='0 0 -0.01'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='0 0 0' transparency='0.5'/>
+        </Appearance>
+        <Box size='0.9200000000000002 0.4 0.01'/>
+      </Shape>
+    </Transform>
+
+    <!-- Text Label Centered -->
+    <Transform translation='-0.36000000000000004 -0.1 0'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='1 1 1'/>
+        </Appearance>
+        <Text string='"_start"'>
+          <FontStyle size='0.2'/>
+        </Text>
+      </Shape>
+    </Transform>
+
+  </Billboard>
+</Transform>
+
+<Transform translation='6 2 0'
+          rotation='0 1 0 0.0'
+          scale='0.5 0.5 0.5'>
+  <Shape>
+    <Appearance>
+      <Material diffuseColor='0.5 0.5 0.5' transparency='0'/>
+    </Appearance>
+    <Sphere/>
+  </Shape>
+</Transform>
+
+<Transform translation='6 3.7 0'>
+  <Billboard>
+
+    <!-- Background Box -->
+    <Transform translation='0 0 -0.01'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='0 0 0' transparency='0.5'/>
+        </Appearance>
+        <Box size='0.8 0.4 0.01'/>
+      </Shape>
+    </Transform>
+
+    <!-- Text Label Centered -->
+    <Transform translation='-0.3 -0.1 0'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='1 1 1'/>
+        </Appearance>
+        <Text string='"20512"'>
+          <FontStyle size='0.2'/>
+        </Text>
+      </Shape>
+    </Transform>
+
+  </Billboard>
+</Transform>
+
+<Transform translation='8 2 0'
+          rotation='0 1 0 0.0'
+          scale='0.5 0.5 0.5'>
+  <Shape>
+    <Appearance>
+      <Material diffuseColor='0.5 0.5 0.5' transparency='0'/>
+    </Appearance>
+    <Sphere/>
+  </Shape>
+</Transform>
+
+<Transform translation='8 3.7 0'>
+  <Billboard>
+
+    <!-- Background Box -->
+    <Transform translation='0 0 -0.01'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='0 0 0' transparency='0.5'/>
+        </Appearance>
+        <Box size='2.72 0.4 0.01'/>
+      </Shape>
+    </Transform>
+
+    <!-- Text Label Centered -->
+    <Transform translation='-1.26 -0.1 0'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='1 1 1'/>
+        </Appearance>
+        <Text string='"__do_global_dtors_aux"'>
+          <FontStyle size='0.2'/>
+        </Text>
+      </Shape>
+    </Transform>
+
+  </Billboard>
+</Transform>
+
+<Transform translation='10 2 0'
+          rotation='0 1 0 0.0'
+          scale='0.5 0.5 0.5'>
+  <Shape>
+    <Appearance>
+      <Material diffuseColor='0.5 0.5 0.5' transparency='0'/>
+    </Appearance>
+    <Sphere/>
+  </Shape>
+</Transform>
+
+<Transform translation='10 3.7 0'>
+  <Billboard>
+
+    <!-- Background Box -->
+    <Transform translation='0 0 -0.01'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='0 0 0' transparency='0.5'/>
+        </Appearance>
+        <Box size='1.6400000000000001 0.4 0.01'/>
+      </Shape>
+    </Transform>
+
+    <!-- Text Label Centered -->
+    <Transform translation='-0.7200000000000001 -0.1 0'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='1 1 1'/>
+        </Appearance>
+        <Text string='"FUN_00101070"'>
+          <FontStyle size='0.2'/>
+        </Text>
+      </Shape>
+    </Transform>
+
+  </Billboard>
+</Transform>
+
+<Transform translation='12 2 0'
+          rotation='0 1 0 0.0'
+          scale='0.5 0.5 0.5'>
+  <Shape>
+    <Appearance>
+      <Material diffuseColor='0.5 0.5 0.5' transparency='0'/>
+    </Appearance>
+    <Sphere/>
+  </Shape>
+</Transform>
+
+<Transform translation='12 3.7 0'>
+  <Billboard>
+
+    <!-- Background Box -->
+    <Transform translation='0 0 -0.01'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='0 0 0' transparency='0.5'/>
+        </Appearance>
+        <Box size='2.6 0.4 0.01'/>
+      </Shape>
+    </Transform>
+
+    <!-- Text Label Centered -->
+    <Transform translation='-1.2 -0.1 0'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='1 1 1'/>
+        </Appearance>
+        <Text string='"deregister_tm_clones"'>
+          <FontStyle size='0.2'/>
+        </Text>
+      </Shape>
+    </Transform>
+
+  </Billboard>
+</Transform>
+
+<Transform translation='-2 2 2'
+          rotation='0 1 0 0.0'
+          scale='0.5 0.5 0.5'>
+  <Shape>
+    <Appearance>
+      <Material diffuseColor='1 1 0' transparency='0'/>
+    </Appearance>
+    <Box/>
+  </Shape>
+</Transform>
+
+<Transform translation='-2 3.7 2'>
+  <Billboard>
+
+    <!-- Background Box -->
+    <Transform translation='0 0 -0.01'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='0 0 0' transparency='0.5'/>
+        </Appearance>
+        <Box size='0.9200000000000002 0.4 0.01'/>
+      </Shape>
+    </Transform>
+
+    <!-- Text Label Centered -->
+    <Transform translation='-0.36000000000000004 -0.1 0'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='1 1 1'/>
+        </Appearance>
+        <Text string='"part1a"'>
+          <FontStyle size='0.2'/>
+        </Text>
+      </Shape>
+    </Transform>
+
+  </Billboard>
+</Transform>
+
+<Transform translation='-4 2 2'
+          rotation='0 1 0 0.0'
+          scale='0.5 0.5 0.5'>
+  <Shape>
+    <Appearance>
+      <Material diffuseColor='0 1 0' transparency='0'/>
+    </Appearance>
+    <Box/>
+  </Shape>
+</Transform>
+
+<Transform translation='-4 3.7 2'>
+  <Billboard>
+
+    <!-- Background Box -->
+    <Transform translation='0 0 -0.01'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='0 0 0' transparency='0.5'/>
+        </Appearance>
+        <Box size='0.9200000000000002 0.4 0.01'/>
+      </Shape>
+    </Transform>
+
+    <!-- Text Label Centered -->
+    <Transform translation='-0.36000000000000004 -0.1 0'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='1 1 1'/>
+        </Appearance>
+        <Text string='"printf"'>
+          <FontStyle size='0.2'/>
+        </Text>
+      </Shape>
+    </Transform>
+
+  </Billboard>
+</Transform>
+
+<Transform translation='-6 2 2'
+          rotation='0 1 0 0.0'
+          scale='0.5 0.5 0.5'>
+  <Shape>
+    <Appearance>
+      <Material diffuseColor='0 1 0' transparency='0'/>
+    </Appearance>
+    <Box/>
+  </Shape>
+</Transform>
+
+<Transform translation='-6 3.7 2'>
+  <Billboard>
+
+    <!-- Background Box -->
+    <Transform translation='0 0 -0.01'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='0 0 0' transparency='0.5'/>
+        </Appearance>
+        <Box size='1.8800000000000001 0.4 0.01'/>
+      </Shape>
+    </Transform>
+
+    <!-- Text Label Centered -->
+    <Transform translation='-0.8400000000000001 -0.1 0'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='1 1 1'/>
+        </Appearance>
+        <Text string='"__isoc99_scanf"'>
+          <FontStyle size='0.2'/>
+        </Text>
+      </Shape>
+    </Transform>
+
+  </Billboard>
+</Transform>
+
+<Transform translation='-8 2 2'
+          rotation='0 1 0 0.0'
+          scale='0.5 0.5 0.5'>
+  <Shape>
+    <Appearance>
+      <Material diffuseColor='1 0 0' transparency='0'/>
+    </Appearance>
+    <Box/>
+  </Shape>
+</Transform>
+
+<Transform translation='-8 3.7 2'>
+  <Billboard>
+
+    <!-- Background Box -->
+    <Transform translation='0 0 -0.01'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='0 0 0' transparency='0.5'/>
+        </Appearance>
+        <Box size='2.12 0.4 0.01'/>
+      </Shape>
+    </Transform>
+
+    <!-- Text Label Centered -->
+    <Transform translation='-0.96 -0.1 0'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='1 1 1'/>
+        </Appearance>
+        <Text string='"__stack_chk_fail"'>
+          <FontStyle size='0.2'/>
+        </Text>
+      </Shape>
+    </Transform>
+
+  </Billboard>
+</Transform>
+
+<Transform translation='0 2 2'
+          rotation='0 1 0 0.0'
+          scale='0.5 0.5 0.5'>
+  <Shape>
+    <Appearance>
+      <Material diffuseColor='1 1 0' transparency='0'/>
+    </Appearance>
+    <Box/>
+  </Shape>
+</Transform>
+
+<Transform translation='0 3.7 2'>
+  <Billboard>
+
+    <!-- Background Box -->
+    <Transform translation='0 0 -0.01'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='0 0 0' transparency='0.5'/>
+        </Appearance>
+        <Box size='0.9200000000000002 0.4 0.01'/>
+      </Shape>
+    </Transform>
+
+    <!-- Text Label Centered -->
+    <Transform translation='-0.36000000000000004 -0.1 0'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='1 1 1'/>
+        </Appearance>
+        <Text string='"part1b"'>
+          <FontStyle size='0.2'/>
+        </Text>
+      </Shape>
+    </Transform>
+
+  </Billboard>
+</Transform>
+
+<Transform translation='2 2 2'
+          rotation='0 1 0 0.0'
+          scale='0.5 0.5 0.5'>
+  <Shape>
+    <Appearance>
+      <Material diffuseColor='1 1 0' transparency='0'/>
+    </Appearance>
+    <Box/>
+  </Shape>
+</Transform>
+
+<Transform translation='2 3.7 2'>
+  <Billboard>
+
+    <!-- Background Box -->
+    <Transform translation='0 0 -0.01'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='0 0 0' transparency='0.5'/>
+        </Appearance>
+        <Box size='0.9200000000000002 0.4 0.01'/>
+      </Shape>
+    </Transform>
+
+    <!-- Text Label Centered -->
+    <Transform translation='-0.36000000000000004 -0.1 0'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='1 1 1'/>
+        </Appearance>
+        <Text string='"part1c"'>
+          <FontStyle size='0.2'/>
+        </Text>
+      </Shape>
+    </Transform>
+
+  </Billboard>
+</Transform>
+
+<Transform translation='4 2 2'
+          rotation='0 1 0 0.0'
+          scale='0.5 0.5 0.5'>
+  <Shape>
+    <Appearance>
+      <Material diffuseColor='1 1 0' transparency='0'/>
+    </Appearance>
+    <Box/>
+  </Shape>
+</Transform>
+
+<Transform translation='4 3.7 2'>
+  <Billboard>
+
+    <!-- Background Box -->
+    <Transform translation='0 0 -0.01'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='0 0 0' transparency='0.5'/>
+        </Appearance>
+        <Box size='0.9200000000000002 0.4 0.01'/>
+      </Shape>
+    </Transform>
+
+    <!-- Text Label Centered -->
+    <Transform translation='-0.36000000000000004 -0.1 0'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='1 1 1'/>
+        </Appearance>
+        <Text string='"part1d"'>
+          <FontStyle size='0.2'/>
+        </Text>
+      </Shape>
+    </Transform>
+
+  </Billboard>
+</Transform>
+
+<Transform translation='-2 4 4'
+          rotation='0 1 0 0.0'
+          scale='0.5 0.5 0.5'>
+  <Shape>
+    <Appearance>
+      <Material diffuseColor='1 1 0' transparency='0'/>
+    </Appearance>
+    <Box/>
+  </Shape>
+</Transform>
+
+<Transform translation='-2 5.7 4'>
+  <Billboard>
+
+    <!-- Background Box -->
+    <Transform translation='0 0 -0.01'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='0 0 0' transparency='0.5'/>
+        </Appearance>
+        <Box size='0.9200000000000002 0.4 0.01'/>
+      </Shape>
+    </Transform>
+
+    <!-- Text Label Centered -->
+    <Transform translation='-0.36000000000000004 -0.1 0'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='1 1 1'/>
+        </Appearance>
+        <Text string='"part2a"'>
+          <FontStyle size='0.2'/>
+        </Text>
+      </Shape>
+    </Transform>
+
+  </Billboard>
+</Transform>
+
+<Transform translation='0 4 4'
+          rotation='0 1 0 0.0'
+          scale='0.5 0.5 0.5'>
+  <Shape>
+    <Appearance>
+      <Material diffuseColor='1 1 0' transparency='0'/>
+    </Appearance>
+    <Box/>
+  </Shape>
+</Transform>
+
+<Transform translation='0 5.7 4'>
+  <Billboard>
+
+    <!-- Background Box -->
+    <Transform translation='0 0 -0.01'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='0 0 0' transparency='0.5'/>
+        </Appearance>
+        <Box size='0.9200000000000002 0.4 0.01'/>
+      </Shape>
+    </Transform>
+
+    <!-- Text Label Centered -->
+    <Transform translation='-0.36000000000000004 -0.1 0'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='1 1 1'/>
+        </Appearance>
+        <Text string='"part2b"'>
+          <FontStyle size='0.2'/>
+        </Text>
+      </Shape>
+    </Transform>
+
+  </Billboard>
+</Transform>
+
+<Transform translation='2 4 4'
+          rotation='0 1 0 0.0'
+          scale='0.5 0.5 0.5'>
+  <Shape>
+    <Appearance>
+      <Material diffuseColor='1 1 0' transparency='0'/>
+    </Appearance>
+    <Box/>
+  </Shape>
+</Transform>
+
+<Transform translation='2 5.7 4'>
+  <Billboard>
+
+    <!-- Background Box -->
+    <Transform translation='0 0 -0.01'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='0 0 0' transparency='0.5'/>
+        </Appearance>
+        <Box size='0.9200000000000002 0.4 0.01'/>
+      </Shape>
+    </Transform>
+
+    <!-- Text Label Centered -->
+    <Transform translation='-0.36000000000000004 -0.1 0'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='1 1 1'/>
+        </Appearance>
+        <Text string='"part2c"'>
+          <FontStyle size='0.2'/>
+        </Text>
+      </Shape>
+    </Transform>
+
+  </Billboard>
+</Transform>
+
+<Transform translation='4 4 4'
+          rotation='0 1 0 0.0'
+          scale='0.5 0.5 0.5'>
+  <Shape>
+    <Appearance>
+      <Material diffuseColor='1 1 0' transparency='0'/>
+    </Appearance>
+    <Box/>
+  </Shape>
+</Transform>
+
+<Transform translation='4 5.7 4'>
+  <Billboard>
+
+    <!-- Background Box -->
+    <Transform translation='0 0 -0.01'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='0 0 0' transparency='0.5'/>
+        </Appearance>
+        <Box size='0.9200000000000002 0.4 0.01'/>
+      </Shape>
+    </Transform>
+
+    <!-- Text Label Centered -->
+    <Transform translation='-0.36000000000000004 -0.1 0'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='1 1 1'/>
+        </Appearance>
+        <Text string='"part2d"'>
+          <FontStyle size='0.2'/>
+        </Text>
+      </Shape>
+    </Transform>
+
+  </Billboard>
+</Transform>
+
+<Transform translation='-2 4 6'
+          rotation='0 1 0 0.0'
+          scale='0.5 0.5 0.5'>
+  <Shape>
+    <Appearance>
+      <Material diffuseColor='1 1 0' transparency='0'/>
+    </Appearance>
+    <Box/>
+  </Shape>
+</Transform>
+
+<Transform translation='-2 5.7 6'>
+  <Billboard>
+
+    <!-- Background Box -->
+    <Transform translation='0 0 -0.01'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='0 0 0' transparency='0.5'/>
+        </Appearance>
+        <Box size='0.9200000000000002 0.4 0.01'/>
+      </Shape>
+    </Transform>
+
+    <!-- Text Label Centered -->
+    <Transform translation='-0.36000000000000004 -0.1 0'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='1 1 1'/>
+        </Appearance>
+        <Text string='"part3a"'>
+          <FontStyle size='0.2'/>
+        </Text>
+      </Shape>
+    </Transform>
+
+  </Billboard>
+</Transform>
+
+<Transform translation='0 4 6'
+          rotation='0 1 0 0.0'
+          scale='0.5 0.5 0.5'>
+  <Shape>
+    <Appearance>
+      <Material diffuseColor='1 1 0' transparency='0'/>
+    </Appearance>
+    <Box/>
+  </Shape>
+</Transform>
+
+<Transform translation='0 5.7 6'>
+  <Billboard>
+
+    <!-- Background Box -->
+    <Transform translation='0 0 -0.01'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='0 0 0' transparency='0.5'/>
+        </Appearance>
+        <Box size='0.9200000000000002 0.4 0.01'/>
+      </Shape>
+    </Transform>
+
+    <!-- Text Label Centered -->
+    <Transform translation='-0.36000000000000004 -0.1 0'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='1 1 1'/>
+        </Appearance>
+        <Text string='"part3b"'>
+          <FontStyle size='0.2'/>
+        </Text>
+      </Shape>
+    </Transform>
+
+  </Billboard>
+</Transform>
+
+<Transform translation='2 4 6'
+          rotation='0 1 0 0.0'
+          scale='0.5 0.5 0.5'>
+  <Shape>
+    <Appearance>
+      <Material diffuseColor='1 1 0' transparency='0'/>
+    </Appearance>
+    <Box/>
+  </Shape>
+</Transform>
+
+<Transform translation='2 5.7 6'>
+  <Billboard>
+
+    <!-- Background Box -->
+    <Transform translation='0 0 -0.01'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='0 0 0' transparency='0.5'/>
+        </Appearance>
+        <Box size='0.9200000000000002 0.4 0.01'/>
+      </Shape>
+    </Transform>
+
+    <!-- Text Label Centered -->
+    <Transform translation='-0.36000000000000004 -0.1 0'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='1 1 1'/>
+        </Appearance>
+        <Text string='"part3c"'>
+          <FontStyle size='0.2'/>
+        </Text>
+      </Shape>
+    </Transform>
+
+  </Billboard>
+</Transform>
+
+<Transform translation='4 4 6'
+          rotation='0 1 0 0.0'
+          scale='0.5 0.5 0.5'>
+  <Shape>
+    <Appearance>
+      <Material diffuseColor='1 1 0' transparency='0'/>
+    </Appearance>
+    <Box/>
+  </Shape>
+</Transform>
+
+<Transform translation='4 5.7 6'>
+  <Billboard>
+
+    <!-- Background Box -->
+    <Transform translation='0 0 -0.01'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='0 0 0' transparency='0.5'/>
+        </Appearance>
+        <Box size='0.9200000000000002 0.4 0.01'/>
+      </Shape>
+    </Transform>
+
+    <!-- Text Label Centered -->
+    <Transform translation='-0.36000000000000004 -0.1 0'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='1 1 1'/>
+        </Appearance>
+        <Text string='"part3d"'>
+          <FontStyle size='0.2'/>
+        </Text>
+      </Shape>
+    </Transform>
+
+  </Billboard>
+</Transform>
+
+<Transform translation='-2 6 8'
+          rotation='0 1 0 0.0'
+          scale='0.5 0.5 0.5'>
+  <Shape>
+    <Appearance>
+      <Material diffuseColor='1 1 0' transparency='0'/>
+    </Appearance>
+    <Box/>
+  </Shape>
+</Transform>
+
+<Transform translation='-2 7.7 8'>
+  <Billboard>
+
+    <!-- Background Box -->
+    <Transform translation='0 0 -0.01'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='0 0 0' transparency='0.5'/>
+        </Appearance>
+        <Box size='0.9200000000000002 0.4 0.01'/>
+      </Shape>
+    </Transform>
+
+    <!-- Text Label Centered -->
+    <Transform translation='-0.36000000000000004 -0.1 0'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='1 1 1'/>
+        </Appearance>
+        <Text string='"part4a"'>
+          <FontStyle size='0.2'/>
+        </Text>
+      </Shape>
+    </Transform>
+
+  </Billboard>
+</Transform>
+
+<Transform translation='0 6 8'
+          rotation='0 1 0 0.0'
+          scale='0.5 0.5 0.5'>
+  <Shape>
+    <Appearance>
+      <Material diffuseColor='1 1 0' transparency='0'/>
+    </Appearance>
+    <Box/>
+  </Shape>
+</Transform>
+
+<Transform translation='0 7.7 8'>
+  <Billboard>
+
+    <!-- Background Box -->
+    <Transform translation='0 0 -0.01'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='0 0 0' transparency='0.5'/>
+        </Appearance>
+        <Box size='0.9200000000000002 0.4 0.01'/>
+      </Shape>
+    </Transform>
+
+    <!-- Text Label Centered -->
+    <Transform translation='-0.36000000000000004 -0.1 0'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='1 1 1'/>
+        </Appearance>
+        <Text string='"part4b"'>
+          <FontStyle size='0.2'/>
+        </Text>
+      </Shape>
+    </Transform>
+
+  </Billboard>
+</Transform>
+
+<Transform translation='2 6 8'
+          rotation='0 1 0 0.0'
+          scale='0.5 0.5 0.5'>
+  <Shape>
+    <Appearance>
+      <Material diffuseColor='1 1 0' transparency='0'/>
+    </Appearance>
+    <Box/>
+  </Shape>
+</Transform>
+
+<Transform translation='2 7.7 8'>
+  <Billboard>
+
+    <!-- Background Box -->
+    <Transform translation='0 0 -0.01'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='0 0 0' transparency='0.5'/>
+        </Appearance>
+        <Box size='0.9200000000000002 0.4 0.01'/>
+      </Shape>
+    </Transform>
+
+    <!-- Text Label Centered -->
+    <Transform translation='-0.36000000000000004 -0.1 0'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='1 1 1'/>
+        </Appearance>
+        <Text string='"part4c"'>
+          <FontStyle size='0.2'/>
+        </Text>
+      </Shape>
+    </Transform>
+
+  </Billboard>
+</Transform>
+
+<Transform translation='4 6 8'
+          rotation='0 1 0 0.0'
+          scale='0.5 0.5 0.5'>
+  <Shape>
+    <Appearance>
+      <Material diffuseColor='1 1 0' transparency='0'/>
+    </Appearance>
+    <Box/>
+  </Shape>
+</Transform>
+
+<Transform translation='4 7.7 8'>
+  <Billboard>
+
+    <!-- Background Box -->
+    <Transform translation='0 0 -0.01'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='0 0 0' transparency='0.5'/>
+        </Appearance>
+        <Box size='0.9200000000000002 0.4 0.01'/>
+      </Shape>
+    </Transform>
+
+    <!-- Text Label Centered -->
+    <Transform translation='-0.36000000000000004 -0.1 0'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='1 1 1'/>
+        </Appearance>
+        <Text string='"part4d"'>
+          <FontStyle size='0.2'/>
+        </Text>
+      </Shape>
+    </Transform>
+
+  </Billboard>
+</Transform>
+
+<Transform translation='6 6 8'
+          rotation='0 1 0 0.0'
+          scale='0.5 0.5 0.5'>
+  <Shape>
+    <Appearance>
+      <Material diffuseColor='1 1 0' transparency='0'/>
+    </Appearance>
+    <Box/>
+  </Shape>
+</Transform>
+
+<Transform translation='6 7.7 8'>
+  <Billboard>
+
+    <!-- Background Box -->
+    <Transform translation='0 0 -0.01'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='0 0 0' transparency='0.5'/>
+        </Appearance>
+        <Box size='0.9200000000000002 0.4 0.01'/>
+      </Shape>
+    </Transform>
+
+    <!-- Text Label Centered -->
+    <Transform translation='-0.36000000000000004 -0.1 0'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='1 1 1'/>
+        </Appearance>
+        <Text string='"part4e"'>
+          <FontStyle size='0.2'/>
+        </Text>
+      </Shape>
+    </Transform>
+
+  </Billboard>
+</Transform>
+
+<Transform translation='-2 8 10'
+          rotation='0 1 0 0.0'
+          scale='0.5 0.5 0.5'>
+  <Shape>
+    <Appearance>
+      <Material diffuseColor='1 1 0' transparency='0'/>
+    </Appearance>
+    <Box/>
+  </Shape>
+</Transform>
+
+<Transform translation='-2 9.7 10'>
+  <Billboard>
+
+    <!-- Background Box -->
+    <Transform translation='0 0 -0.01'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='0 0 0' transparency='0.5'/>
+        </Appearance>
+        <Box size='0.9200000000000002 0.4 0.01'/>
+      </Shape>
+    </Transform>
+
+    <!-- Text Label Centered -->
+    <Transform translation='-0.36000000000000004 -0.1 0'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='1 1 1'/>
+        </Appearance>
+        <Text string='"part5a"'>
+          <FontStyle size='0.2'/>
+        </Text>
+      </Shape>
+    </Transform>
+
+  </Billboard>
+</Transform>
+
+<Transform translation='0 8 10'
+          rotation='0 1 0 0.0'
+          scale='0.5 0.5 0.5'>
+  <Shape>
+    <Appearance>
+      <Material diffuseColor='1 1 0' transparency='0'/>
+    </Appearance>
+    <Box/>
+  </Shape>
+</Transform>
+
+<Transform translation='0 9.7 10'>
+  <Billboard>
+
+    <!-- Background Box -->
+    <Transform translation='0 0 -0.01'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='0 0 0' transparency='0.5'/>
+        </Appearance>
+        <Box size='0.9200000000000002 0.4 0.01'/>
+      </Shape>
+    </Transform>
+
+    <!-- Text Label Centered -->
+    <Transform translation='-0.36000000000000004 -0.1 0'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='1 1 1'/>
+        </Appearance>
+        <Text string='"part5b"'>
+          <FontStyle size='0.2'/>
+        </Text>
+      </Shape>
+    </Transform>
+
+  </Billboard>
+</Transform>
+
+<Transform translation='2 8 10'
+          rotation='0 1 0 0.0'
+          scale='0.5 0.5 0.5'>
+  <Shape>
+    <Appearance>
+      <Material diffuseColor='1 1 0' transparency='0'/>
+    </Appearance>
+    <Box/>
+  </Shape>
+</Transform>
+
+<Transform translation='2 9.7 10'>
+  <Billboard>
+
+    <!-- Background Box -->
+    <Transform translation='0 0 -0.01'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='0 0 0' transparency='0.5'/>
+        </Appearance>
+        <Box size='0.9200000000000002 0.4 0.01'/>
+      </Shape>
+    </Transform>
+
+    <!-- Text Label Centered -->
+    <Transform translation='-0.36000000000000004 -0.1 0'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='1 1 1'/>
+        </Appearance>
+        <Text string='"part5c"'>
+          <FontStyle size='0.2'/>
+        </Text>
+      </Shape>
+    </Transform>
+
+  </Billboard>
+</Transform>
+
+<Transform translation='0 3 5'
+          rotation='0 1 0 0.0'
+          scale='0.5 0.5 0.5'>
+  <Shape>
+    <Appearance>
+      <Material diffuseColor='0 0 1' transparency='0'/>
+    </Appearance>
+    <Cylinder/>
+  </Shape>
+</Transform>
+
+<Transform translation='0 4.7 5'>
+  <Billboard>
+
+    <!-- Background Box -->
+    <Transform translation='0 0 -0.01'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='0 0 0' transparency='0.5'/>
+        </Appearance>
+        <Box size='0.6799999999999999 0.4 0.01'/>
+      </Shape>
+    </Transform>
+
+    <!-- Text Label Centered -->
+    <Transform translation='-0.24 -0.1 0'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='1 1 1'/>
+        </Appearance>
+        <Text string='"main"'>
+          <FontStyle size='0.2'/>
+        </Text>
+      </Shape>
+    </Transform>
+
+  </Billboard>
+</Transform>
+
+<Transform translation='0 5 5'
+          rotation='0 1 0 0.0'
+          scale='0.5 0.5 0.5'>
+  <Shape>
+    <Appearance>
+      <Material diffuseColor='0 1 0' transparency='0'/>
+    </Appearance>
+    <Box/>
+  </Shape>
+</Transform>
+
+<Transform translation='0 6.7 5'>
+  <Billboard>
+
+    <!-- Background Box -->
+    <Transform translation='0 0 -0.01'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='0 0 0' transparency='0.5'/>
+        </Appearance>
+        <Box size='0.6799999999999999 0.4 0.01'/>
+      </Shape>
+    </Transform>
+
+    <!-- Text Label Centered -->
+    <Transform translation='-0.24 -0.1 0'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='1 1 1'/>
+        </Appearance>
+        <Text string='"puts"'>
+          <FontStyle size='0.2'/>
+        </Text>
+      </Shape>
+    </Transform>
+
+  </Billboard>
+</Transform>
+
+<Transform translation='0 1 0'
+          rotation='0 1 0 0.0'
+          scale='0.5 0.5 0.5'>
+  <Shape>
+    <Appearance>
+      <Material diffuseColor='0.5 0.5 0.5' transparency='0'/>
+    </Appearance>
+    <Sphere/>
+  </Shape>
+</Transform>
+
+<Transform translation='0 2.7 0'>
+  <Billboard>
+
+    <!-- Background Box -->
+    <Transform translation='0 0 -0.01'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='0 0 0' transparency='0.5'/>
+        </Appearance>
+        <Box size='1.9999999999999998 0.4 0.01'/>
+      </Shape>
+    </Transform>
+
+    <!-- Text Label Centered -->
+    <Transform translation='-0.8999999999999999 -0.1 0'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='1 1 1'/>
+        </Appearance>
+        <Text string='"__libc_csu_init"'>
+          <FontStyle size='0.2'/>
+        </Text>
+      </Shape>
+    </Transform>
+
+  </Billboard>
+</Transform>
+
+<Transform translation='0 0 0'
+          rotation='0 1 0 0.0'
+          scale='0.5 0.5 0.5'>
+  <Shape>
+    <Appearance>
+      <Material diffuseColor='0.5 0.5 0.5' transparency='0'/>
+    </Appearance>
+    <Sphere/>
+  </Shape>
+</Transform>
+
+<Transform translation='0 1.7 0'>
+  <Billboard>
+
+    <!-- Background Box -->
+    <Transform translation='0 0 -0.01'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='0 0 0' transparency='0.5'/>
+        </Appearance>
+        <Box size='1.52 0.4 0.01'/>
+      </Shape>
+    </Transform>
+
+    <!-- Text Label Centered -->
+    <Transform translation='-0.66 -0.1 0'>
+      <Shape>
+        <Appearance>
+          <Material diffuseColor='1 1 1'/>
+        </Appearance>
+        <Text string='"frame_dummy"'>
+          <FontStyle size='0.2'/>
+        </Text>
+      </Shape>
+    </Transform>
+
+  </Billboard>
+</Transform>
+
+    
+<Transform translation='1.0 2.0 0.0'
+        rotation='0.0 0.0 -1.0 1.5707963267948966'
+        scale='0.05 1.0 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='1.5 2.0 0.0'
+        rotation='0.0 0.0 -1.0 1.5707963267948966'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='5.0 2.0 0.0'
+        rotation='0.0 0.0 -1.0 1.5707963267948966'
+        scale='0.05 1.0 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='5.5 2.0 0.0'
+        rotation='0.0 0.0 -1.0 1.5707963267948966'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='9.0 2.0 0.0'
+        rotation='0.0 0.0 -1.0 1.5707963267948966'
+        scale='0.05 1.0 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='9.5 2.0 0.0'
+        rotation='0.0 0.0 -1.0 1.5707963267948966'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='10.0 2.0 0.0'
+        rotation='0.0 0.0 -1.0 1.5707963267948966'
+        scale='0.05 2.0 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='11.5 2.0 0.0'
+        rotation='0.0 0.0 -1.0 1.5707963267948966'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='-3.0 2.0 2.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.05 1.0 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='-3.5 2.0 2.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='-4.0 2.0 2.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.05 2.0 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='-5.5 2.0 2.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='-5.0 2.0 2.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.05 3.0 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='-7.5 2.0 2.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='-1.0 2.0 2.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.05 1.0 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='-1.5 2.0 2.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='0.0 2.0 2.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.05 2.0 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='-1.5 2.0 2.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='1.0 2.0 2.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.05 1.0 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='0.5 2.0 2.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='1.0 2.0 2.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.05 3.0 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='-1.5 2.0 2.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='2.0 2.0 2.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.05 2.0 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='0.5 2.0 2.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='3.0 2.0 2.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.05 1.0 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='2.5 2.0 2.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='-3.0 3.0 3.0'
+        rotation='-0.7071067811865476 0.0 0.7071067811865476 2.186276035465284'
+        scale='0.05 1.7320508075688772 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='-3.711324865405187 2.288675134594813 2.288675134594813'
+        rotation='-0.7071067811865476 0.0 0.7071067811865476 2.186276035465284'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='-4.0 3.0 3.0'
+        rotation='-0.4472135954999579 0.0 0.8944271909999159 1.9913306620788618'
+        scale='0.05 2.449489742783178 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='-5.591751709536137 2.2041241452319316 2.2041241452319316'
+        rotation='-0.4472135954999579 0.0 0.8944271909999159 1.9913306620788618'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='-5.0 3.0 3.0'
+        rotation='-0.31622776601683794 0.0 0.9486832980505138 1.877073695964566'
+        scale='0.05 3.3166247903554 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='-7.547732983133354 2.1507556722888816 2.1507556722888816'
+        rotation='-0.31622776601683794 0.0 0.9486832980505138 1.877073695964566'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='-1.0 4.0 4.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.05 1.0 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='-1.5 4.0 4.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='0.0 4.0 4.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.05 2.0 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='-1.5 4.0 4.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='1.0 4.0 4.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.05 1.0 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='0.5 4.0 4.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='1.0 4.0 4.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.05 3.0 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='-1.5 4.0 4.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='3.0 4.0 4.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.05 1.0 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='2.5 4.0 4.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='-3.0 3.0 4.0'
+        rotation='-0.8944271909999159 0.0 0.4472135954999579 1.9913306620788618'
+        scale='0.05 2.449489742783178 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='-3.7958758547680684 2.2041241452319316 2.408248290463863'
+        rotation='-0.8944271909999159 0.0 0.4472135954999579 1.9913306620788618'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='-4.0 3.0 4.0'
+        rotation='-0.7071067811865475 0.0 0.7071067811865475 1.9106332362490184'
+        scale='0.05 3.0 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='-5.666666666666667 2.1666666666666665 2.3333333333333335'
+        rotation='-0.7071067811865475 0.0 0.7071067811865475 1.9106332362490184'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='-5.0 3.0 4.0'
+        rotation='-0.5547001962252291 0.0 0.8320502943378436 1.8413460897734695'
+        scale='0.05 3.7416573867739413 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='-7.599108137131363 2.1336306209562124 2.2672612419124243'
+        rotation='-0.5547001962252291 0.0 0.8320502943378436 1.8413460897734695'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='-1.0 4.0 6.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.05 1.0 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='-1.5 4.0 6.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='0.0 4.0 6.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.05 2.0 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='-1.5 4.0 6.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='1.0 4.0 6.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.05 1.0 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='0.5 4.0 6.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='2.0 4.0 6.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.05 2.0 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='0.5 4.0 6.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='3.0 4.0 6.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.05 1.0 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='2.5 4.0 6.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='-3.0 4.0 5.0'
+        rotation='-0.9486832980505139 0.0 0.31622776601683794 2.1347389681555256'
+        scale='0.05 3.7416573867739413 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='-3.8663693790437876 2.2672612419124243 2.4008918628686367'
+        rotation='-0.9486832980505139 0.0 0.31622776601683794 2.1347389681555256'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='-4.0 4.0 5.0'
+        rotation='-0.8320502943378437 0.0 0.5547001962252291 2.077240970208397'
+        scale='0.05 4.123105625617661 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='-5.757464374963667 2.242535625036333 2.3638034375544996'
+        rotation='-0.8320502943378437 0.0 0.5547001962252291 2.077240970208397'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='-5.0 4.0 5.0'
+        rotation='-0.7071067811865476 0.0 0.7071067811865476 2.011306989799595'
+        scale='0.05 4.69041575982343 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='-7.680198925466584 2.2132007163556104 2.319801074533416'
+        rotation='-0.7071067811865476 0.0 0.7071067811865476 2.011306989799595'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='-1.0 6.0 8.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.05 1.0 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='-1.5 6.0 8.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='0.0 6.0 8.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.05 2.0 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='-1.5 6.0 8.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='1.0 6.0 8.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.05 1.0 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='0.5 6.0 8.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='3.0 6.0 8.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.05 1.0 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='2.5 6.0 8.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='3.0 5.0 7.0'
+        rotation='-0.7071067811865476 0.0 0.7071067811865476 2.186276035465284'
+        scale='0.05 1.7320508075688772 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='2.288675134594813 4.288675134594813 6.288675134594813'
+        rotation='-0.7071067811865476 0.0 0.7071067811865476 2.186276035465284'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='5.0 6.0 8.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.05 1.0 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='4.5 6.0 8.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='2.0 6.0 8.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.05 4.0 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='-1.5 6.0 8.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='-3.0 5.0 6.0'
+        rotation='-0.970142500145332 0.0 0.242535625036333 2.1998111292215725'
+        scale='0.05 5.0990195135927845 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='-3.901941932430908 2.2941742027072762 2.3922322702763683'
+        rotation='-0.970142500145332 0.0 0.242535625036333 2.1998111292215725'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='-4.0 5.0 6.0'
+        rotation='-0.8944271909999159 0.0 0.4472135954999579 2.1616690769403157'
+        scale='0.05 5.385164807134504 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='-5.814304661822948 2.278543007265578 2.3713906763541037'
+        rotation='-0.8944271909999159 0.0 0.4472135954999579 2.1616690769403157'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='-5.0 5.0 6.0'
+        rotation='-0.8 0.0 0.6 2.1112158270654806'
+        scale='0.05 5.830951894845301 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='-7.7427521222862365 2.2572478777137635 2.3429971702850176'
+        rotation='-0.8 0.0 0.6 2.1112158270654806'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='-1.0 8.0 10.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.05 1.0 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='-1.5 8.0 10.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='0.0 8.0 10.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.05 2.0 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='-1.5 8.0 10.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='1.0 8.0 10.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.05 1.0 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='0.5 8.0 10.0'
+        rotation='0.0 -0.0 1.0 1.5707963267948966'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='2.0 2.5 3.5'
+        rotation='-0.6 0.0 -0.8 1.7681918866447774'
+        scale='0.05 2.5495097567963922 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='3.6077677297236317 2.098058067569092 2.2941742027072762'
+        rotation='-0.6 0.0 -0.8 1.7681918866447774'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='2.0 3.5 5.5'
+        rotation='0.24253562503633297 0.0 -0.9701425001453319 1.3328552019646882'
+        scale='0.05 2.1213203435596424 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='3.528595479208968 3.882148869802242 5.882148869802242'
+        rotation='0.24253562503633297 0.0 -0.9701425001453319 1.3328552019646882'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='1.0 5.5 7.5'
+        rotation='0.9284766908852592 0.0 -0.37139067635410367 0.8224691545143298'
+        scale='0.05 3.6742346141747673 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='1.8639172365120458 7.659793091280114 9.659793091280115'
+        rotation='0.9284766908852592 0.0 -0.37139067635410367 0.8224691545143298'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='2.0 3.5 4.5'
+        rotation='-0.24253562503633297 0.0 -0.9701425001453319 1.3328552019646882'
+        scale='0.05 2.1213203435596424 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='3.528595479208968 3.882148869802242 4.117851130197758'
+        rotation='-0.24253562503633297 0.0 -0.9701425001453319 1.3328552019646882'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='3.0 4.5 6.5'
+        rotation='0.4472135954999579 0.0 -0.8944271909999159 1.1502619915109316'
+        scale='0.05 3.6742346141747673 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='5.591751709536137 5.795875854768068 7.795875854768068'
+        rotation='0.4472135954999579 0.0 -0.8944271909999159 1.1502619915109316'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='0.0 4.0 5.0'
+        rotation='0 1 0 0'
+        scale='0.05 1.0 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='0.0 4.5 5.0'
+        rotation='0 1 0 0'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='0.0 1.5 0.0'
+        rotation='0 1 0 0'
+        scale='0.05 0.5 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='0.0 1.5 0.0'
+        rotation='0 1 0 0'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+<Transform translation='0.0 0.5 0.0'
+        rotation='1 0 0 3.141592653589793'
+        scale='0.05 0.5 0.05'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cylinder/>
+</Shape>
+</Transform>
+
+<Transform translation='0.0 0.5 0.0'
+        rotation='1 0 0 3.141592653589793'
+        scale='0.2 0.6 0.2'>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 1 1'/>
+    </Appearance>
+    <Cone/>
+</Shape>
+</Transform>
+
+  </Scene>
+</X3D>
