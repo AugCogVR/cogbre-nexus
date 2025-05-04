@@ -140,6 +140,9 @@ apitesttmp*
 sessions/*.csv
 sessions/.ipynb_checkpoints/*
 
+# COGBRE: ignore x3d files 
+x3d/*
+
 
 # ===========================
 # React stuff
