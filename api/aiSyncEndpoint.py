@@ -2,6 +2,7 @@ from flask import request
 from flask_restful import Resource
 import json
 import x3dConverter
+import time
 
 # Class defining the API endpoint for the AI Assistant.
 class AISyncEndpoint(Resource):
@@ -22,15 +23,18 @@ class AISyncEndpoint(Resource):
         if (commandList[0] == "push_ai_payload"):
             payloadString = commandList[1]
 
-            # TEMPORARY (???) HACK: If we have a graph, convert it to X3D and dump to file
-            if False:
+            # TEMPORARY HACK: If we have a graph, convert it to X3D and dump to file
+            if True:
                 payloadObject = json.loads(payloadString)
                 if payloadObject["payload_type"] == "graph":
-                    print(f"\n\n\n*** TRY TO CONVERT {payloadObject["id"]} TO X3D!")
-                    x3dString = x3dConverter.json_to_x3d(payloadObject)
-                    print(f"\n\n\n*** RESULT: {x3dString}")
-                    with open("x3d/graph_output.x3d", "w") as out:
-                        out.write(x3dString)
+                    try:
+                        print(f"\n\n\n*** CONVERT GRAPH {payloadObject["id"]} TO X3D!")
+                        x3dString = x3dConverter.json_to_x3d(payloadObject)
+                        print(f"\n\n\n*** RESULT: {x3dString}")
+                        with open(f"x3d/graph_output_{int(time.time())}.x3d", "w") as out:
+                            out.write(x3dString)
+                    except Exception as e:    
+                        print(f"Error converting graph to X3D: {e}")
 
             # TODO: Actually use the given session ID once we know it's being set properly
             # userSession = self.userSessions.getUserSession(sessionId)
