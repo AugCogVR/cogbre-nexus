@@ -66,7 +66,7 @@ def create_x3d_node(node):
     rot = node["rotation"]
     scale = {k: v / 2 for k, v in node["scale"].items()}
     color = node["color"]
-    label_y_offset = 1.7  # Offset for the label above the object
+    label_y_offset = scale['y'] + 0.5  # Offset for the label above the object
     
     return f"""
 <Transform translation='{pos['x']} {pos['y']} {pos['z']}'
@@ -143,9 +143,11 @@ def create_x3d_edge(source_node, target_node):
 def json_to_x3d(json_data):
     nodes = {node["name"]: node for node in json_data["nodes"]}
     x3d_nodes = [create_x3d_node(n) for n in nodes.values()]
-    x3d_edges = [create_x3d_edge(nodes[e["source"]], nodes[e["target"]])
-                 for e in json_data["edges"]]
-
+    x3d_edges = ""
+    if "edges" in json_data:
+        x3d_edges = [create_x3d_edge(nodes[e["source"]], nodes[e["target"]])
+                     for e in json_data["edges"]
+                     if e["source"] in nodes and e["target"] in nodes]
     return f"""<?xml version="1.0" encoding="UTF-8"?>
 <X3D profile="Immersive" version="3.3" xmlns:xsd="http://www.w3.org/2001/XMLSchema-instance">
   <Scene>
