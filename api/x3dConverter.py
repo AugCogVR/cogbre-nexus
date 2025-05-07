@@ -67,7 +67,11 @@ def create_x3d_node(node):
     scale = {k: v / 2 for k, v in node["scale"].items()}
     color = node["color"]
     label_y_offset = scale['y'] + 0.5  # Offset for the label above the object
-    
+    if node["type"] == "plane":
+        scale['x'] = 1.0
+        scale['y'] = 0.01
+        scale['z'] = 1.0
+
     return f"""
 <Transform translation='{pos['x']} {pos['y']} {pos['z']}'
           rotation='0 1 0 {math.radians(rot['y'])}'
@@ -128,7 +132,7 @@ def create_x3d_edge(source_node, target_node):
     cone = f"""
 <Transform translation='{cone_pos[0]} {cone_pos[1]} {cone_pos[2]}'
         rotation='{cone_rot[0]} {cone_rot[1]} {cone_rot[2]} {cone_rot[3]}'
-        scale='0.2 0.6 0.2'>
+        scale='0.2 0.4 0.2'>
 <Shape>
     <Appearance>
     <Material diffuseColor='1 1 1'/>
@@ -151,6 +155,7 @@ def json_to_x3d(json_data):
     return f"""<?xml version="1.0" encoding="UTF-8"?>
 <X3D profile="Immersive" version="3.3" xmlns:xsd="http://www.w3.org/2001/XMLSchema-instance">
   <Scene>
+    <Background skyColor='0.3 0.7 1.0'/>
     {"".join(x3d_nodes)}
     {"".join(x3d_edges)}
   </Scene>
