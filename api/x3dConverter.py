@@ -71,7 +71,7 @@ def create_x3d_node(node):
         scale['x'] = 1.0
         scale['y'] = 0.01
         scale['z'] = 1.0
-
+    node["name"] = node["name"].replace("&", "+")
     return f"""
 <Transform translation='{pos['x']} {pos['y']} {pos['z']}'
           rotation='0 1 0 {math.radians(rot['y'])}'
@@ -149,6 +149,9 @@ def json_to_x3d(json_data):
     x3d_nodes = [create_x3d_node(n) for n in nodes.values()]
     x3d_edges = ""
     if "edges" in json_data:
+        for e in json_data["edges"]:
+            e["source"] = e["source"].replace("&", "+")
+            e["target"] = e["target"].replace("&", "+")
         x3d_edges = [create_x3d_edge(nodes[e["source"]], nodes[e["target"]])
                      for e in json_data["edges"]
                      if e["source"] in nodes and e["target"] in nodes]
